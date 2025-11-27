@@ -10,8 +10,8 @@ import { MapPin, Building2, DollarSign } from "lucide-react";
 
 const SearchFilters = () => {
   return (
-    <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
-      <div className="flex flex-wrap items-center gap-4">
+    <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 max-w-4xl">
+      <div className="flex flex-wrap items-center gap-4 justify-between">
         {/* Location */}
         <div className="flex items-center gap-2 min-w-[200px]">
           <MapPin className="h-5 w-5 text-muted-foreground" />
@@ -44,7 +44,7 @@ const SearchFilters = () => {
         </div>
 
         {/* View Project Button */}
-        <Button className="ml-auto bg-primary text-primary-foreground hover:bg-primary/90 px-8">
+        <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 whitespace-nowrap">
           პროექტის დათვალიერება
         </Button>
       </div>
