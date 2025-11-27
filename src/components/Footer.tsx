@@ -6,15 +6,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { z } from "zod";
-
 const contactSchema = z.object({
   name: z.string().trim().min(2, "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო").max(100, "სახელი უნდა იყოს მაქსიმუმ 100 სიმბოლო"),
   email: z.string().trim().email("არასწორი ელ. ფოსტის ფორმატი").max(255, "ელ. ფოსტა უნდა იყოს მაქსიმუმ 255 სიმბოლო"),
   message: z.string().trim().min(10, "შეტყობინება უნდა იყოს მინიმუმ 10 სიმბოლო").max(1000, "შეტყობინება უნდა იყოს მაქსიმუმ 1000 სიმბოლო")
 });
-
 const Footer = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,28 +22,28 @@ const Footer = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
     setIsSubmitting(true);
-
     try {
       const validated = contactSchema.parse(formData);
-      
+
       // Simulate form submission
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
       toast({
         title: "წარმატებით გაიგზავნა",
-        description: "მალე დაგიკავშირდებით",
+        description: "მალე დაგიკავშირდებით"
       });
-      
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.errors.forEach(err => {
           if (err.path[0]) {
             fieldErrors[err.path[0].toString()] = err.message;
           }
@@ -54,17 +54,23 @@ const Footer = () => {
       setIsSubmitting(false);
     }
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const {
+      name,
+      value
+    } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }));
+      setErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
     }
   };
-
-  return (
-    <footer className="bg-accent/5 border-t border-border/50">
+  return <footer className="bg-accent/5 border-t border-border/50">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand & Description */}
@@ -75,22 +81,14 @@ const Footer = () => {
               </h3>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              თანამედროვე უძრავი ქონების სააგენტო, რომელიც გთავაზობთ საუკეთესო ბინებს თბილისში.
+              Modex Development. პროექტები, საუკეთესო პროექტები თბილისში    
             </p>
             <div className="space-y-2">
-              <a 
-                href="tel:+995557123456" 
-                className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group"
-                aria-label="დარეკეთ ნომერზე +995 557 123 456"
-              >
+              <a href="tel:+995557123456" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="დარეკეთ ნომერზე +995 557 123 456">
                 <Phone className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 <span>+995 557 123 456</span>
               </a>
-              <a 
-                href="mailto:info@modex.ge" 
-                className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group"
-                aria-label="გამოგვიგზავნეთ ელ. ფოსტა info@modex.ge"
-              >
+              <a href="mailto:info@modex.ge" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="გამოგვიგზავნეთ ელ. ფოსტა info@modex.ge">
                 <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 <span>info@modex.ge</span>
               </a>
@@ -105,28 +103,16 @@ const Footer = () => {
           <div>
             <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">სწრაფი ბმულები</h4>
             <nav className="space-y-2">
-              <Link 
-                to="/" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 მთავარი
               </Link>
-              <Link 
-                to="/projects/saburtalo" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/projects/saburtalo" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 პროექტები
               </Link>
-              <Link 
-                to="/renders" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/renders" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 რენდერები
               </Link>
-              <Link 
-                to="/blog" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 ბლოგი
               </Link>
             </nav>
@@ -136,28 +122,16 @@ const Footer = () => {
           <div>
             <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">ლოკაციები</h4>
             <nav className="space-y-2">
-              <Link 
-                to="/projects/saburtalo" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/projects/saburtalo" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 საბურთალოს პროექტი
               </Link>
-              <Link 
-                to="/projects/gldani" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/projects/gldani" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 გლდანის პროექტი
               </Link>
-              <Link 
-                to="/projects/varketili" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/projects/varketili" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 ვარკეთილის პროექტი
               </Link>
-              <Link 
-                to="/projects/mtskheta" 
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform"
-              >
+              <Link to="/projects/mtskheta" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
                 მცხეთის პროექტი
               </Link>
             </nav>
@@ -168,62 +142,21 @@ const Footer = () => {
             <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">დაგვიკავშირდით</h4>
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="თქვენი სახელი"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={errors.name ? "border-destructive" : ""}
-                  aria-label="სახელი"
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                />
-                {errors.name && (
-                  <p id="name-error" className="text-xs text-destructive mt-1">{errors.name}</p>
-                )}
+                <Input type="text" name="name" placeholder="თქვენი სახელი" value={formData.name} onChange={handleChange} className={errors.name ? "border-destructive" : ""} aria-label="სახელი" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />
+                {errors.name && <p id="name-error" className="text-xs text-destructive mt-1">{errors.name}</p>}
               </div>
               
               <div>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="ელ. ფოსტა"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={errors.email ? "border-destructive" : ""}
-                  aria-label="ელექტრონული ფოსტა"
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                />
-                {errors.email && (
-                  <p id="email-error" className="text-xs text-destructive mt-1">{errors.email}</p>
-                )}
+                <Input type="email" name="email" placeholder="ელ. ფოსტა" value={formData.email} onChange={handleChange} className={errors.email ? "border-destructive" : ""} aria-label="ელექტრონული ფოსტა" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />
+                {errors.email && <p id="email-error" className="text-xs text-destructive mt-1">{errors.email}</p>}
               </div>
               
               <div>
-                <Textarea
-                  name="message"
-                  placeholder="თქვენი შეტყობინება"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={3}
-                  className={errors.message ? "border-destructive" : ""}
-                  aria-label="შეტყობინება"
-                  aria-invalid={!!errors.message}
-                  aria-describedby={errors.message ? "message-error" : undefined}
-                />
-                {errors.message && (
-                  <p id="message-error" className="text-xs text-destructive mt-1">{errors.message}</p>
-                )}
+                <Textarea name="message" placeholder="თქვენი შეტყობინება" value={formData.message} onChange={handleChange} rows={3} className={errors.message ? "border-destructive" : ""} aria-label="შეტყობინება" aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} />
+                {errors.message && <p id="message-error" className="text-xs text-destructive mt-1">{errors.message}</p>}
               </div>
               
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isSubmitting}
-                aria-label="გაგზავნა"
-              >
+              <Button type="submit" className="w-full" disabled={isSubmitting} aria-label="გაგზავნა">
                 {isSubmitting ? "იგზავნება..." : "გაგზავნა"}
               </Button>
             </form>
@@ -245,8 +178,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
