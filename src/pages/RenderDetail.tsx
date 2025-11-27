@@ -1,16 +1,43 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { Bed, Bath, Maximize, ArrowLeft, MapPin } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { Bed, Bath, Maximize, ArrowLeft, MapPin, Send } from "lucide-react";
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
 
+const inquiryFormSchema = z.object({
+  name: z.string().trim().min(2, "სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს").max(100, "სახელი ძალიან გრძელია"),
+  email: z.string().trim().email("გთხოვთ შეიყვანოთ ვალიდური ელ.ფოსტა").max(255, "ელ.ფოსტა ძალიან გრძელია"),
+  phone: z.string().trim().min(9, "ტელეფონის ნომერი არავალიდურია").max(20, "ტელეფონის ნომერი ძალიან გრძელია"),
+  message: z.string().trim().min(10, "შეტყობინება უნდა შეიცავდეს მინიმუმ 10 სიმბოლოს").max(1000, "შეტყობინება ძალიან გრძელია"),
+});
+
+type InquiryFormData = z.infer<typeof inquiryFormSchema>;
+
 const RenderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  
+  const form = useForm<InquiryFormData>({
+    resolver: zodResolver(inquiryFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
   
   // Render data with full details
   const renderData: Record<string, any> = {
@@ -131,6 +158,44 @@ const RenderDetail = () => {
 
   const render = renderData[id || "1"];
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data: InquiryFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Validate all inputs before processing
+      const validatedData = inquiryFormSchema.parse(data);
+      
+      // Create WhatsApp message with property details
+      const propertyInfo = `უძრავი ქონება: ${render.title}\nმისამართი: ${render.address}\nფასი: ${render.price}`;
+      const whatsappMessage = encodeURIComponent(
+        `გამარჯობა! მაინტერესებს შემდეგი ქონება:\n\n${propertyInfo}\n\n` +
+        `სახელი: ${validatedData.name}\n` +
+        `ელ.ფოსტა: ${validatedData.email}\n` +
+        `ტელეფონი: ${validatedData.phone}\n` +
+        `შეტყობინება: ${validatedData.message}`
+      );
+      
+      // Open WhatsApp (you can replace this with actual backend call)
+      window.open(`https://wa.me/995599123456?text=${whatsappMessage}`, '_blank');
+      
+      toast({
+        title: "შეტყობინება გაგზავნილია!",
+        description: "ჩვენ მალე დაგიკავშირდებით.",
+      });
+      
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "შეცდომა",
+        description: "გთხოვთ შეავსოთ ყველა ველი სწორად.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (!render) {
     return (
@@ -268,15 +333,99 @@ const RenderDetail = () => {
                 </div>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" className="flex-1">
-                  დაგვიკავშირდით
-                </Button>
-                <Button variant="outline" size="lg" className="flex-1">
-                  შეკითხვა
-                </Button>
+            </div>
+          </div>
+
+          {/* Contact Form Section */}
+          <div className="mt-16 max-w-2xl mx-auto">
+            <div className="rounded-2xl border border-border bg-card p-8">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold mb-2">დაინტერესდით ამ ქონებით?</h2>
+                <p className="text-muted-foreground">
+                  შეავსეთ ფორმა და ჩვენი წარმომადგენელი მალე დაგიკავშირდებით
+                </p>
               </div>
+
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">სახელი *</Label>
+                  <Input
+                    id="name"
+                    placeholder="თქვენი სახელი"
+                    {...form.register("name")}
+                    className={form.formState.errors.name ? "border-destructive" : ""}
+                  />
+                  {form.formState.errors.name && (
+                    <p className="text-sm text-destructive">{form.formState.errors.name.message}</p>
+                  )}
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">ელ.ფოსტა *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      {...form.register("email")}
+                      className={form.formState.errors.email ? "border-destructive" : ""}
+                    />
+                    {form.formState.errors.email && (
+                      <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">ტელეფონი *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+995 5XX XX XX XX"
+                      {...form.register("phone")}
+                      className={form.formState.errors.phone ? "border-destructive" : ""}
+                    />
+                    {form.formState.errors.phone && (
+                      <p className="text-sm text-destructive">{form.formState.errors.phone.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message">შეტყობინება *</Label>
+                  <Textarea
+                    id="message"
+                    placeholder="დაწერეთ თქვენი შეკითხვა ან კომენტარი..."
+                    rows={5}
+                    {...form.register("message")}
+                    className={form.formState.errors.message ? "border-destructive" : ""}
+                  />
+                  {form.formState.errors.message && (
+                    <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>
+                  )}
+                </div>
+
+                <div className="pt-2">
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      "იგზავნება..."
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        გაგზავნა
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                <p className="text-xs text-muted-foreground text-center">
+                  * აუცილებელი ველები
+                </p>
+              </form>
             </div>
           </div>
         </div>
