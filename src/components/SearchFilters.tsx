@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MapPin, Building2, DollarSign, Bed, SlidersHorizontal } from "lucide-react";
+import { MapPin, Building2, DollarSign } from "lucide-react";
 
 const SearchFilters = () => {
   return (
@@ -16,19 +16,19 @@ const SearchFilters = () => {
         <div className="flex items-center gap-2 min-w-[200px]">
           <MapPin className="h-5 w-5 text-muted-foreground" />
           <div>
-            <p className="text-xs text-muted-foreground">Location</p>
-            <p className="text-sm font-medium">San Jose, CA</p>
+            <p className="text-xs text-muted-foreground">ლოკაცია</p>
+            <p className="text-sm font-medium">თბილისი</p>
           </div>
         </div>
 
         <div className="h-8 w-px bg-border" />
 
         {/* Property Type */}
-        <div className="flex items-center gap-2 min-w-[180px]">
+        <div className="flex items-center gap-2 min-w-[220px]">
           <Building2 className="h-5 w-5 text-muted-foreground" />
           <div>
-            <p className="text-xs text-muted-foreground">Property type</p>
-            <p className="text-sm font-medium">Apartments</p>
+            <p className="text-xs text-muted-foreground">მშენებლობის ტიპი</p>
+            <p className="text-sm font-medium">აპარტამენტები</p>
           </div>
         </div>
 
@@ -38,33 +38,14 @@ const SearchFilters = () => {
         <div className="flex items-center gap-2 min-w-[180px]">
           <DollarSign className="h-5 w-5 text-muted-foreground" />
           <div>
-            <p className="text-xs text-muted-foreground">Price</p>
-            <p className="text-sm font-medium">$2,000-$13,000</p>
+            <p className="text-xs text-muted-foreground">ფასი</p>
+            <p className="text-sm font-medium">40,000 - 83,000</p>
           </div>
         </div>
 
-        <div className="h-8 w-px bg-border" />
-
-        {/* Bedrooms */}
-        <div className="flex items-center gap-2 min-w-[120px]">
-          <Bed className="h-5 w-5 text-muted-foreground" />
-          <div>
-            <p className="text-xs text-muted-foreground">Bedrooms</p>
-            <p className="text-sm font-medium">3-5</p>
-          </div>
-        </div>
-
-        <div className="h-8 w-px bg-border" />
-
-        {/* More Filters */}
-        <Button variant="ghost" size="sm" className="gap-2">
-          <SlidersHorizontal className="h-4 w-4" />
-          More
-        </Button>
-
-        {/* Search Button */}
+        {/* View Project Button */}
         <Button className="ml-auto bg-primary text-primary-foreground hover:bg-primary/90 px-8">
-          Search
+          პროექტის დათვალიერება
         </Button>
       </div>
     </div>
