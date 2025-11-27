@@ -9,6 +9,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Projects from "./pages/Projects";
 import Renders from "./pages/Renders";
+import RenderDetail from "./pages/RenderDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Loader from "./components/Loader";
@@ -46,6 +47,7 @@ const App = () => {
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/projects/:location" element={<Projects />} />
               <Route path="/renders" element={<Renders />} />
+              <Route path="/renders/:id" element={<RenderDetail />} />
               <Route path="/contact" element={<Contact />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
