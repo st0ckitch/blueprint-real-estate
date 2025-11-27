@@ -80,7 +80,7 @@ const Blog = () => {
         <main>
           {/* Hero Section */}
           <section className="relative bg-gradient-to-b from-primary/5 to-background py-20 px-8">
-            <div className="max-w-[1050px] mx-auto">
+            <div className="max-w-[1200px] mx-auto">
               <div className="max-w-3xl">
                 <span className="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
                   ბლოგი
@@ -98,7 +98,7 @@ const Blog = () => {
 
           {/* Articles Grid */}
           <section className="py-16 px-8">
-            <div className="max-w-[1050px] mx-auto">
+            <div className="max-w-[1200px] mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {articles.map((article) => (
                   <article 
