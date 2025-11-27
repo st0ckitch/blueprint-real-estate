@@ -2,12 +2,11 @@ import Header from "@/components/Header";
 import FeaturedProperty from "@/components/FeaturedProperty";
 import SearchFilters from "@/components/SearchFilters";
 import PropertyCard from "@/components/PropertyCard";
-import Map from "@/components/Map";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, ArrowRight, Sparkles, MapPin, Phone, Mail, Send } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Sparkles, MapPin, Phone, Mail, Check, Facebook, Twitter, Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -240,138 +239,165 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section className="mt-24 mb-16">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Send className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                კონტაქტი
-              </span>
-            </div>
-            <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-                მოდით ვისაუბროთ თქვენს
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                მომავალ პროექტზე
-              </span>
+        {/* Contact Section - Modern Design */}
+        <section className="relative mt-24 mb-16 bg-gradient-to-br from-foreground via-foreground to-foreground/90 rounded-3xl overflow-hidden">
+          {/* Large Background Text */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none overflow-hidden">
+            <h2 className="text-[20vw] font-black whitespace-nowrap">
+              დაგვიკავშირდი
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              გაგზავნეთ შეტყობინება და ჩვენი გუნდი დაგიკავშირდებით 24 საათში
-            </p>
           </div>
 
-          {/* Contact Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl p-6 text-center hover:shadow-lg transition-all group">
-              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <MapPin className="h-7 w-7 text-primary" />
+          {/* Content */}
+          <div className="relative z-10 px-8 md:px-16 py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+              {/* Left Side - Content */}
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <h2 className="text-5xl md:text-6xl font-bold text-background">
+                      მოგვწერეთ
+                    </h2>
+                    <ArrowRight className="h-10 w-10 text-background" strokeWidth={3} />
+                  </div>
+                  
+                  <p className="text-background/80 text-lg mb-8 leading-relaxed max-w-md">
+                    გაქვთ კითხვა ან გჭირდებათ დახმარება? დაუკავშირდით ჩვენს გუნდს. 
+                    ჩვენ აქ ვართ, რომ დაგეხმაროთ ნებისმიერ საკითხში.
+                  </p>
+
+                  {/* Features */}
+                  <div className="space-y-4 mb-12">
+                    <div className="flex items-center gap-3">
+                      <div className="h-6 w-6 rounded-full bg-background/20 flex items-center justify-center">
+                        <Check className="h-4 w-4 text-background" strokeWidth={3} />
+                      </div>
+                      <span className="text-background/90">პერსონალიზებული მომსახურება</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="h-6 w-6 rounded-full bg-background/20 flex items-center justify-center">
+                        <Check className="h-4 w-4 text-background" strokeWidth={3} />
+                      </div>
+                      <span className="text-background/90">სწრაფი პასუხი</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="h-6 w-6 rounded-full bg-background/20 flex items-center justify-center">
+                        <Check className="h-4 w-4 text-background" strokeWidth={3} />
+                      </div>
+                      <span className="text-background/90">სრული მხარდაჭერა</span>
+                    </div>
+                  </div>
+
+                  {/* Social Icons */}
+                  <div className="flex items-center gap-3">
+                    <a 
+                      href="#" 
+                      className="h-10 w-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
+                      aria-label="Twitter"
+                    >
+                      <Twitter className="h-5 w-5 text-background" />
+                    </a>
+                    <a 
+                      href="#" 
+                      className="h-10 w-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="h-5 w-5 text-background" />
+                    </a>
+                    <a 
+                      href="#" 
+                      className="h-10 w-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="h-5 w-5 text-background" />
+                    </a>
+                  </div>
+                </div>
               </div>
-              <h3 className="font-semibold mb-2">ოფისი</h3>
-              <p className="text-sm text-muted-foreground">
-                ვაჟა-ფშაველას გამზირი 45<br />თბილისი, საქართველო
-              </p>
-            </div>
 
-            <div className="bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl p-6 text-center hover:shadow-lg transition-all group">
-              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Phone className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">დაგვირეკეთ</h3>
-              <a href="tel:+995557123456" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                +995 557 123 456
-              </a>
-            </div>
-
-            <div className="bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl p-6 text-center hover:shadow-lg transition-all group">
-              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Mail className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">ელ.ფოსტა</h3>
-              <a href="mailto:info@modex.ge" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                info@modex.ge
-              </a>
-            </div>
-          </div>
-
-          {/* Map and Form Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Map */}
-            <div className="order-2 lg:order-1">
-              <div className="bg-card border border-border/50 rounded-2xl p-6 shadow-sm h-full">
-                <h3 className="text-xl font-semibold mb-4">იპოვეთ ჩვენი ოფისი</h3>
-                <Map height="h-[500px]" showTokenInput={true} />
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="order-1 lg:order-2">
-              <div className="bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 rounded-2xl p-8 shadow-sm h-full">
-                <h3 className="text-xl font-semibold mb-2">გამოგვიგზავნეთ წერილი</h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  ან ეწვიეთ <Link to="/contact" className="text-primary hover:underline">სრულ კონტაქტის გვერდს</Link>
-                </p>
-
+              {/* Right Side - Form */}
+              <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                  <div>
-                    <label htmlFor="contact-name" className="block text-sm font-medium mb-2">
-                      სახელი და გვარი *
-                    </label>
-                    <Input
-                      id="contact-name"
-                      placeholder="გიორგი გიორგაძე"
-                      {...register("name")}
-                      className={errors.name ? "border-destructive" : ""}
-                    />
-                    {errors.name && (
-                      <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
-                    )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Input
+                        id="contact-name"
+                        placeholder="სახელი"
+                        {...register("name")}
+                        className={`bg-background/10 border-background/20 text-background placeholder:text-background/50 h-12 ${errors.name ? "border-destructive" : ""}`}
+                      />
+                      {errors.name && (
+                        <p className="text-sm text-background/80 mt-1">{errors.name.message}</p>
+                      )}
+                    </div>
+                    <div>
+                      <Input
+                        id="contact-email"
+                        type="email"
+                        placeholder="ელ.ფოსტა"
+                        {...register("email")}
+                        className={`bg-background/10 border-background/20 text-background placeholder:text-background/50 h-12 ${errors.email ? "border-destructive" : ""}`}
+                      />
+                      {errors.email && (
+                        <p className="text-sm text-background/80 mt-1">{errors.email.message}</p>
+                      )}
+                    </div>
                   </div>
 
                   <div>
-                    <label htmlFor="contact-email" className="block text-sm font-medium mb-2">
-                      ელ.ფოსტა *
-                    </label>
-                    <Input
-                      id="contact-email"
-                      type="email"
-                      placeholder="example@mail.com"
-                      {...register("email")}
-                      className={errors.email ? "border-destructive" : ""}
-                    />
-                    {errors.email && (
-                      <p className="text-sm text-destructive mt-1">{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="contact-message" className="block text-sm font-medium mb-2">
-                      შეტყობინება *
-                    </label>
                     <Textarea
                       id="contact-message"
-                      placeholder="დაწერეთ თქვენი შეტყობინება..."
-                      rows={5}
+                      placeholder="შეტყობინება"
+                      rows={8}
                       {...register("message")}
-                      className={errors.message ? "border-destructive" : ""}
+                      className={`bg-background/10 border-background/20 text-background placeholder:text-background/50 resize-none ${errors.message ? "border-destructive" : ""}`}
                     />
                     {errors.message && (
-                      <p className="text-sm text-destructive mt-1">{errors.message.message}</p>
+                      <p className="text-sm text-background/80 mt-1">{errors.message.message}</p>
                     )}
                   </div>
 
                   <Button 
                     type="submit" 
-                    className="w-full" 
-                    size="lg"
+                    className="w-full h-14 text-lg font-semibold bg-background text-foreground hover:bg-background/90 rounded-full" 
                     disabled={isSubmitting}
                   >
-                    <Send className="mr-2 h-4 w-4" />
                     {isSubmitting ? "იგზავნება..." : "გაგზავნა"}
                   </Button>
                 </form>
+              </div>
+            </div>
+
+            {/* Bottom Contact Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+              <div className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-2xl p-6 hover:bg-background/15 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-background/20 flex items-center justify-center mb-4">
+                  <Mail className="h-6 w-6 text-background" />
+                </div>
+                <h3 className="text-background font-semibold mb-2">დაგვწერეთ</h3>
+                <a href="mailto:info@modex.ge" className="text-background/70 hover:text-background text-sm transition-colors">
+                  info@modex.ge
+                </a>
+              </div>
+
+              <div className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-2xl p-6 hover:bg-background/15 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-background/20 flex items-center justify-center mb-4">
+                  <Phone className="h-6 w-6 text-background" />
+                </div>
+                <h3 className="text-background font-semibold mb-2">დარეკეთ</h3>
+                <a href="tel:+995557123456" className="text-background/70 hover:text-background text-sm transition-colors">
+                  +995 557 123 456
+                </a>
+              </div>
+
+              <div className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-2xl p-6 hover:bg-background/15 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-background/20 flex items-center justify-center mb-4">
+                  <MapPin className="h-6 w-6 text-background" />
+                </div>
+                <h3 className="text-background font-semibold mb-2">ჩვენი ლოკაცია</h3>
+                <p className="text-background/70 text-sm">
+                  ვაჟა-ფშაველას გამზირი 45, თბილისი
+                </p>
               </div>
             </div>
           </div>
