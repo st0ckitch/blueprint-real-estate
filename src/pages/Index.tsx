@@ -13,7 +13,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="w-full px-8 py-8 max-w-[1400px] mx-auto">
         <h1 className="text-5xl font-semibold mb-8 text-foreground">
           Modex - სლოგანი სლოგანი სლოგანი
         </h1>
@@ -26,7 +26,7 @@ const Index = () => {
         {/* Projects Section */}
         <div className="mb-16">
           <h2 className="text-3xl font-semibold text-foreground mb-6">მიმდინარე პროექტები</h2>
-          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 max-w-4xl">
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
             {/* Project 1 */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-foreground mb-4">Modex აღმაშენებელზე</h3>
