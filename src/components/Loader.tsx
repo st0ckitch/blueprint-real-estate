@@ -1,74 +1,79 @@
 import { useEffect, useState } from "react";
 
 const Loader = () => {
-  const [progress, setProgress] = useState(0);
+  const [stackedBlocks, setStackedBlocks] = useState(0);
+  const [isTransforming, setIsTransforming] = useState(false);
+  const totalBlocks = 8;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
+    // Stack blocks one by one
+    const stackInterval = setInterval(() => {
+      setStackedBlocks((prev) => {
+        if (prev >= totalBlocks) {
+          clearInterval(stackInterval);
+          // Start transformation after stacking is complete
+          setTimeout(() => setIsTransforming(true), 300);
+          return totalBlocks;
         }
-        return prev + 2;
+        return prev + 1;
       });
-    }, 30);
+    }, 200);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(stackInterval);
   }, []);
 
   return (
     <div className="fixed inset-0 bg-background z-50 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-12">
         {/* Modex Logo */}
-        <h1 className="text-5xl font-bold text-foreground animate-fade-in">
+        <h1 className="text-6xl font-bold text-foreground tracking-wider">
           MODEX
         </h1>
 
-        {/* Building Animation */}
-        <div className="relative w-48 h-64">
-          {/* Building Structure */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 bg-card border-2 border-primary/30 rounded-t-lg overflow-hidden">
-            {/* Building Fill - animates from bottom to top */}
-            <div 
-              className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/20 to-primary/10 transition-all duration-300 ease-out"
-              style={{ height: `${progress}%` }}
-            >
-              {/* Windows */}
-              <div className="grid grid-cols-3 gap-2 p-2">
-                {[...Array(9)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-full aspect-square bg-primary/40 rounded-sm transition-opacity duration-300 ${
-                      (i + 1) * 11 <= progress ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    style={{ 
-                      transitionDelay: `${i * 50}ms`,
-                    }}
-                  />
-                ))}
+        {/* Building/Blocks Animation */}
+        <div className="relative w-48 h-64 flex items-end justify-center">
+          {/* Stacking Blocks */}
+          <div className={`relative transition-all duration-1000 ${isTransforming ? 'scale-110' : 'scale-100'}`}>
+            {[...Array(totalBlocks)].map((_, index) => (
+              <div
+                key={index}
+                className={`
+                  w-24 h-8 mb-0.5 mx-auto
+                  transition-all duration-500 ease-out
+                  ${index < stackedBlocks ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                  ${isTransforming ? 'bg-gradient-to-r from-primary/30 to-primary/20 border-2 border-primary/40' : 'bg-primary/60 border-2 border-primary/70'}
+                  ${isTransforming ? 'rounded-none' : 'rounded-sm'}
+                `}
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                {/* Windows appear during transformation */}
+                {isTransforming && (
+                  <div className="flex justify-evenly items-center h-full px-2 animate-fade-in">
+                    <div className="w-3 h-4 bg-primary/60 rounded-sm" />
+                    <div className="w-3 h-4 bg-primary/60 rounded-sm" />
+                    <div className="w-3 h-4 bg-primary/60 rounded-sm" />
+                  </div>
+                )}
               </div>
-            </div>
+            ))}
             
-            {/* Building Outline */}
-            <div className="relative h-64 border-x-2 border-primary/30" />
-          </div>
-
-          {/* Construction Crane */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 animate-[swing_2s_ease-in-out_infinite]">
-            <div className="w-1 h-16 bg-primary/60 mx-auto" />
-            <div className="w-24 h-1 bg-primary/60" />
-            <div className="absolute right-0 top-0 w-4 h-6 bg-primary/80 animate-[bounce_1s_ease-in-out_infinite]" />
+            {/* Building roof appears after transformation */}
+            {isTransforming && (
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-28 h-4 bg-primary/50 clip-triangle animate-fade-in" 
+                   style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }} />
+            )}
           </div>
 
           {/* Ground Line */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-border" />
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border/50" />
         </div>
 
-        {/* Progress Text */}
+        {/* Loading Text */}
         <div className="text-center">
-          <p className="text-sm text-muted-foreground animate-pulse">
-            იტვირთება... {progress}%
+          <p className="text-sm text-muted-foreground">
+            {stackedBlocks < totalBlocks ? 'იტვირთება...' : 'მზადაა!'}
           </p>
         </div>
       </div>
