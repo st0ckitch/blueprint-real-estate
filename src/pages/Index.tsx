@@ -25,6 +25,7 @@ const Index = () => {
 
         {/* Search Filters */}
         <div className="mb-16">
+          <h2 className="text-3xl font-semibold text-foreground mb-6">მიმდინარე პროექტები</h2>
           <SearchFilters />
         </div>
 
