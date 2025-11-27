@@ -15,7 +15,7 @@ const Index = () => {
       {/* Hero Section */}
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-5xl font-semibold mb-8 text-foreground">
-          Real estate for living and investments
+          Modex - სლოგანი სლოგანი სლოგანი
         </h1>
 
         {/* Featured Property */}
@@ -31,7 +31,7 @@ const Index = () => {
         {/* Latest in Your Area */}
         <section>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-semibold text-foreground">Latest in your area</h2>
+            <h2 className="text-3xl font-semibold text-foreground">პროექტები</h2>
             <Button variant="outline">View all →</Button>
           </div>
 
