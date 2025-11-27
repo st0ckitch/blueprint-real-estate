@@ -42,8 +42,10 @@ const SearchFilters = () => {
             <p className="text-sm font-medium">40,000 - 83,000</p>
           </div>
         </div>
+      </div>
 
-        {/* View Project Button */}
+      {/* View Project Button */}
+      <div className="flex justify-center mt-6">
         <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 whitespace-nowrap">
           პროექტის დათვალიერება
         </Button>
