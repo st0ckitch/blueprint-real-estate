@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import PropertyCard from "@/components/PropertyCard";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import render3 from "@/assets/render-3.png";
 const Renders = () => {
   const renders = [
     {
+      id: "1",
       image: render1,
       price: "75,000₾",
       beds: 3,
@@ -17,6 +19,7 @@ const Renders = () => {
       address: "ვაჟა-ფშაველას გამზირი, თბილისი"
     },
     {
+      id: "2",
       image: render2,
       price: "65,000₾",
       beds: 2,
@@ -25,6 +28,7 @@ const Renders = () => {
       address: "აღმაშენებლის გამზირი, თბილისი"
     },
     {
+      id: "3",
       image: render3,
       price: "95,000₾",
       beds: 4,
@@ -33,6 +37,7 @@ const Renders = () => {
       address: "ჭავჭავაძის გამზირი, თბილისი"
     },
     {
+      id: "4",
       image: render1,
       price: "58,000₾",
       beds: 2,
@@ -41,6 +46,7 @@ const Renders = () => {
       address: "დიღომი, თბილისი"
     },
     {
+      id: "5",
       image: render2,
       price: "82,000₾",
       beds: 3,
@@ -49,6 +55,7 @@ const Renders = () => {
       address: "საბურთალო, თბილისი"
     },
     {
+      id: "6",
       image: render3,
       price: "110,000₾",
       beds: 4,
@@ -154,8 +161,10 @@ const Renders = () => {
         <section className="py-12 md:py-20">
           <div className="max-w-[1200px] mx-auto px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {renders.map((render, index) => (
-                <PropertyCard key={index} {...render} />
+              {renders.map((render) => (
+                <Link key={render.id} to={`/renders/${render.id}`}>
+                  <PropertyCard {...render} />
+                </Link>
               ))}
             </div>
           </div>
