@@ -2,12 +2,27 @@ import Header from "@/components/Header";
 import FeaturedProperty from "@/components/FeaturedProperty";
 import SearchFilters from "@/components/SearchFilters";
 import PropertyCard from "@/components/PropertyCard";
+import Map from "@/components/Map";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, ArrowRight, Sparkles } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Sparkles, MapPin, Phone, Mail, Send } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2, { message: "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო" }).max(100),
+  email: z.string().trim().email({ message: "არასწორი ელ.ფოსტა" }).max(255),
+  message: z.string().trim().min(10, { message: "შეტყობინება უნდა იყოს მინიმუმ 10 სიმბოლო" }).max(1000),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const blogArticles = [
   {
@@ -43,6 +58,36 @@ const blogArticles = [
 ];
 
 const Index = () => {
+  const { toast } = useToast();
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "წარმატებით გაიგზავნა",
+        description: "ჩვენ მალე დაგიკავშირდებით",
+      });
+      
+      reset();
+    } catch (error) {
+      toast({
+        title: "შეცდომა",
+        description: "გთხოვთ სცადოთ თავიდან",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -192,6 +237,143 @@ const Index = () => {
                 </Link>
               </article>
             ))}
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className="mt-24 mb-16">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Send className="h-5 w-5 text-primary" />
+              <span className="text-sm font-medium text-primary uppercase tracking-wider">
+                კონტაქტი
+              </span>
+            </div>
+            <h2 className="text-4xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                მოდით ვისაუბროთ თქვენს
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                მომავალ პროექტზე
+              </span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              გაგზავნეთ შეტყობინება და ჩვენი გუნდი დაგიკავშირდებით 24 საათში
+            </p>
+          </div>
+
+          {/* Contact Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl p-6 text-center hover:shadow-lg transition-all group">
+              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <MapPin className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">ოფისი</h3>
+              <p className="text-sm text-muted-foreground">
+                ვაჟა-ფშაველას გამზირი 45<br />თბილისი, საქართველო
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl p-6 text-center hover:shadow-lg transition-all group">
+              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Phone className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">დაგვირეკეთ</h3>
+              <a href="tel:+995557123456" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                +995 557 123 456
+              </a>
+            </div>
+
+            <div className="bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl p-6 text-center hover:shadow-lg transition-all group">
+              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Mail className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">ელ.ფოსტა</h3>
+              <a href="mailto:info@modex.ge" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                info@modex.ge
+              </a>
+            </div>
+          </div>
+
+          {/* Map and Form Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Map */}
+            <div className="order-2 lg:order-1">
+              <div className="bg-card border border-border/50 rounded-2xl p-6 shadow-sm h-full">
+                <h3 className="text-xl font-semibold mb-4">იპოვეთ ჩვენი ოფისი</h3>
+                <Map height="h-[500px]" showTokenInput={true} />
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="order-1 lg:order-2">
+              <div className="bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 rounded-2xl p-8 shadow-sm h-full">
+                <h3 className="text-xl font-semibold mb-2">გამოგვიგზავნეთ წერილი</h3>
+                <p className="text-sm text-muted-foreground mb-6">
+                  ან ეწვიეთ <Link to="/contact" className="text-primary hover:underline">სრულ კონტაქტის გვერდს</Link>
+                </p>
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                  <div>
+                    <label htmlFor="contact-name" className="block text-sm font-medium mb-2">
+                      სახელი და გვარი *
+                    </label>
+                    <Input
+                      id="contact-name"
+                      placeholder="გიორგი გიორგაძე"
+                      {...register("name")}
+                      className={errors.name ? "border-destructive" : ""}
+                    />
+                    {errors.name && (
+                      <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-email" className="block text-sm font-medium mb-2">
+                      ელ.ფოსტა *
+                    </label>
+                    <Input
+                      id="contact-email"
+                      type="email"
+                      placeholder="example@mail.com"
+                      {...register("email")}
+                      className={errors.email ? "border-destructive" : ""}
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-destructive mt-1">{errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-message" className="block text-sm font-medium mb-2">
+                      შეტყობინება *
+                    </label>
+                    <Textarea
+                      id="contact-message"
+                      placeholder="დაწერეთ თქვენი შეტყობინება..."
+                      rows={5}
+                      {...register("message")}
+                      className={errors.message ? "border-destructive" : ""}
+                    />
+                    {errors.message && (
+                      <p className="text-sm text-destructive mt-1">{errors.message.message}</p>
+                    )}
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    size="lg"
+                    disabled={isSubmitting}
+                  >
+                    <Send className="mr-2 h-4 w-4" />
+                    {isSubmitting ? "იგზავნება..." : "გაგზავნა"}
+                  </Button>
+                </form>
+              </div>
+            </div>
           </div>
         </section>
       </main>
