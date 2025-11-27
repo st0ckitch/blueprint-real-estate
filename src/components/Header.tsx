@@ -1,20 +1,13 @@
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-
 const Header = () => {
-  return (
-    <header className="bg-card border-b border-border/50 sticky top-0 z-50">
+  return <header className="bg-card border-b border-border/50 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-semibold text-foreground">Modex</h1>
+            <h1 className="text-2xl font-semibold text-foreground">ModeX</h1>
           </div>
 
           {/* Navigation */}
@@ -56,8 +49,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Header;
