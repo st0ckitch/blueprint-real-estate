@@ -32,6 +32,9 @@ const Header = () => {
             <Link to="/blog" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               ბლოგი
             </Link>
+            <Link to="/contact" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
+              კონტაქტი
+            </Link>
           </nav>
 
           {/* Actions */}
