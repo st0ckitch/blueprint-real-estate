@@ -14,36 +14,25 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-semibold text-foreground">Estately</h1>
+            <h1 className="text-2xl font-semibold text-foreground">Modex</h1>
           </div>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
-              Condos
+              მთავარი
             </a>
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
-              Houses
+              რენდერები
             </a>
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
-              Commercial
-            </a>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-foreground hover:text-foreground/80 transition-colors">
-                For rent
-                <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Apartments</DropdownMenuItem>
-                <DropdownMenuItem>Houses</DropdownMenuItem>
-                <DropdownMenuItem>Commercial</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
-              About
+              პროექტები
             </a>
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
-              Contact
+              ჩვენ შესახებ
+            </a>
+            <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
+              კონტაქტი
             </a>
           </nav>
 
@@ -51,19 +40,18 @@ const Header = () => {
           <div className="flex items-center gap-3">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-1">
-                  USD
+                <Button variant="outline" size="sm" className="gap-2">
+                  🇬🇧 EN
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>USD</DropdownMenuItem>
-                <DropdownMenuItem>EUR</DropdownMenuItem>
-                <DropdownMenuItem>GBP</DropdownMenuItem>
+                <DropdownMenuItem>🇬🇧 English</DropdownMenuItem>
+                <DropdownMenuItem>🇬🇪 ქართული</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Log in
+              დაგვიკავშირდი
             </Button>
           </div>
         </div>
