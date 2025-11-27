@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Bookmark } from "lucide-react";
-import heroProperty from "@/assets/hero-property.jpg";
+import heroProperty from "@/assets/hero-building.png";
 const FeaturedProperty = () => {
   return <div className="property-card p-0 relative">
       {/* Property Image */}
