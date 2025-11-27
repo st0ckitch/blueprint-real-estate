@@ -71,7 +71,7 @@ const Footer = () => {
     }
   };
   return <footer className="bg-accent/5 border-t border-border/50">
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="max-w-[1200px] mx-auto px-8 py-12 md:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand & Description */}
           <div className="space-y-4">

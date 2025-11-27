@@ -252,7 +252,7 @@ const Projects = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.15),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.15),transparent_50%)]" />
           
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-[1200px] mx-auto px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               {/* Main heading with animation */}
               <div className="mb-8 animate-fade-in">
@@ -310,7 +310,7 @@ const Projects = () => {
 
         {/* Project Details */}
         <section className="py-12 md:py-16">
-          <div className="container mx-auto px-4">
+          <div className="max-w-[1200px] mx-auto px-8">
             <div className="max-w-6xl mx-auto">
               {/* Project Header */}
               <div className="mb-12">

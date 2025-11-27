@@ -92,7 +92,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <main className="w-full px-8 py-8 max-w-[1050px] mx-auto">
+      <main className="w-full px-8 py-8 max-w-[1200px] mx-auto">
         <h1 className="text-5xl font-semibold mb-8 text-foreground">
           Modex - სლოგანი სლოგანი სლოგანი
         </h1>

@@ -122,7 +122,7 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-16 text-center">
+        <div className="max-w-[1200px] mx-auto px-8 py-16 text-center">
           <h1 className="text-4xl font-bold mb-4">სტატია ვერ მოიძებნა</h1>
           <Link to="/blog">
             <Button>დაბრუნება ბლოგზე</Button>
