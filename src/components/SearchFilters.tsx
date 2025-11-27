@@ -10,7 +10,7 @@ import { MapPin, Building2, DollarSign } from "lucide-react";
 
 const SearchFilters = () => {
   return (
-    <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 max-w-4xl">
+    <div>
       <div className="flex flex-wrap items-center gap-4 justify-between">
         {/* Location */}
         <div className="flex items-center gap-2 min-w-[200px]">

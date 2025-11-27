@@ -23,15 +23,25 @@ const Index = () => {
           <FeaturedProperty />
         </div>
 
-        {/* Projects */}
+        {/* Projects Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-semibold text-foreground mb-6">Modex აღმაშენებელზე</h2>
-          <SearchFilters />
-        </div>
+          <h2 className="text-3xl font-semibold text-foreground mb-6">მიმდინარე პროექტები</h2>
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 max-w-4xl">
+            {/* Project 1 */}
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">Modex აღმაშენებელზე</h3>
+              <SearchFilters />
+            </div>
 
-        <div className="mb-16">
-          <h2 className="text-3xl font-semibold text-foreground mb-6">Modex საბურთალოზე</h2>
-          <SearchFilters />
+            {/* Divider */}
+            <div className="h-px bg-border mb-8" />
+
+            {/* Project 2 */}
+            <div>
+              <h3 className="text-xl font-semibold text-foreground mb-4">Modex საბურთალოზე</h3>
+              <SearchFilters />
+            </div>
+          </div>
         </div>
 
         {/* Latest in Your Area */}
