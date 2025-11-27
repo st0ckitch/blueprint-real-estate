@@ -19,12 +19,12 @@ const Header = () => {
             <Link to="/" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               მთავარი
             </Link>
-            <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
+            <a href="#renders" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               რენდერები
             </a>
-            <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
+            <Link to="/projects/saburtalo" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               პროექტები
-            </a>
+            </Link>
             <Link to="/blog" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               ბლოგი
             </Link>
