@@ -246,27 +246,63 @@ const Projects = () => {
         <Header />
         
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/5 py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center mb-8">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">ჩვენი პროექტები</h1>
-              <p className="text-lg text-muted-foreground mb-8">
-                აირჩიეთ თქვენი იდეალური საცხოვრებელი სხვადასხვა ლოკაციებში
-              </p>
+        <section className="relative overflow-hidden py-20 md:py-32">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/10 to-primary/5 animate-pulse" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.15),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.15),transparent_50%)]" />
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Main heading with animation */}
+              <div className="mb-8 animate-fade-in">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                  ჩვენი პროექტები
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                  აირჩიეთ თქვენი იდეალური საცხოვრებელი სხვადასხვა ლოკაციებში
+                </p>
+              </div>
               
-              {/* Location Selector */}
-              <div className="max-w-xs mx-auto">
-                <Select value={location} onValueChange={handleLocationChange}>
-                  <SelectTrigger className="w-full h-12 text-base">
-                    <SelectValue placeholder="აირჩიეთ ლოკაცია" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="saburtalo">საბურთალო</SelectItem>
-                    <SelectItem value="gldani">გლდანი</SelectItem>
-                    <SelectItem value="varketili">ვარკეთილი</SelectItem>
-                    <SelectItem value="mtskheta">მცხეთა</SelectItem>
-                  </SelectContent>
-                </Select>
+              {/* Location Selector with modern design */}
+              <div className="flex flex-col items-center gap-6 animate-scale-in">
+                <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground">
+                  <MapPin className="h-5 w-5 text-primary animate-pulse" />
+                  <span>აირჩიეთ ლოკაცია</span>
+                </div>
+                <div className="w-full max-w-md">
+                  <Select value={location} onValueChange={handleLocationChange}>
+                    <SelectTrigger className="w-full h-14 text-lg font-medium border-2 hover:border-primary/50 transition-colors bg-background/80 backdrop-blur-sm">
+                      <SelectValue placeholder="აირჩიეთ ლოკაცია" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="saburtalo" className="text-base">საბურთალო</SelectItem>
+                      <SelectItem value="gldani" className="text-base">გლდანი</SelectItem>
+                      <SelectItem value="varketili" className="text-base">ვარკეთილი</SelectItem>
+                      <SelectItem value="mtskheta" className="text-base">მცხეთა</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Stats cards */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-3xl mx-auto animate-fade-in">
+                <div className="p-4 rounded-lg bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale">
+                  <div className="text-3xl font-bold text-primary">4</div>
+                  <div className="text-sm text-muted-foreground">ლოკაცია</div>
+                </div>
+                <div className="p-4 rounded-lg bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale">
+                  <div className="text-3xl font-bold text-primary">550+</div>
+                  <div className="text-sm text-muted-foreground">ბინა</div>
+                </div>
+                <div className="p-4 rounded-lg bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale">
+                  <div className="text-3xl font-bold text-primary">45K₾+</div>
+                  <div className="text-sm text-muted-foreground">დან იწყება</div>
+                </div>
+                <div className="p-4 rounded-lg bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale">
+                  <div className="text-3xl font-bold text-primary">2025</div>
+                  <div className="text-sm text-muted-foreground">ახალი</div>
+                </div>
               </div>
             </div>
           </div>
