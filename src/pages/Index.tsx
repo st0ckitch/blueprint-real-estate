@@ -240,10 +240,10 @@ const Index = () => {
         </section>
 
         {/* Contact Section - Modern Design */}
-        <section className="relative mt-24 mb-16 bg-gradient-to-br from-foreground via-foreground to-foreground/90 rounded-3xl overflow-hidden">
+        <section className="relative mt-24 mb-16 bg-background rounded-3xl overflow-hidden border border-border/50">
           {/* Large Background Text */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none overflow-hidden">
-            <h2 className="text-[20vw] font-black whitespace-nowrap">
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none overflow-hidden">
+            <h2 className="text-[20vw] font-black whitespace-nowrap text-foreground">
               დაგვიკავშირდი
             </h2>
           </div>
@@ -251,72 +251,20 @@ const Index = () => {
           {/* Content */}
           <div className="relative z-10 px-8 md:px-16 py-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-              {/* Left Side - Content */}
-              <div className="flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <h2 className="text-5xl md:text-6xl font-bold text-background">
-                      მოგვწერეთ
-                    </h2>
-                    <ArrowRight className="h-10 w-10 text-background" strokeWidth={3} />
-                  </div>
-                  
-                  <p className="text-background/80 text-lg mb-8 leading-relaxed max-w-md">
-                    გაქვთ კითხვა ან გჭირდებათ დახმარება? დაუკავშირდით ჩვენს გუნდს. 
-                    ჩვენ აქ ვართ, რომ დაგეხმაროთ ნებისმიერ საკითხში.
-                  </p>
-
-                  {/* Features */}
-                  <div className="space-y-4 mb-12">
-                    <div className="flex items-center gap-3">
-                      <div className="h-6 w-6 rounded-full bg-background/20 flex items-center justify-center">
-                        <Check className="h-4 w-4 text-background" strokeWidth={3} />
-                      </div>
-                      <span className="text-background/90">პერსონალიზებული მომსახურება</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="h-6 w-6 rounded-full bg-background/20 flex items-center justify-center">
-                        <Check className="h-4 w-4 text-background" strokeWidth={3} />
-                      </div>
-                      <span className="text-background/90">სწრაფი პასუხი</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="h-6 w-6 rounded-full bg-background/20 flex items-center justify-center">
-                        <Check className="h-4 w-4 text-background" strokeWidth={3} />
-                      </div>
-                      <span className="text-background/90">სრული მხარდაჭერა</span>
-                    </div>
-                  </div>
-
-                  {/* Social Icons */}
-                  <div className="flex items-center gap-3">
-                    <a 
-                      href="#" 
-                      className="h-10 w-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                      aria-label="Twitter"
-                    >
-                      <Twitter className="h-5 w-5 text-background" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="h-10 w-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                      aria-label="Facebook"
-                    >
-                      <Facebook className="h-5 w-5 text-background" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="h-10 w-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                      aria-label="Instagram"
-                    >
-                      <Instagram className="h-5 w-5 text-background" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Side - Form */}
+              {/* Left Side - Contact Form */}
               <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <h2 className="text-5xl md:text-6xl font-bold text-foreground">
+                    მოგვწერეთ
+                  </h2>
+                  <ArrowRight className="h-10 w-10 text-primary" strokeWidth={3} />
+                </div>
+                
+                <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                  გაქვთ კითხვა ან გჭირდებათ დახმარება? დაუკავშირდით ჩვენს გუნდს. 
+                  ჩვენ აქ ვართ, რომ დაგეხმაროთ ნებისმიერ საკითხში.
+                </p>
+
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -324,10 +272,10 @@ const Index = () => {
                         id="contact-name"
                         placeholder="სახელი"
                         {...register("name")}
-                        className={`bg-background/10 border-background/20 text-background placeholder:text-background/50 h-12 ${errors.name ? "border-destructive" : ""}`}
+                        className={`bg-muted/50 border-border h-12 ${errors.name ? "border-destructive" : ""}`}
                       />
                       {errors.name && (
-                        <p className="text-sm text-background/80 mt-1">{errors.name.message}</p>
+                        <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
                       )}
                     </div>
                     <div>
@@ -336,10 +284,10 @@ const Index = () => {
                         type="email"
                         placeholder="ელ.ფოსტა"
                         {...register("email")}
-                        className={`bg-background/10 border-background/20 text-background placeholder:text-background/50 h-12 ${errors.email ? "border-destructive" : ""}`}
+                        className={`bg-muted/50 border-border h-12 ${errors.email ? "border-destructive" : ""}`}
                       />
                       {errors.email && (
-                        <p className="text-sm text-background/80 mt-1">{errors.email.message}</p>
+                        <p className="text-sm text-destructive mt-1">{errors.email.message}</p>
                       )}
                     </div>
                   </div>
@@ -350,54 +298,101 @@ const Index = () => {
                       placeholder="შეტყობინება"
                       rows={8}
                       {...register("message")}
-                      className={`bg-background/10 border-background/20 text-background placeholder:text-background/50 resize-none ${errors.message ? "border-destructive" : ""}`}
+                      className={`bg-muted/50 border-border resize-none ${errors.message ? "border-destructive" : ""}`}
                     />
                     {errors.message && (
-                      <p className="text-sm text-background/80 mt-1">{errors.message.message}</p>
+                      <p className="text-sm text-destructive mt-1">{errors.message.message}</p>
                     )}
                   </div>
 
                   <Button 
                     type="submit" 
-                    className="w-full h-14 text-lg font-semibold bg-background text-foreground hover:bg-background/90 rounded-full" 
+                    className="w-full h-14 text-lg font-semibold rounded-full" 
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "იგზავნება..." : "გაგზავნა"}
                   </Button>
                 </form>
-              </div>
-            </div>
 
-            {/* Bottom Contact Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-              <div className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-2xl p-6 hover:bg-background/15 transition-all">
-                <div className="h-12 w-12 rounded-xl bg-background/20 flex items-center justify-center mb-4">
-                  <Mail className="h-6 w-6 text-background" />
+                {/* Features - Below Form */}
+                <div className="space-y-4 mt-8 pt-8 border-t border-border/50">
+                  <div className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+                    </div>
+                    <span className="text-muted-foreground">პერსონალიზებული მომსახურება</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+                    </div>
+                    <span className="text-muted-foreground">სწრაფი პასუხი</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+                    </div>
+                    <span className="text-muted-foreground">სრული მხარდაჭერა</span>
+                  </div>
                 </div>
-                <h3 className="text-background font-semibold mb-2">დაგვწერეთ</h3>
-                <a href="mailto:info@modex.ge" className="text-background/70 hover:text-background text-sm transition-colors">
-                  info@modex.ge
-                </a>
+
+                {/* Social Icons */}
+                <div className="flex items-center gap-3 mt-8">
+                  <a 
+                    href="#" 
+                    className="h-10 w-10 rounded-lg bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                    aria-label="Twitter"
+                  >
+                    <Twitter className="h-5 w-5 text-foreground" />
+                  </a>
+                  <a 
+                    href="#" 
+                    className="h-10 w-10 rounded-lg bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="h-5 w-5 text-foreground" />
+                  </a>
+                  <a 
+                    href="#" 
+                    className="h-10 w-10 rounded-lg bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="h-5 w-5 text-foreground" />
+                  </a>
+                </div>
               </div>
 
-              <div className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-2xl p-6 hover:bg-background/15 transition-all">
-                <div className="h-12 w-12 rounded-xl bg-background/20 flex items-center justify-center mb-4">
-                  <Phone className="h-6 w-6 text-background" />
+              {/* Right Side - Contact Info Cards */}
+              <div className="flex flex-col justify-center gap-6">
+                <div className="bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 rounded-2xl p-8 hover:shadow-lg transition-all group">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Mail className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground">დაგვწერეთ</h3>
+                  <a href="mailto:info@modex.ge" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    info@modex.ge
+                  </a>
                 </div>
-                <h3 className="text-background font-semibold mb-2">დარეკეთ</h3>
-                <a href="tel:+995557123456" className="text-background/70 hover:text-background text-sm transition-colors">
-                  +995 557 123 456
-                </a>
-              </div>
 
-              <div className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-2xl p-6 hover:bg-background/15 transition-all">
-                <div className="h-12 w-12 rounded-xl bg-background/20 flex items-center justify-center mb-4">
-                  <MapPin className="h-6 w-6 text-background" />
+                <div className="bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 rounded-2xl p-8 hover:shadow-lg transition-all group">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Phone className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground">დარეკეთ</h3>
+                  <a href="tel:+995557123456" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    +995 557 123 456
+                  </a>
                 </div>
-                <h3 className="text-background font-semibold mb-2">ჩვენი ლოკაცია</h3>
-                <p className="text-background/70 text-sm">
-                  ვაჟა-ფშაველას გამზირი 45, თბილისი
-                </p>
+
+                <div className="bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 rounded-2xl p-8 hover:shadow-lg transition-all group">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <MapPin className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground">ჩვენი ლოკაცია</h3>
+                  <p className="text-muted-foreground text-lg">
+                    ვაჟა-ფშაველას გამზირი 45<br />თბილისი, საქართველო
+                  </p>
+                </div>
               </div>
             </div>
           </div>
