@@ -70,7 +70,7 @@ const Contact = () => {
           {/* Hero Section */}
           <section className="relative bg-gradient-to-br from-primary/10 via-background to-primary/5 py-20 px-8 overflow-hidden">
             <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-            <div className="max-w-[1400px] mx-auto relative">
+            <div className="max-w-[1050px] mx-auto relative">
               <div className="max-w-3xl">
                 <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
                   დაგვიკავშირდით
@@ -93,7 +93,7 @@ const Contact = () => {
 
           {/* Contact Information Cards */}
           <section className="py-16 px-8 -mt-8 relative z-10">
-            <div className="max-w-[1400px] mx-auto">
+            <div className="max-w-[1050px] mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="bg-card border border-border/50 rounded-xl p-6 hover:shadow-lg transition-all">
                   <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -142,7 +142,7 @@ const Contact = () => {
 
           {/* Map and Form Section */}
           <section className="py-16 px-8">
-            <div className="max-w-[1400px] mx-auto">
+            <div className="max-w-[1050px] mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Map */}
                 <div className="order-2 lg:order-1">
