@@ -12,6 +12,7 @@ import Renders from "./pages/Renders";
 import NotFound from "./pages/NotFound";
 import Loader from "./components/Loader";
 import WhatsAppButton from "./components/WhatsAppButton";
+import Footer from "./components/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <Footer />
             <WhatsAppButton />
           </BrowserRouter>
         </TooltipProvider>
