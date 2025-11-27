@@ -23,9 +23,14 @@ const Index = () => {
           <FeaturedProperty />
         </div>
 
-        {/* Search Filters */}
+        {/* Projects */}
         <div className="mb-16">
-          <h2 className="text-3xl font-semibold text-foreground mb-6">მიმდინარე პროექტები</h2>
+          <h2 className="text-3xl font-semibold text-foreground mb-6">Modex აღმაშენებელზე</h2>
+          <SearchFilters />
+        </div>
+
+        <div className="mb-16">
+          <h2 className="text-3xl font-semibold text-foreground mb-6">Modex საბურთალოზე</h2>
           <SearchFilters />
         </div>
 
