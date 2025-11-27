@@ -1,29 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return <header className="bg-card border-b border-border/50 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-semibold text-foreground">ModeX</h1>
+            <Link to="/">
+              <h1 className="text-2xl font-semibold text-foreground">ModeX</h1>
+            </Link>
           </div>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
+            <Link to="/" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               მთავარი
-            </a>
+            </Link>
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               რენდერები
             </a>
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               პროექტები
             </a>
-            <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
-              ჩვენ შესახებ
-            </a>
+            <Link to="/blog" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
+              ბლოგი
+            </Link>
             <a href="#" className="text-sm text-foreground hover:text-foreground/80 transition-colors">
               კონტაქტი
             </a>
