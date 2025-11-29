@@ -1,10 +1,112 @@
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useTexture, PerspectiveCamera } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, useTexture, PerspectiveCamera, Html } from '@react-three/drei';
 import { useRef, useState } from 'react';
 import * as THREE from 'three';
-import { Move, RotateCw } from 'lucide-react';
+import { Move, RotateCw, X, Maximize2, Home, Bath, Utensils, Bed } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-function Sphere360() {
+interface Hotspot {
+  position: [number, number, number];
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  details: string[];
+}
+
+const hotspots: Hotspot[] = [
+  {
+    position: [200, 30, 100],
+    title: 'სასტუმრო ოთახი',
+    description: 'ფართო და ნათელი სასტუმრო ოთახი თანამედროვე დიზაინით',
+    icon: <Home className="h-5 w-5" />,
+    details: ['25 მ² ფართობი', 'ბუნებრივი განათება', 'პანორამული ფანჯრები', 'თანამედროვე მეურნეობა']
+  },
+  {
+    position: [-150, 20, -180],
+    title: 'საძინებელი',
+    description: 'კომფორტული საძინებელი მდიდარი გარდერობით',
+    icon: <Bed className="h-5 w-5" />,
+    details: ['18 მ² ფართობი', 'გარდერობი', 'კონდიციონერი', 'ხალიჩიანი იატაკი']
+  },
+  {
+    position: [100, -20, -200],
+    title: 'სააბაზანო',
+    description: 'თანამედროვე სააბაზანო პრემიუმ აღჭურვილობით',
+    icon: <Bath className="h-5 w-5" />,
+    details: ['6 მ² ფართობი', 'წყლის გამათბობელი', 'ხარისხიანი სანტექნიკა', 'კერამიკული ფილები']
+  },
+  {
+    position: [-180, 10, 120],
+    title: 'სამზარეულო',
+    description: 'სრულად აღჭურვილი თანამედროვე სამზარეულო',
+    icon: <Utensils className="h-5 w-5" />,
+    details: ['12 მ² ფართობი', 'ჩაშენებული ტექნიკა', 'მარმარილოს ზედაპირი', 'სრული აღჭურვილობა']
+  }
+];
+
+function Hotspot({ position, title, description, icon, details, onClick }: Hotspot & { onClick: () => void }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <group position={position}>
+      <mesh
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHovered(true);
+          document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation();
+          setHovered(false);
+          document.body.style.cursor = 'auto';
+        }}
+      >
+        <sphereGeometry args={[8, 16, 16]} />
+        <meshBasicMaterial 
+          color={hovered ? "#4F46E5" : "#ffffff"} 
+          transparent 
+          opacity={hovered ? 0.9 : 0.7}
+        />
+      </mesh>
+      
+      {/* Pulsing ring */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[10, 12, 32]} />
+        <meshBasicMaterial 
+          color="#4F46E5" 
+          transparent 
+          opacity={hovered ? 0.6 : 0.3}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      <Html
+        distanceFactor={80}
+        position={[0, 15, 0]}
+        center
+        style={{
+          transition: 'all 0.2s',
+          opacity: hovered ? 1 : 0,
+          transform: `scale(${hovered ? 1 : 0.8})`,
+          pointerEvents: 'none'
+        }}
+      >
+        <div className="bg-background/95 backdrop-blur-xl border border-border rounded-xl px-3 py-2 shadow-2xl whitespace-nowrap">
+          <div className="flex items-center gap-2">
+            <div className="text-primary">{icon}</div>
+            <span className="font-semibold text-sm text-foreground">{title}</span>
+          </div>
+        </div>
+      </Html>
+    </group>
+  );
+}
+
+function Sphere360({ onHotspotClick }: { onHotspotClick: (hotspot: Hotspot) => void }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [isHovered, setIsHovered] = useState(false);
   const texture = useTexture('/src/assets/render-1.png');
@@ -17,19 +119,31 @@ function Sphere360() {
   });
 
   return (
-    <mesh 
-      ref={meshRef} 
-      scale={[-1, 1, 1]}
-      onPointerOver={() => setIsHovered(true)}
-      onPointerOut={() => setIsHovered(false)}
-    >
-      <sphereGeometry args={[500, 60, 40]} />
-      <meshBasicMaterial map={texture} side={THREE.BackSide} />
-    </mesh>
+    <>
+      <mesh 
+        ref={meshRef} 
+        scale={[-1, 1, 1]}
+        onPointerOver={() => setIsHovered(true)}
+        onPointerOut={() => setIsHovered(false)}
+      >
+        <sphereGeometry args={[500, 60, 40]} />
+        <meshBasicMaterial map={texture} side={THREE.BackSide} />
+      </mesh>
+
+      {hotspots.map((hotspot, index) => (
+        <Hotspot
+          key={index}
+          {...hotspot}
+          onClick={() => onHotspotClick(hotspot)}
+        />
+      ))}
+    </>
   );
 }
 
 export default function Render360Viewer() {
+  const [selectedHotspot, setSelectedHotspot] = useState<Hotspot | null>(null);
+
   return (
     <section className="relative mt-24 mb-16">
       <div className="mb-8">
@@ -74,7 +188,7 @@ export default function Render360Viewer() {
               powerPreference: 'high-performance',
             }}
           >
-            <PerspectiveCamera makeDefault position={[0, 0, 0.1]} fov={75} />
+            <PerspectiveCamera makeDefault position={[0, 0, 50]} fov={90} />
             
             {/* Lighting */}
             <ambientLight intensity={1.2} />
@@ -82,7 +196,7 @@ export default function Render360Viewer() {
             <pointLight position={[-10, -10, -10]} intensity={0.5} />
             
             {/* 360 Sphere */}
-            <Sphere360 />
+            <Sphere360 onHotspotClick={setSelectedHotspot} />
             
             {/* Controls */}
             <OrbitControls
@@ -91,12 +205,58 @@ export default function Render360Viewer() {
               enableDamping={true}
               dampingFactor={0.05}
               rotateSpeed={-0.5}
-              minDistance={0.1}
-              maxDistance={300}
+              minDistance={50}
+              maxDistance={400}
               autoRotate={false}
             />
           </Canvas>
         </div>
+
+        {/* Hotspot Detail Modal */}
+        {selectedHotspot && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/80 backdrop-blur-md animate-fade-in">
+            <div className="bg-card border-2 border-primary/20 rounded-3xl p-8 max-w-md mx-4 shadow-2xl animate-scale-in">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    {selectedHotspot.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground">{selectedHotspot.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{selectedHotspot.description}</p>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setSelectedHotspot(null)}
+                  className="h-8 w-8 rounded-lg"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <div className="space-y-3">
+                {selectedHotspot.details.map((detail, index) => (
+                  <div 
+                    key={index}
+                    className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl"
+                  >
+                    <div className="h-2 w-2 rounded-full bg-primary" />
+                    <span className="text-foreground">{detail}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Button
+                onClick={() => setSelectedHotspot(null)}
+                className="w-full mt-6 rounded-xl"
+              >
+                დახურვა
+              </Button>
+            </div>
+          </div>
+        )}
 
         {/* Property Info Overlay */}
         <div className="absolute bottom-6 left-6 right-6 z-10 bg-background/95 backdrop-blur-xl border border-border rounded-2xl p-6 shadow-2xl">
