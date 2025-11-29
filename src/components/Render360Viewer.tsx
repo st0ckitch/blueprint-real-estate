@@ -144,25 +144,25 @@ function Hotspot({ position, title, description, icon, details }: Hotspot) {
             transform: 'translateX(-50%)'
           }}
         >
-          <div className="bg-background/98 backdrop-blur-xl border-2 border-primary/30 rounded-2xl p-4 shadow-2xl min-w-[280px] animate-scale-in">
-            <div className="flex items-center gap-3 mb-3 pb-3 border-b border-border">
-              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+          <div className="bg-background/98 backdrop-blur-xl border-2 border-primary/30 rounded-2xl p-5 shadow-2xl min-w-[320px] animate-scale-in">
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-border">
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
                 {icon}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">{title}</h3>
-                <p className="text-xs text-muted-foreground">{description}</p>
+                <h3 className="text-xl font-bold text-foreground leading-tight">{title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{description}</p>
               </div>
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {details.map((detail, index) => (
                 <div 
                   key={index}
-                  className="flex items-start gap-2 text-sm"
+                  className="flex items-start gap-3 text-base"
                 >
-                  <div className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  <span className="text-foreground">{detail}</span>
+                  <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="text-foreground leading-relaxed">{detail}</span>
                 </div>
               ))}
             </div>
