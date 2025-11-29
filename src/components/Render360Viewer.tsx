@@ -45,69 +45,135 @@ const hotspots: Hotspot[] = [
   }
 ];
 
-function Hotspot({ position, title, description, icon, details, onClick }: Hotspot & { onClick: () => void }) {
+function Hotspot({ position, title, description, icon, details }: Hotspot) {
   const [hovered, setHovered] = useState(false);
+  const lineRef = useRef<THREE.Line>(null);
+
+  useFrame(() => {
+    if (lineRef.current && lineRef.current.material) {
+      const material = lineRef.current.material as THREE.LineBasicMaterial;
+      material.opacity = hovered ? 0.6 : 0;
+    }
+  });
+
+  // Calculate info box position (offset to the side)
+  const infoOffset: [number, number, number] = [
+    position[0] > 0 ? 80 : -80,
+    position[1] + 40,
+    position[2] > 0 ? 30 : -30
+  ];
+
+  // Line points from hotspot to info box
+  const linePoints = [
+    new THREE.Vector3(...position),
+    new THREE.Vector3(position[0], position[1] + 15, position[2]),
+    new THREE.Vector3(...infoOffset)
+  ];
 
   return (
-    <group position={position}>
-      <mesh
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          setHovered(true);
-          document.body.style.cursor = 'pointer';
-        }}
-        onPointerOut={(e) => {
-          e.stopPropagation();
-          setHovered(false);
-          document.body.style.cursor = 'auto';
-        }}
-      >
-        <sphereGeometry args={[8, 16, 16]} />
-        <meshBasicMaterial 
-          color={hovered ? "#4F46E5" : "#ffffff"} 
-          transparent 
-          opacity={hovered ? 0.9 : 0.7}
-        />
-      </mesh>
-      
-      {/* Pulsing ring */}
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[10, 12, 32]} />
-        <meshBasicMaterial 
-          color="#4F46E5" 
-          transparent 
-          opacity={hovered ? 0.6 : 0.3}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+    <group>
+      {/* Hotspot sphere */}
+      <group position={position}>
+        <mesh
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            setHovered(true);
+            document.body.style.cursor = 'pointer';
+          }}
+          onPointerOut={(e) => {
+            e.stopPropagation();
+            setHovered(false);
+            document.body.style.cursor = 'auto';
+          }}
+        >
+          <sphereGeometry args={[8, 16, 16]} />
+          <meshBasicMaterial 
+            color={hovered ? "#4F46E5" : "#ffffff"} 
+            transparent 
+            opacity={hovered ? 1 : 0.7}
+          />
+        </mesh>
+        
+        {/* Pulsing ring */}
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[10, 12, 32]} />
+          <meshBasicMaterial 
+            color="#4F46E5" 
+            transparent 
+            opacity={hovered ? 0.8 : 0.4}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
 
-      <Html
-        distanceFactor={80}
-        position={[0, 15, 0]}
-        center
-        style={{
-          transition: 'all 0.2s',
-          opacity: hovered ? 1 : 0,
-          transform: `scale(${hovered ? 1 : 0.8})`,
-          pointerEvents: 'none'
-        }}
-      >
-        <div className="bg-background/95 backdrop-blur-xl border border-border rounded-xl px-3 py-2 shadow-2xl whitespace-nowrap">
-          <div className="flex items-center gap-2">
-            <div className="text-primary">{icon}</div>
-            <span className="font-semibold text-sm text-foreground">{title}</span>
+        {/* Icon label always visible */}
+        <Html
+          distanceFactor={100}
+          position={[0, -20, 0]}
+          center
+          style={{
+            transition: 'all 0.3s',
+            pointerEvents: 'none'
+          }}
+        >
+          <div className="bg-primary/90 backdrop-blur-sm text-primary-foreground rounded-lg px-2 py-1 shadow-lg">
+            <div className="flex items-center gap-1.5">
+              <div className="scale-75">{icon}</div>
+            </div>
           </div>
-        </div>
-      </Html>
+        </Html>
+      </group>
+
+      {/* Connecting line */}
+      <primitive object={new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(linePoints),
+        new THREE.LineBasicMaterial({ 
+          color: 0x4F46E5, 
+          transparent: true, 
+          opacity: 0 
+        })
+      )} ref={lineRef} />
+
+      {/* Info box on hover */}
+      {hovered && (
+        <Html
+          position={infoOffset}
+          distanceFactor={100}
+          style={{
+            transition: 'all 0.3s ease-out',
+            pointerEvents: 'none',
+            transform: 'translateX(-50%)'
+          }}
+        >
+          <div className="bg-background/98 backdrop-blur-xl border-2 border-primary/30 rounded-2xl p-4 shadow-2xl min-w-[280px] animate-scale-in">
+            <div className="flex items-center gap-3 mb-3 pb-3 border-b border-border">
+              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                {icon}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-foreground">{title}</h3>
+                <p className="text-xs text-muted-foreground">{description}</p>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              {details.map((detail, index) => (
+                <div 
+                  key={index}
+                  className="flex items-start gap-2 text-sm"
+                >
+                  <div className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  <span className="text-foreground">{detail}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Html>
+      )}
     </group>
   );
 }
 
-function Sphere360({ onHotspotClick }: { onHotspotClick: (hotspot: Hotspot) => void }) {
+function Sphere360() {
   const meshRef = useRef<THREE.Mesh>(null);
   const [isHovered, setIsHovered] = useState(false);
   const texture = useTexture(panorama360);
@@ -135,7 +201,6 @@ function Sphere360({ onHotspotClick }: { onHotspotClick: (hotspot: Hotspot) => v
         <Hotspot
           key={index}
           {...hotspot}
-          onClick={() => onHotspotClick(hotspot)}
         />
       ))}
     </>
@@ -143,8 +208,6 @@ function Sphere360({ onHotspotClick }: { onHotspotClick: (hotspot: Hotspot) => v
 }
 
 export default function Render360Viewer() {
-  const [selectedHotspot, setSelectedHotspot] = useState<Hotspot | null>(null);
-
   return (
     <section className="relative mt-24 mb-16">
       <div className="mb-8">
@@ -197,7 +260,7 @@ export default function Render360Viewer() {
             <pointLight position={[-10, -10, -10]} intensity={0.5} />
             
             {/* 360 Sphere */}
-            <Sphere360 onHotspotClick={setSelectedHotspot} />
+            <Sphere360 />
             
             {/* Controls */}
             <OrbitControls
@@ -212,52 +275,6 @@ export default function Render360Viewer() {
             />
           </Canvas>
         </div>
-
-        {/* Hotspot Detail Modal */}
-        {selectedHotspot && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/80 backdrop-blur-md animate-fade-in">
-            <div className="bg-card border-2 border-primary/20 rounded-3xl p-8 max-w-md mx-4 shadow-2xl animate-scale-in">
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                    {selectedHotspot.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground">{selectedHotspot.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{selectedHotspot.description}</p>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setSelectedHotspot(null)}
-                  className="h-8 w-8 rounded-lg"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-
-              <div className="space-y-3">
-                {selectedHotspot.details.map((detail, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl"
-                  >
-                    <div className="h-2 w-2 rounded-full bg-primary" />
-                    <span className="text-foreground">{detail}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                onClick={() => setSelectedHotspot(null)}
-                className="w-full mt-6 rounded-xl"
-              >
-                დახურვა
-              </Button>
-            </div>
-          </div>
-        )}
 
         {/* Property Info Overlay */}
         <div className="absolute bottom-6 left-6 right-6 z-10 bg-background/95 backdrop-blur-xl border border-border rounded-2xl p-6 shadow-2xl">
