@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Move, RotateCw, X, Maximize2, Home, Bath, Utensils, Bed } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import panorama360 from '@/assets/panorama-360.jpg';
 
 interface Hotspot {
   position: [number, number, number];
@@ -109,7 +110,7 @@ function Hotspot({ position, title, description, icon, details, onClick }: Hotsp
 function Sphere360({ onHotspotClick }: { onHotspotClick: (hotspot: Hotspot) => void }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const texture = useTexture('/src/assets/render-1.png');
+  const texture = useTexture(panorama360);
   
   // Auto-rotate slowly
   useFrame((state, delta) => {
