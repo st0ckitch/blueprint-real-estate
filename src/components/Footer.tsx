@@ -77,11 +77,11 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="inline-block">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                ModeX
+                ModX
               </h3>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Modex Development. პროექტები, საუკეთესო პროექტები თბილისში    
+              ModX Development. პროექტები, საუკეთესო პროექტები თბილისში    
             </p>
             <div className="space-y-2">
               <a href="tel:+995557123456" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="დარეკეთ ნომერზე +995 557 123 456">
@@ -166,7 +166,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border/50">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2025 ModeX. ყველა უფლება დაცულია.</p>
+            <p>© 2025 ModX. ყველა უფლება დაცულია.</p>
             <div className="flex gap-6">
               <Link to="/" className="hover:text-primary transition-colors">
                 კონფიდენციალურობა

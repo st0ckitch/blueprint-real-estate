@@ -62,14 +62,14 @@ const Blog = () => {
   return (
     <>
       <Helmet>
-        <title>ბლოგი - Modex | უძრავი ქონების სიახლეები და რჩევები</title>
+        <title>ბლოგი - ModX | უძრავი ქონების სიახლეები და რჩევები</title>
         <meta 
           name="description" 
-          content="გაეცანით უძრავი ქონების ბაზრის სიახლეებს, რჩევებს და ექსპერტულ მიმოხილვებს. Modex ბლოგზე იპოვით სასარგებლო ინფორმაციას ბინის შეძენის შესახებ." 
+          content="გაეცანით უძრავი ქონების ბაზრის სიახლეებს, რჩევებს და ექსპერტულ მიმოხილვებს. ModX ბლოგზე იპოვით სასარგებლო ინფორმაციას ბინის შეძენის შესახებ." 
         />
         <meta name="keywords" content="უძრავი ქონება, ბლოგი, თბილისი, ბინა, სამშენებლო პროექტები, ინვესტიცია" />
         <link rel="canonical" href="https://yourdomain.com/blog" />
-        <meta property="og:title" content="ბლოგი - Modex | უძრავი ქონების სიახლეები" />
+        <meta property="og:title" content="ბლოგი - ModX | უძრავი ქონების სიახლეები" />
         <meta property="og:description" content="უძრავი ქონების ბაზრის სიახლეები და ექსპერტული რჩევები" />
         <meta property="og:type" content="website" />
       </Helmet>

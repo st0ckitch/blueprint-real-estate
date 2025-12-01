@@ -74,7 +74,7 @@ const Renders = () => {
         <link rel="canonical" href="https://modx.ge/renders" />
         
         <meta property="og:title" content="რენდერები | ModX" />
-        <meta property="og:description" content="იხილეთ ModeX-ის უძრავი ქონების უმაღლესი ხარისხის 3D რენდერები და ვიზუალიზაციები." />
+        <meta property="og:description" content="იხილეთ ModX-ის უძრავი ქონების უმაღლესი ხარისხის 3D რენდერები და ვიზუალიზაციები." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://modex.ge/renders" />
       </Helmet>

@@ -14,7 +14,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/">
-              <h1 className="text-2xl font-semibold text-foreground">ModeX</h1>
+              <h1 className="text-2xl font-semibold text-foreground">ModX</h1>
             </Link>
           </div>
 
