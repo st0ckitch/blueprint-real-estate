@@ -21,10 +21,34 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            <NavLink to="/">{t('nav.home')}</NavLink>
-            <NavLink to="/projects/themka">{t('nav.projects')}</NavLink>
-            <NavLink to="/apartments">{t('nav.apartments')}</NavLink>
-            <NavLink to="/blog">{t('nav.blog')}</NavLink>
+            <NavLink 
+              to="/" 
+              className="px-4 py-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+              activeClassName="bg-accent text-foreground font-medium"
+            >
+              {t('nav.home')}
+            </NavLink>
+            <NavLink 
+              to="/projects/themka" 
+              className="px-4 py-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+              activeClassName="bg-accent text-foreground font-medium"
+            >
+              {t('nav.projects')}
+            </NavLink>
+            <NavLink 
+              to="/apartments" 
+              className="px-4 py-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+              activeClassName="bg-accent text-foreground font-medium"
+            >
+              {t('nav.apartments')}
+            </NavLink>
+            <NavLink 
+              to="/blog" 
+              className="px-4 py-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+              activeClassName="bg-accent text-foreground font-medium"
+            >
+              {t('nav.blog')}
+            </NavLink>
             <ContactDialog>
               <Button size="sm">{t('nav.contact')}</Button>
             </ContactDialog>
@@ -43,11 +67,39 @@ const Header = () => {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden absolute top-full left-0 right-0 bg-background border-t border-border shadow-lg z-50">
-              <nav className="flex flex-col p-4">
-                <NavLink to="/" onClick={() => setIsMenuOpen(false)}>{t('nav.home')}</NavLink>
-                <NavLink to="/projects/themka" onClick={() => setIsMenuOpen(false)}>{t('nav.projects')}</NavLink>
-                <NavLink to="/apartments" onClick={() => setIsMenuOpen(false)}>{t('nav.apartments')}</NavLink>
-                <NavLink to="/blog" onClick={() => setIsMenuOpen(false)}>{t('nav.blog')}</NavLink>
+              <nav className="flex flex-col p-4 gap-1">
+                <NavLink 
+                  to="/" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+                  activeClassName="bg-accent text-foreground font-medium"
+                >
+                  {t('nav.home')}
+                </NavLink>
+                <NavLink 
+                  to="/projects/themka" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+                  activeClassName="bg-accent text-foreground font-medium"
+                >
+                  {t('nav.projects')}
+                </NavLink>
+                <NavLink 
+                  to="/apartments" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+                  activeClassName="bg-accent text-foreground font-medium"
+                >
+                  {t('nav.apartments')}
+                </NavLink>
+                <NavLink 
+                  to="/blog" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
+                  activeClassName="bg-accent text-foreground font-medium"
+                >
+                  {t('nav.blog')}
+                </NavLink>
                 <div onClick={() => setIsMenuOpen(false)}>
                   <ContactDialog>
                     <Button size="sm" className="w-full">{t('nav.contact')}</Button>
