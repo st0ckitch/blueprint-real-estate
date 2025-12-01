@@ -32,10 +32,10 @@ interface ProjectData {
 }
 
 const projectsData: Record<string, ProjectData> = {
-  saburtalo: {
-    id: "saburtalo",
-    name: "საბურთალოს რეზიდენსი",
-    location: "საბურთალო, თბილისი",
+  themka: {
+    id: "themka",
+    name: "თემქას რეზიდენსი",
+    location: "თემქა, თბილისი",
     description: "თანამედროვე საცხოვრებელი კომპლექსი საბურთალოს პრესტიჟულ უბანში. პროექტი მოიცავს მაღალი ხარისხის ბინებს, განვითარებულ ინფრასტრუქტურასა და მწვანე ზონებს.",
     status: "მიმდინარე მშენებლობა",
     completionDate: "2025 წლის დეკემბერი",
@@ -215,10 +215,10 @@ const projectsData: Record<string, ProjectData> = {
 };
 
 const Projects = () => {
-  const { location = "saburtalo" } = useParams();
+  const { location = "themka" } = useParams();
   const navigate = useNavigate();
   
-  const currentProject = projectsData[location] || projectsData.saburtalo;
+  const currentProject = projectsData[location] || projectsData.themka;
 
   const handleLocationChange = (newLocation: string) => {
     navigate(`/projects/${newLocation}`);
@@ -276,10 +276,7 @@ const Projects = () => {
                       <SelectValue placeholder="აირჩიეთ ლოკაცია" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="saburtalo" className="text-base">საბურთალო</SelectItem>
-                      <SelectItem value="gldani" className="text-base">გლდანი</SelectItem>
-                      <SelectItem value="varketili" className="text-base">ვარკეთილი</SelectItem>
-                      <SelectItem value="mtskheta" className="text-base">მცხეთა</SelectItem>
+                      <SelectItem value="themka" className="text-base">თემქა</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -400,9 +397,11 @@ const Projects = () => {
 
               {/* CTA */}
               <div className="mt-12 text-center">
-                <Button size="lg" className="px-8">
-                  დაგვიკავშირდით დამატებითი ინფორმაციისთვის
-                </Button>
+                <a href="tel:+995557123456">
+                  <Button size="lg" className="px-8">
+                    დაგვიკავშირდით დამატებითი ინფორმაციისთვის
+                  </Button>
+                </a>
               </div>
             </div>
           </div>

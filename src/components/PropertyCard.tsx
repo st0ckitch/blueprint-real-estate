@@ -23,23 +23,26 @@ const PropertyCard = ({ image, price, beds, baths, sqm, address }: PropertyCardP
         <div className="p-4">
           <p className="text-lg font-semibold mb-2">{price}</p>
           {address && <p className="text-sm text-muted-foreground mb-3">{address}</p>}
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-4 text-sm">
             {beds && (
-              <div className="flex items-center gap-1">
-                <Bed className="h-4 w-4" />
-                <span>{beds} საძინებელი</span>
+              <div className="flex items-center gap-1.5 font-semibold text-foreground">
+                <Bed className="h-4 w-4 text-primary" />
+                <span className="text-primary">{beds}</span>
+                <span className="text-muted-foreground font-normal">ოთახი</span>
               </div>
             )}
             {baths && (
-              <div className="flex items-center gap-1">
-                <Bath className="h-4 w-4" />
-                <span>{baths} სააბაზანო</span>
+              <div className="flex items-center gap-1.5 font-semibold text-foreground">
+                <Bath className="h-4 w-4 text-primary" />
+                <span className="text-primary">{baths}</span>
+                <span className="text-muted-foreground font-normal">სააბაზანო</span>
               </div>
             )}
             {sqm && (
-              <div className="flex items-center gap-1">
-                <Maximize className="h-4 w-4" />
-                <span>{sqm} მ²</span>
+              <div className="flex items-center gap-1.5 font-semibold text-foreground">
+                <Maximize className="h-4 w-4 text-primary" />
+                <span className="text-primary">{sqm}</span>
+                <span className="text-muted-foreground font-normal">მ²</span>
               </div>
             )}
           </div>

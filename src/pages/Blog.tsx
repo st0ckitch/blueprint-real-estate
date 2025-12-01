@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -33,7 +34,7 @@ const articles: BlogArticle[] = [
     excerpt: "საბურთალო თბილისის ერთ-ერთი ყველაზე პოპულარული რაიონია. გაეცანით რაიონის უპირატესობებს და უძრავი ქონების ფასებს.",
     date: "2024-03-10",
     readTime: "7 წუთი",
-    category: "რაიონები",
+    category: "რჩევები",
     image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
   },
   {
@@ -43,7 +44,7 @@ const articles: BlogArticle[] = [
     excerpt: "უძრავი ქონება რჩება ერთ-ერთ საუკეთესო ინვესტიციად. გაიგეთ, რატომ და როგორ დაიწყოთ ინვესტირება.",
     date: "2024-03-05",
     readTime: "6 წუთი",
-    category: "ინვესტიცია",
+    category: "რჩევები",
     image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=600&fit=crop"
   },
   {
@@ -55,10 +56,43 @@ const articles: BlogArticle[] = [
     readTime: "8 წუთი",
     category: "პროექტები",
     image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop"
+  },
+  {
+    id: "5",
+    slug: "udzravi-qonebis-siaxleebi-2024",
+    title: "უძრავი ქონების ბაზრის სიახლეები 2024",
+    excerpt: "გაეცანით 2024 წლის ყველაზე მნიშვნელოვან სიახლეებს უძრავი ქონების ბაზარზე და მომავალი ტენდენციებს.",
+    date: "2024-02-28",
+    readTime: "6 წუთი",
+    category: "სიახლეები",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop"
+  },
+  {
+    id: "6",
+    slug: "temqis-proekti-gagrdzeldeba",
+    title: "თემქის პროექტი წარმატებით გრძელდება",
+    excerpt: "ModX-ის თემქის პროექტი აქტიურ ფაზაში შედის. გაეცანით ახალ დეტალებს და განვითარების გეგმას.",
+    date: "2024-02-25",
+    readTime: "5 წუთი",
+    category: "სიახლეები",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop"
   }
 ];
 
+const categories = [
+  { id: 'all', name: 'ყველა' },
+  { id: 'სიახლეები', name: 'სიახლეები' },
+  { id: 'რჩევები', name: 'რჩევები' },
+  { id: 'პროექტები', name: 'პროექტები' }
+];
+
 const Blog = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const filteredArticles = selectedCategory === 'all' 
+    ? articles 
+    : articles.filter(article => article.category === selectedCategory);
+
   return (
     <>
       <Helmet>
@@ -96,11 +130,29 @@ const Blog = () => {
             </div>
           </section>
 
+          {/* Category Filters */}
+          <section className="py-8 px-8 border-b border-border/50">
+            <div className="max-w-[1200px] mx-auto">
+              <div className="flex items-center gap-3 flex-wrap">
+                {categories.map((category) => (
+                  <Button
+                    key={category.id}
+                    variant={selectedCategory === category.id ? "default" : "outline"}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className="rounded-full"
+                  >
+                    {category.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* Articles Grid */}
           <section className="py-16 px-8">
             <div className="max-w-[1200px] mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                {articles.map((article) => (
+                {filteredArticles.map((article) => (
                   <article 
                     key={article.id}
                     className="group bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300"

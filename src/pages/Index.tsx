@@ -118,9 +118,9 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <PropertyCard image={render1} price="65,000₾" beds={2} baths={1} sqm={45} address="ვაჟა-ფშაველას გამზირი, თბილისი" />
-            <PropertyCard image={render2} price="48,000₾" beds={1} baths={1} sqm={32} address="აღმაშენებლის გამზირი, თბილისი" />
-            <PropertyCard image={render3} price="125,000₾" beds={3} baths={2} sqm={78} address="ჩავჩავაძის გამზირი, თბილისი" />
+            <PropertyCard image={render1} price="65,000₾" beds={2} baths={1} sqm={45} address="თემქა, თბილისი" />
+            <PropertyCard image={render2} price="48,000₾" beds={1} baths={1} sqm={32} address="თემქა, თბილისი" />
+            <PropertyCard image={render3} price="125,000₾" beds={3} baths={2} sqm={78} address="თემქა, თბილისი" />
           </div>
         </section>
 
@@ -311,7 +311,7 @@ const Index = () => {
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">ჩვენი ლოკაცია</h3>
                   <p className="text-muted-foreground text-lg">
-                    ვაჟა-ფშაველას გამზირი 45<br />თბილისი, საქართველო
+                    თემქა<br />თბილისი, საქართველო
                   </p>
                 </div>
               </div>
