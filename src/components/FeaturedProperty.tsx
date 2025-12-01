@@ -25,7 +25,7 @@ const FeaturedProperty = () => {
 
           {/* Contact Form */}
           <div className="space-y-3 pt-2 border-t border-border">
-            <h3 className="text-sm font-semibold">კონტაქტი</h3>
+            <h3 className="text-sm font-semibold">​დაკავშირება</h3>
             
             <Input placeholder="სახელი" className="text-sm" />
             
