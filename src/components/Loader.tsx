@@ -25,9 +25,9 @@ const Loader = () => {
   return (
     <div className="fixed inset-0 bg-background z-50 flex items-center justify-center">
       <div className="flex flex-col items-center gap-12">
-        {/* Modex Logo */}
+        {/* ModX Logo */}
         <h1 className="text-6xl font-bold text-foreground tracking-wider">
-          MODEX
+          ModX
         </h1>
 
         {/* Building/Blocks Animation */}
