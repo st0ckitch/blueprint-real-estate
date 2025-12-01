@@ -95,7 +95,7 @@ const Index = () => {
       {/* Hero Section */}
       <main className="w-full px-8 py-8 max-w-[1200px] mx-auto">
         <h1 className="text-5xl font-semibold mb-8 text-foreground">
-          Modex - სლოგანი სლოგანი სლოგანი
+          ModX - სლოგანი სლოგანი სლოგანი
         </h1>
 
         {/* Featured Property */}
@@ -109,7 +109,7 @@ const Index = () => {
           <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
             {/* Project 1 */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Modex აღმაშენებელზე</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-4">ModX აღმაშენებელზე</h3>
               <SearchFilters />
             </div>
 
@@ -118,7 +118,7 @@ const Index = () => {
 
             {/* Project 2 */}
             <div>
-              <h3 className="text-xl font-semibold text-foreground mb-4">Modex საბურთალოზე</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-4">ModX საბურთალოზე</h3>
               <SearchFilters />
             </div>
           </div>
@@ -373,8 +373,8 @@ const Index = () => {
                     <Mail className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">დაგვწერეთ</h3>
-                  <a href="mailto:info@modex.ge" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
-                    info@modex.ge
+                  <a href="mailto:info@modx.ge" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    info@modx.ge
                   </a>
                 </div>
 

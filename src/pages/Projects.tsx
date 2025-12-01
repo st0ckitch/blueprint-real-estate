@@ -227,18 +227,18 @@ const Projects = () => {
   return (
     <>
       <Helmet>
-        <title>{currentProject.name} - პროექტები | ModeX</title>
+        <title>{currentProject.name} - პროექტები | ModX</title>
         <meta name="description" content={currentProject.description} />
         <meta name="keywords" content="უძრავი ქონება, ბინები თბილისში, ახალი პროექტები, მშენებლობა, საბურთალო, გლდანი, ვარკეთილი, მცხეთა" />
-        <link rel="canonical" href={`https://modex.ge/projects/${location}`} />
+        <link rel="canonical" href={`https://modx.ge/projects/${location}`} />
         
-        <meta property="og:title" content={`${currentProject.name} - პროექტები | ModeX`} />
+        <meta property="og:title" content={`${currentProject.name} - პროექტები | ModX`} />
         <meta property="og:description" content={currentProject.description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://modex.ge/projects/${location}`} />
+        <meta property="og:url" content={`https://modx.ge/projects/${location}`} />
         
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${currentProject.name} - პროექტები | ModeX`} />
+        <meta name="twitter:title" content={`${currentProject.name} - პროექტები | ModX`} />
         <meta name="twitter:description" content={currentProject.description} />
       </Helmet>
 

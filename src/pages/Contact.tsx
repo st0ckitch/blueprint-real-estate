@@ -54,12 +54,12 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>კონტაქტი - Modex | დაგვიკავშირდით</title>
+        <title>კონტაქტი - ModX | დაგვიკავშირდით</title>
         <meta 
           name="description" 
-          content="დაგვიკავშირდით Modex-ს უძრავი ქონების შესახებ კონსულტაციისთვის. ტელეფონი: +995557123456, მისამართი: ვაჟა-ფშაველას გამზირი 45, თბილისი" 
+          content="დაგვიკავშირდით ModX-ს უძრავი ქონების შესახებ კონსულტაციისთვის. ტელეფონი: +995557123456, მისამართი: ვაჟა-ფშაველას გამზირი 45, თბილისი" 
         />
-        <meta name="keywords" content="კონტაქტი, modex, უძრავი ქონება, თბილისი, მისამართი" />
+        <meta name="keywords" content="კონტაქტი, ModX, უძრავი ქონება, თბილისი, მისამართი" />
         <link rel="canonical" href="https://yourdomain.com/contact" />
       </Helmet>
 
@@ -121,8 +121,8 @@ const Contact = () => {
                     <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-semibold mb-2">ელ.ფოსტა</h3>
-                  <a href="mailto:info@modex.ge" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    info@modex.ge
+                  <a href="mailto:info@modx.ge" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    info@modx.ge
                   </a>
                 </div>
 
