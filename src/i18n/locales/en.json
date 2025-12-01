@@ -127,5 +127,15 @@
     "emailInvalid": "Invalid email",
     "phoneInvalid": "Invalid phone number",
     "messageMin": "Message must be at least 10 characters"
+  },
+  "building": {
+    "floor": "Floor",
+    "apartments": "Apartments",
+    "available": "Available",
+    "viewDetails": "View Details",
+    "contactForDetails": "Contact for Details",
+    "floorDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "viewPlan": "View Floor Plan",
+    "clickToExplore": "Click to explore floor details"
   }
 }
