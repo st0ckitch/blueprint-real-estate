@@ -42,7 +42,7 @@ const blogPosts: Record<string, BlogPostData> = {
     readTime: "5 წუთი",
     category: "რჩევები",
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop",
-    author: "Modex Team"
+    author: "ModX Team"
   },
   "saburthalos-raioni-mimoxilva": {
     slug: "saburthalos-raioni-mimoxilva",
@@ -64,7 +64,7 @@ const blogPosts: Record<string, BlogPostData> = {
     readTime: "7 წუთი",
     category: "რაიონები",
     image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=600&fit=crop",
-    author: "Modex Team"
+    author: "ModX Team"
   },
   "investicia-udzravi-qonebashi": {
     slug: "investicia-udzravi-qonebashi",
@@ -86,7 +86,7 @@ const blogPosts: Record<string, BlogPostData> = {
     readTime: "6 წუთი",
     category: "ინვესტიცია",
     image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=1200&h=600&fit=crop",
-    author: "Modex Team"
+    author: "ModX Team"
   },
   "axali-proektebi-tbilisshi": {
     slug: "axali-proektebi-tbilisshi",
@@ -110,7 +110,7 @@ const blogPosts: Record<string, BlogPostData> = {
     readTime: "8 წუთი",
     category: "პროექტები",
     image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&h=600&fit=crop",
-    author: "Modex Team"
+    author: "ModX Team"
   }
 };
 
@@ -148,9 +148,9 @@ const BlogPost = () => {
   return (
     <>
       <Helmet>
-        <title>{post.title} - Modex ბლოგი</title>
+        <title>{post.title} - ModX ბლოგი</title>
         <meta name="description" content={post.excerpt} />
-        <meta name="keywords" content={`${post.category}, უძრავი ქონება, თბილისი, Modex`} />
+        <meta name="keywords" content={`${post.category}, უძრავი ქონება, თბილისი, ModX`} />
         <link rel="canonical" href={`https://yourdomain.com/blog/${post.slug}`} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />

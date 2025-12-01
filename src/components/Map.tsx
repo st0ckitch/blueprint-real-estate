@@ -42,7 +42,7 @@ const Map = ({ height = "h-[500px]", showTokenInput = false }: MapProps) => {
       .setLngLat([44.7866, 41.7151])
       .setPopup(
         new mapboxgl.Popup({ offset: 25 })
-          .setHTML('<div class="p-2"><h3 class="font-semibold">Modex Office</h3><p>ვაჟა-ფშაველას გამზირი 45</p></div>')
+          .setHTML('<div class="p-2"><h3 class="font-semibold">ModX Office</h3><p>ვაჟა-ფშაველას გამზირი 45</p></div>')
       )
       .addTo(map.current);
 
