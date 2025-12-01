@@ -127,5 +127,15 @@
     "emailInvalid": "არასწორი ელ.ფოსტა",
     "phoneInvalid": "არასწორი ტელეფონის ნომერი",
     "messageMin": "შეტყობინება უნდა იყოს მინიმუმ 10 სიმბოლო"
+  },
+  "building": {
+    "floor": "სართული",
+    "apartments": "ბინები",
+    "available": "ხელმისაწვდომი",
+    "viewDetails": "დეტალების ნახვა",
+    "contactForDetails": "დეტალებისთვის დაგვიკავშირდით",
+    "floorDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "viewPlan": "იხილეთ გეგმა",
+    "clickToExplore": "დააჭირეთ სართულის დასათვალიერებლად"
   }
 }

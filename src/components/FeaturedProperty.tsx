@@ -1,13 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Bookmark } from "lucide-react";
-import heroProperty from "@/assets/hero-building.png";
+import InteractiveBuilding from "./InteractiveBuilding";
+
 const FeaturedProperty = () => {
   return <div className="property-card p-0 relative">
-      {/* Property Image */}
-      <div className="relative h-[400px] overflow-hidden">
-        <img src={heroProperty} alt="Featured Property" className="w-full h-full object-cover" />
-      </div>
+      {/* Interactive Building with Floor Highlights */}
+      <InteractiveBuilding />
 
       {/* Property Details Card */}
       <div className="absolute top-4 right-4 bg-card rounded-2xl p-4 shadow-lg w-[240px]">
