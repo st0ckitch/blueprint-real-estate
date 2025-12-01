@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import PropertyCard from "@/components/PropertyCard";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from 'react-i18next';
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
 
 const Renders = () => {
+  const { t } = useTranslation();
   const renders = [
     {
       id: "1",
@@ -100,31 +102,30 @@ const Renders = () => {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                     </span>
-                    <span className="text-sm font-medium">3D ვიზუალიზაცია</span>
+                    <span className="text-sm font-medium">{t('apartments.visualization3d')}</span>
                   </div>
                   
                   <div>
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                       <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-                        პროფესიონალური
+                        {t('apartments.heroTitle')}
                       </span>
                       <br />
                       <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                        3D რენდერები
+                        {t('apartments.heroSubtitle')}
                       </span>
                     </h1>
                     <p className="text-xl text-muted-foreground leading-relaxed">
-                      ფოტორეალისტური ვიზუალიზაციები, რომლებიც ცოცხლდება. 
-                      თითოეული დეტალი შექმნილია უმაღლესი ხარისხის სტანდარტებით.
+                      {t('apartments.heroDescription')}
                     </p>
                   </div>
 
                   <div className="flex flex-wrap gap-4">
                     <Button size="lg" className="rounded-full px-8 shadow-lg hover:shadow-xl transition-shadow">
-                      იხილეთ პორტფოლიო
+                      {t('apartments.viewPortfolio')}
                     </Button>
                     <Button variant="outline" size="lg" className="rounded-full px-8">
-                      დაგვიკავშირდით
+                      {t('apartments.contactUs')}
                     </Button>
                   </div>
                 </div>
@@ -134,21 +135,21 @@ const Renders = () => {
                   <div className="space-y-4">
                     <div className="p-6 rounded-2xl bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale shadow-lg">
                       <div className="text-4xl font-bold text-primary mb-2">4K</div>
-                      <div className="text-sm text-muted-foreground">ულტრა HD ხარისხი</div>
+                      <div className="text-sm text-muted-foreground">{t('apartments.quality4k')}</div>
                     </div>
                     <div className="p-6 rounded-2xl bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale shadow-lg">
                       <div className="text-4xl font-bold text-primary mb-2">360°</div>
-                      <div className="text-sm text-muted-foreground">სრული ხედები</div>
+                      <div className="text-sm text-muted-foreground">{t('apartments.views360')}</div>
                     </div>
                   </div>
                   <div className="space-y-4 mt-8">
                     <div className="p-6 rounded-2xl bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale shadow-lg">
                       <div className="text-4xl font-bold text-primary mb-2">24h</div>
-                      <div className="text-sm text-muted-foreground">სწრაფი მიწოდება</div>
+                      <div className="text-sm text-muted-foreground">{t('apartments.fastDelivery')}</div>
                     </div>
                     <div className="p-6 rounded-2xl bg-background/60 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all hover-scale shadow-lg">
                       <div className="text-4xl font-bold text-primary mb-2">100+</div>
-                      <div className="text-sm text-muted-foreground">პროექტი</div>
+                      <div className="text-sm text-muted-foreground">{t('apartments.projects')}</div>
                     </div>
                   </div>
                 </div>
