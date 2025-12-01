@@ -104,18 +104,8 @@ const Index = () => {
         <div className="mb-16">
           <h2 className="text-3xl font-semibold text-foreground mb-6">მიმდინარე პროექტები</h2>
           <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
-            {/* Project 1 */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-foreground mb-4">ModX აღმაშენებელზე</h3>
-              <SearchFilters />
-            </div>
-
-            {/* Divider */}
-            <div className="h-px bg-border mb-8" />
-
-            {/* Project 2 */}
             <div>
-              <h3 className="text-xl font-semibold text-foreground mb-4">ModX საბურთალოზე</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-4">ModX თბილისი - თემქა</h3>
               <SearchFilters />
             </div>
           </div>
