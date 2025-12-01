@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "apartments": "Apartments",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "ModX - Slogan Slogan Slogan"
+  },
+  "projects": {
+    "current": "Current Projects",
+    "tbilisi_themka": "ModX Tbilisi - Temka"
+  },
+  "apartments": {
+    "title": "Apartments",
+    "rooms": "Room",
+    "bathrooms": "Bathroom",
+    "area": "Area"
+  },
+  "blog": {
+    "title": "News and Tips",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "categories": {
+      "all": "All",
+      "news": "News",
+      "tips": "Tips",
+      "projects": "Projects"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have a question or need help? Contact our team. We are here to help you with any issue.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "writeUs": "Email Us",
+    "callUs": "Call Us",
+    "ourLocation": "Our Location",
+    "features": {
+      "personalized": "Personalized Service",
+      "quick": "Quick Response",
+      "support": "Full Support"
+    }
+  },
+  "apartmentDetail": {
+    "tabs": {
+      "about": "About Apartment",
+      "views": "Views"
+    },
+    "backToApartments": "Back to Apartments",
+    "description": "Description",
+    "features": "Features",
+    "contactForInfo": "Contact us for more information",
+    "interested": "Interested?",
+    "phone": "Phone",
+    "sendInquiry": "Send Inquiry"
+  }
+}

@@ -23,10 +23,10 @@ const Map = ({ height = "h-[500px]", showTokenInput = false }: MapProps) => {
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [44.7866, 41.7151], // Tbilisi coordinates
-      zoom: 13,
-      pitch: 45,
+      style: 'mapbox://styles/mapbox/dark-v11',
+      center: [44.8007, 41.7225], // თემქა coordinates
+      zoom: 14,
+      pitch: 50,
     });
 
     // Add navigation controls
@@ -37,12 +37,12 @@ const Map = ({ height = "h-[500px]", showTokenInput = false }: MapProps) => {
       'top-right'
     );
 
-    // Add marker for office location
-    new mapboxgl.Marker({ color: '#FF0000' })
-      .setLngLat([44.7866, 41.7151])
+    // Add marker for office location in თემქა
+    new mapboxgl.Marker({ color: 'hsl(var(--primary))' })
+      .setLngLat([44.8007, 41.7225])
       .setPopup(
         new mapboxgl.Popup({ offset: 25 })
-          .setHTML('<div class="p-2"><h3 class="font-semibold">ModX Office</h3><p>ვაჟა-ფშაველას გამზირი 45</p></div>')
+          .setHTML('<div class="p-2"><h3 class="font-semibold">ModX Office</h3><p>თემქა, თბილისი</p></div>')
       )
       .addTo(map.current);
 

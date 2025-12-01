@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Bed, Bath, Maximize, ArrowLeft, MapPin, Send } from "lucide-react";
 import render1 from "@/assets/render-1.png";
@@ -51,6 +52,7 @@ const RenderDetail = () => {
       sqm: 85,
       address: "ვაჟა-ფშაველას გამზირი, თბილისი",
       images: [render1, render2, render3, render1],
+      views: [render2, render3, render1],
       features: [
         "პანორამული ფანჯრები",
         "ცენტრალური გათბობა",
@@ -70,6 +72,7 @@ const RenderDetail = () => {
       sqm: 60,
       address: "აღმაშენებლის გამზირი, თბილისი",
       images: [render2, render3, render1, render2],
+      views: [render1, render3, render2],
       features: [
         "ცენტრალური გათბობა",
         "კონდიციონერი",
@@ -88,6 +91,7 @@ const RenderDetail = () => {
       sqm: 120,
       address: "ჭავჭავაძის გამზირი, თბილისი",
       images: [render3, render1, render2, render3],
+      views: [render3, render2, render1],
       features: [
         "პრემიუმ მასალები",
         "პანორამული ხედები",
@@ -108,6 +112,7 @@ const RenderDetail = () => {
       sqm: 55,
       address: "დიღომი, თბილისი",
       images: [render1, render3, render2, render1],
+      views: [render2, render1, render3],
       features: [
         "მწვანე გარემო",
         "ახალი აშენება",
@@ -126,6 +131,7 @@ const RenderDetail = () => {
       sqm: 90,
       address: "საბურთალო, თბილისი",
       images: [render2, render1, render3, render2],
+      views: [render3, render1, render2],
       features: [
         "განვითარებული ინფრასტრუქტურა",
         "ცენტრალური მდებარეობა",
@@ -144,6 +150,7 @@ const RenderDetail = () => {
       sqm: 135,
       address: "ვაკე, თბილისი",
       images: [render3, render2, render1, render3],
+      views: [render1, render2, render3],
       features: [
         "პრესტიჟული რაიონი",
         "პრემიუმ მასალები",
@@ -203,10 +210,10 @@ const RenderDetail = () => {
         <Header />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">რენდერი ვერ მოიძებნა</h1>
-            <Button onClick={() => navigate("/renders")}>
+            <h1 className="text-2xl font-bold mb-4">ბინა ვერ მოიძებნა</h1>
+            <Button onClick={() => navigate("/apartments")}>
               <ArrowLeft className="mr-2 h-4 w-4" />
-              უკან რენდერებზე
+              უკან ბინებზე
             </Button>
           </div>
         </div>
@@ -217,10 +224,10 @@ const RenderDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{render.title} | ModeX - 3D რენდერი</title>
+        <title>{render.title} | ModX - ბინები</title>
         <meta name="description" content={render.description} />
-        <meta name="keywords" content={`რენდერი, 3D ვიზუალიზაცია, ${render.address}, ${render.beds} საძინებელი, ${render.sqm} მ²`} />
-        <link rel="canonical" href={`https://modex.ge/renders/${id}`} />
+        <meta name="keywords" content={`ბინა, ${render.address}, ${render.beds} ოთახი, ${render.sqm} მ²`} />
+        <link rel="canonical" href={`https://modx.ge/apartments/${id}`} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -230,184 +237,188 @@ const RenderDetail = () => {
           {/* Back button */}
           <Button 
             variant="ghost" 
-            onClick={() => navigate("/renders")}
+            onClick={() => navigate("/apartments")}
             className="mb-6 -ml-4"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            უკან რენდერებზე
+            უკან ბინებზე
           </Button>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Gallery Section */}
-            <div className="space-y-4">
-              {/* Main Image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
-                <img
-                  src={render.images[selectedImage]}
-                  alt={render.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          <Tabs defaultValue="about" className="w-full">
+            <TabsList className="mb-8 grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="about">ბინის შესახებ</TabsTrigger>
+              <TabsTrigger value="views">ხედები</TabsTrigger>
+            </TabsList>
 
-              {/* Thumbnail Images */}
-              <div className="grid grid-cols-4 gap-4">
-                {render.images.map((image: string, index: number) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`relative aspect-square overflow-hidden rounded-lg transition-all ${
-                      selectedImage === index
-                        ? "ring-2 ring-primary ring-offset-2"
-                        : "opacity-70 hover:opacity-100"
-                    }`}
-                  >
+            <TabsContent value="about" className="space-y-8">
+              <div className="grid lg:grid-cols-2 gap-12">
+                {/* Gallery Section */}
+                <div className="space-y-4">
+                  {/* Main Image */}
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
                     <img
-                      src={image}
-                      alt={`${render.title} - ხედი ${index + 1}`}
+                      src={render.images[selectedImage]}
+                      alt={render.title}
                       className="w-full h-full object-cover"
                     />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Info Section */}
-            <div className="space-y-8">
-              <div>
-                <h1 className="text-4xl font-bold mb-4">{render.title}</h1>
-                <div className="flex items-center text-muted-foreground mb-6">
-                  <MapPin className="h-5 w-5 mr-2" />
-                  {render.address}
-                </div>
-                <div className="text-3xl font-bold text-primary mb-6">
-                  {render.price}
-                </div>
-              </div>
-
-              {/* Property Stats */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Bed className="h-5 w-5 text-primary" />
-                    <span className="text-sm text-muted-foreground">საძინებელი</span>
                   </div>
-                  <div className="text-2xl font-bold">{render.beds}</div>
-                </div>
-                <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Bath className="h-5 w-5 text-primary" />
-                    <span className="text-sm text-muted-foreground">სააბაზანო</span>
-                  </div>
-                  <div className="text-2xl font-bold">{render.baths}</div>
-                </div>
-                <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Maximize className="h-5 w-5 text-primary" />
-                    <span className="text-sm text-muted-foreground">ფართობი</span>
-                  </div>
-                  <div className="text-2xl font-bold">{render.sqm} მ²</div>
-                </div>
-              </div>
 
-              {/* Description */}
-              <div>
-                <h2 className="text-xl font-semibold mb-3">აღწერა</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  {render.description}
-                </p>
-              </div>
+                  {/* Thumbnail Images */}
+                  <div className="grid grid-cols-4 gap-4">
+                    {render.images.map((image: string, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImage(index)}
+                        className={`relative aspect-square overflow-hidden rounded-lg transition-all ${
+                          selectedImage === index
+                            ? "ring-2 ring-primary ring-offset-2"
+                            : "opacity-70 hover:opacity-100"
+                        }`}
+                      >
+                        <img
+                          src={image}
+                          alt={`${render.title} - ხედი ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-              {/* Features */}
-              <div>
-                <h2 className="text-xl font-semibold mb-3">მახასიათებლები</h2>
-                <div className="grid grid-cols-2 gap-3">
-                  {render.features.map((feature: string, index: number) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 p-3 rounded-lg bg-muted/30"
-                    >
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span className="text-sm">{feature}</span>
+                {/* Info Section */}
+                <div className="space-y-8">
+                  <div>
+                    <h1 className="text-4xl font-bold mb-4">{render.title}</h1>
+                    <div className="flex items-center text-muted-foreground mb-6">
+                      <MapPin className="h-5 w-5 mr-2" />
+                      {render.address}
                     </div>
-                  ))}
+                    <div className="text-3xl font-bold text-primary mb-6">
+                      {render.price}
+                    </div>
+                  </div>
+
+                  {/* Property Stats */}
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl bg-muted/50 border border-border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Bed className="h-5 w-5 text-primary" />
+                        <span className="text-sm text-muted-foreground font-semibold">ოთახი</span>
+                      </div>
+                      <div className="text-2xl font-bold text-primary">{render.beds}</div>
+                    </div>
+                    <div className="p-4 rounded-xl bg-muted/50 border border-border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Bath className="h-5 w-5 text-primary" />
+                        <span className="text-sm text-muted-foreground font-semibold">სააბაზანო</span>
+                      </div>
+                      <div className="text-2xl font-bold text-primary">{render.baths}</div>
+                    </div>
+                    <div className="p-4 rounded-xl bg-muted/50 border border-border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Maximize className="h-5 w-5 text-primary" />
+                        <span className="text-sm text-muted-foreground font-semibold">ფართობი</span>
+                      </div>
+                      <div className="text-2xl font-bold text-primary">{render.sqm} მ²</div>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">აღწერა</h2>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {render.description}
+                    </p>
+                  </div>
+
+                  {/* Features */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">მახასიათებლები</h2>
+                    <div className="grid grid-cols-2 gap-3">
+                      {render.features.map((feature: string, index: number) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 p-3 rounded-lg bg-muted/30"
+                        >
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-            </div>
-          </div>
-
-          {/* Contact Form Section */}
-          <div className="mt-16 max-w-2xl mx-auto">
-            <div className="rounded-2xl border border-border bg-card p-8">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">დაინტერესდით ამ ქონებით?</h2>
-                <p className="text-muted-foreground">
-                  შეავსეთ ფორმა და ჩვენი წარმომადგენელი მალე დაგიკავშირდებით
+              {/* Contact Form Section */}
+              <div className="bg-card border border-border/50 rounded-2xl p-8">
+                <h2 className="text-2xl font-semibold mb-2">დაინტერესდით?</h2>
+                <p className="text-muted-foreground mb-6">
+                  მოგვწერეთ და ჩვენი გუნდი დაგიკავშირდებათ
                 </p>
-              </div>
-
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">სახელი *</Label>
-                  <Input
-                    id="name"
-                    placeholder="თქვენი სახელი"
-                    {...form.register("name")}
-                    className={form.formState.errors.name ? "border-destructive" : ""}
-                  />
-                  {form.formState.errors.name && (
-                    <p className="text-sm text-destructive">{form.formState.errors.name.message}</p>
-                  )}
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">ელ.ფოსტა *</Label>
+                
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="name">სახელი</Label>
+                      <Input
+                        id="name"
+                        {...form.register("name")}
+                        className={form.formState.errors.name ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.name && (
+                        <p className="text-sm text-destructive mt-1">
+                          {form.formState.errors.name.message}
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="phone">ტელეფონი</Label>
+                      <Input
+                        id="phone"
+                        {...form.register("phone")}
+                        className={form.formState.errors.phone ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.phone && (
+                        <p className="text-sm text-destructive mt-1">
+                          {form.formState.errors.phone.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="email">ელ.ფოსტა</Label>
                     <Input
                       id="email"
                       type="email"
-                      placeholder="your@email.com"
                       {...form.register("email")}
                       className={form.formState.errors.email ? "border-destructive" : ""}
                     />
                     {form.formState.errors.email && (
-                      <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+                      <p className="text-sm text-destructive mt-1">
+                        {form.formState.errors.email.message}
+                      </p>
                     )}
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">ტელეფონი *</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="+995 5XX XX XX XX"
-                      {...form.register("phone")}
-                      className={form.formState.errors.phone ? "border-destructive" : ""}
+                  
+                  <div>
+                    <Label htmlFor="message">შეტყობინება</Label>
+                    <Textarea
+                      id="message"
+                      rows={4}
+                      {...form.register("message")}
+                      className={form.formState.errors.message ? "border-destructive" : ""}
                     />
-                    {form.formState.errors.phone && (
-                      <p className="text-sm text-destructive">{form.formState.errors.phone.message}</p>
+                    {form.formState.errors.message && (
+                      <p className="text-sm text-destructive mt-1">
+                        {form.formState.errors.message.message}
+                      </p>
                     )}
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">შეტყობინება *</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="დაწერეთ თქვენი შეკითხვა ან კომენტარი..."
-                    rows={5}
-                    {...form.register("message")}
-                    className={form.formState.errors.message ? "border-destructive" : ""}
-                  />
-                  {form.formState.errors.message && (
-                    <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>
-                  )}
-                </div>
-
-                <div className="pt-2">
+                  
                   <Button 
                     type="submit" 
-                    size="lg" 
                     className="w-full"
                     disabled={isSubmitting}
                   >
@@ -416,18 +427,38 @@ const RenderDetail = () => {
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
-                        გაგზავნა
+                        შეტყობინების გაგზავნა
                       </>
                     )}
                   </Button>
-                </div>
+                </form>
+              </div>
+            </TabsContent>
 
-                <p className="text-xs text-muted-foreground text-center">
-                  * აუცილებელი ველები
+            <TabsContent value="views" className="space-y-6">
+              <div>
+                <h2 className="text-3xl font-bold mb-6">ხედები ბინიდან</h2>
+                <p className="text-muted-foreground mb-8">
+                  გაეცანით პანორამულ ხედებს, რომლებსაც თქვენ ამ ბინიდან დაინახავთ
                 </p>
-              </form>
-            </div>
-          </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {render.views?.map((view: string, index: number) => (
+                  <div key={index} className="relative aspect-video overflow-hidden rounded-2xl bg-muted group">
+                    <img
+                      src={view}
+                      alt={`ხედი ${index + 1}`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                      <p className="text-white font-medium">ხედი {index + 1}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </>
