@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from "./NavLink";
 import ContactDialog from "./ContactDialog";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 import { Button } from "./ui/button";
 
 const Header = () => {
@@ -49,10 +50,13 @@ const Header = () => {
             >
               {t('nav.blog')}
             </NavLink>
-            <ContactDialog>
-              <Button size="sm">{t('nav.contact')}</Button>
-            </ContactDialog>
-            <LanguageSwitcher />
+            <div className="flex items-center gap-2 ml-2">
+              <ThemeToggle />
+              <LanguageSwitcher />
+              <ContactDialog>
+                <Button size="sm" className="ml-2">{t('nav.contact')}</Button>
+              </ContactDialog>
+            </div>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -105,7 +109,8 @@ const Header = () => {
                     <Button size="sm" className="w-full">{t('nav.contact')}</Button>
                   </ContactDialog>
                 </div>
-                <div className="mt-4 pt-4 border-t border-border">
+                <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+                  <ThemeToggle />
                   <LanguageSwitcher />
                 </div>
               </nav>
