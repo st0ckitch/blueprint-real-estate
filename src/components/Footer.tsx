@@ -6,12 +6,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { z } from "zod";
+import { useTranslation } from 'react-i18next';
 const contactSchema = z.object({
   name: z.string().trim().min(2, "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო").max(100, "სახელი უნდა იყოს მაქსიმუმ 100 სიმბოლო"),
   email: z.string().trim().email("არასწორი ელ. ფოსტის ფორმატი").max(255, "ელ. ფოსტა უნდა იყოს მაქსიმუმ 255 სიმბოლო"),
   message: z.string().trim().min(10, "შეტყობინება უნდა იყოს მინიმუმ 10 სიმბოლო").max(1000, "შეტყობინება უნდა იყოს მაქსიმუმ 1000 სიმბოლო")
 });
 const Footer = () => {
+  const { t } = useTranslation();
   const {
     toast
   } = useToast();
@@ -81,7 +83,7 @@ const Footer = () => {
               </h3>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              ModX Development. პროექტები, საუკეთესო პროექტები თბილისში    
+              {t('footer.description')}
             </p>
             <div className="space-y-2">
               <a href="tel:+995557123456" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="დარეკეთ ნომერზე +995 557 123 456">
@@ -101,63 +103,63 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">სწრაფი ბმულები</h4>
+            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">{t('footer.quickLinks')}</h4>
             <nav className="space-y-2">
               <Link to="/" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                მთავარი
+                {t('footer.home')}
               </Link>
               <Link to="/projects/saburtalo" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                პროექტები
+                {t('footer.projects')}
               </Link>
               <Link to="/renders" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                რენდერები
+                {t('footer.renders')}
               </Link>
               <Link to="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                ბლოგი
+                {t('footer.blog')}
               </Link>
             </nav>
           </div>
 
           {/* Project Locations */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">ლოკაციები</h4>
+            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">{t('footer.locations')}</h4>
             <nav className="space-y-2">
               <Link to="/projects/saburtalo" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                საბურთალოს პროექტი
+                {t('footer.saburthalo')}
               </Link>
               <Link to="/projects/gldani" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                გლდანის პროექტი
+                {t('footer.gldani')}
               </Link>
               <Link to="/projects/varketili" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                ვარკეთილის პროექტი
+                {t('footer.varketili')}
               </Link>
               <Link to="/projects/mtskheta" className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 transition-transform">
-                მცხეთის პროექტი
+                {t('footer.mtskheta')}
               </Link>
             </nav>
           </div>
 
           {/* Contact Form */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">დაგვიკავშირდით</h4>
+            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">{t('footer.contactUs')}</h4>
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
-                <Input type="text" name="name" placeholder="თქვენი სახელი" value={formData.name} onChange={handleChange} className={errors.name ? "border-destructive" : ""} aria-label="სახელი" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />
+                <Input type="text" name="name" placeholder={t('footer.yourName')} value={formData.name} onChange={handleChange} className={errors.name ? "border-destructive" : ""} aria-label="სახელი" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />
                 {errors.name && <p id="name-error" className="text-xs text-destructive mt-1">{errors.name}</p>}
               </div>
               
               <div>
-                <Input type="email" name="email" placeholder="ელ. ფოსტა" value={formData.email} onChange={handleChange} className={errors.email ? "border-destructive" : ""} aria-label="ელექტრონული ფოსტა" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />
+                <Input type="email" name="email" placeholder={t('footer.yourEmail')} value={formData.email} onChange={handleChange} className={errors.email ? "border-destructive" : ""} aria-label="ელექტრონული ფოსტა" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />
                 {errors.email && <p id="email-error" className="text-xs text-destructive mt-1">{errors.email}</p>}
               </div>
               
               <div>
-                <Textarea name="message" placeholder="თქვენი შეტყობინება" value={formData.message} onChange={handleChange} rows={3} className={errors.message ? "border-destructive" : ""} aria-label="შეტყობინება" aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} />
+                <Textarea name="message" placeholder={t('footer.yourMessage')} value={formData.message} onChange={handleChange} rows={3} className={errors.message ? "border-destructive" : ""} aria-label="შეტყობინება" aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} />
                 {errors.message && <p id="message-error" className="text-xs text-destructive mt-1">{errors.message}</p>}
               </div>
               
               <Button type="submit" className="w-full" disabled={isSubmitting} aria-label="გაგზავნა">
-                {isSubmitting ? "იგზავნება..." : "გაგზავნა"}
+                {isSubmitting ? t('footer.submitting') : t('footer.submit')}
               </Button>
             </form>
           </div>
@@ -166,13 +168,13 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border/50">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2025 ModX. ყველა უფლება დაცულია.</p>
+            <p>{t('footer.rights')}</p>
             <div className="flex gap-6">
               <Link to="/" className="hover:text-primary transition-colors">
-                კონფიდენციალურობა
+                {t('footer.privacy')}
               </Link>
               <Link to="/" className="hover:text-primary transition-colors">
-                წესები და პირობები
+                {t('footer.terms')}
               </Link>
             </div>
           </div>

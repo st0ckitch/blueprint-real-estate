@@ -11,18 +11,34 @@
   },
   "projects": {
     "current": "Current Projects",
-    "tbilisi_themka": "ModX Tbilisi - Temka"
+    "tbilisi_themka": "ModX Tbilisi - Temka",
+    "selectLocation": "Select Location",
+    "themka": "Temka"
   },
   "apartments": {
     "title": "Apartments",
     "rooms": "Room",
     "bathrooms": "Bathroom",
-    "area": "Area"
+    "area": "Area",
+    "sqm": "sqm",
+    "viewAll": "View All",
+    "heroTitle": "Professional",
+    "heroSubtitle": "3D Renders",
+    "heroDescription": "Photorealistic visualizations that come to life. Every detail created with the highest quality standards.",
+    "viewPortfolio": "View Portfolio",
+    "contactUs": "Contact Us",
+    "quality4k": "Ultra HD Quality",
+    "views360": "Full Views",
+    "fastDelivery": "Fast Delivery",
+    "projects": "Project",
+    "visualization3d": "3D Visualization"
   },
   "blog": {
-    "title": "News and Tips",
+    "title": "Blog",
+    "subtitle": "News and Tips",
     "viewAll": "View All",
     "readMore": "Read More",
+    "readTime": "min",
     "categories": {
       "all": "All",
       "news": "News",
@@ -33,14 +49,31 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "Have a question or need help? Contact our team. We are here to help you with any issue.",
+    "heroTitle": "Let's talk about",
+    "heroHighlight": "your project",
+    "heroDescription": "Our team is ready to help you find the perfect real estate",
+    "getInTouch": "Get in Touch",
     "name": "Name",
     "email": "Email",
+    "phone": "Phone",
     "message": "Message",
     "send": "Send",
     "sending": "Sending...",
     "writeUs": "Email Us",
     "callUs": "Call Us",
     "ourLocation": "Our Location",
+    "ourOffice": "Our Office",
+    "visitUs": "Visit our office and see all projects in person",
+    "sendMessage": "Send a Message",
+    "formDescription": "Fill out the form and we will contact you within 24 hours",
+    "address": "Address",
+    "addressValue": "Vazha-Pshavela Ave 45, Tbilisi, Georgia",
+    "workingHours": "Working Hours",
+    "workingHoursValue": "Mon-Sat: 10:00 - 19:00\nSunday: Closed",
+    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "example@mail.com",
+    "phonePlaceholder": "+995 5XX XXX XXX",
+    "messagePlaceholder": "Write your message...",
     "features": {
       "personalized": "Personalized Service",
       "quick": "Quick Response",
@@ -58,6 +91,41 @@
     "contactForInfo": "Contact us for more information",
     "interested": "Interested?",
     "phone": "Phone",
-    "sendInquiry": "Send Inquiry"
+    "sendInquiry": "Send Inquiry",
+    "specifications": "Specifications",
+    "price": "Price",
+    "location": "Location"
+  },
+  "footer": {
+    "description": "ModX Development. Projects, the best projects in Tbilisi",
+    "quickLinks": "Quick Links",
+    "locations": "Locations",
+    "contactUs": "Contact Us",
+    "rights": "© 2025 ModX. All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms & Conditions",
+    "home": "Home",
+    "projects": "Projects",
+    "renders": "Renders",
+    "blog": "Blog",
+    "saburthalo": "Saburtalo Project",
+    "gldani": "Gldani Project",
+    "varketili": "Varketili Project",
+    "mtskheta": "Mtskheta Project",
+    "yourName": "Your Name",
+    "yourEmail": "Email",
+    "yourMessage": "Your Message",
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  },
+  "viewer360": {
+    "title": "360° Virtual Tour",
+    "description": "Experience the apartment with a 360° virtual tour. Move around and explore every corner."
+  },
+  "validation": {
+    "nameMin": "Name must be at least 2 characters",
+    "emailInvalid": "Invalid email",
+    "phoneInvalid": "Invalid phone number",
+    "messageMin": "Message must be at least 10 characters"
   }
 }
