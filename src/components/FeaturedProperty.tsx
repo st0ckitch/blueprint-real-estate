@@ -106,7 +106,7 @@ const FeaturedProperty = () => {
       {hasBanners ? (
         <div 
           ref={containerRef}
-          className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl"
+          className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden"
         >
           <div 
             className="absolute inset-0 w-full h-[130%] top-0"
