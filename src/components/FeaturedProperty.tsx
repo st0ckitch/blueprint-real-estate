@@ -52,9 +52,9 @@ const FeaturedProperty = () => {
     },
   });
 
-  // Parallax effect
+  // Parallax effect - image moves up on scroll
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,14 +62,17 @@ const FeaturedProperty = () => {
         const rect = containerRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         
-        // Only apply parallax when element is in view
+        // Calculate how far through the viewport the element is
+        // Start with image shifted down, move up as user scrolls
         if (rect.top < windowHeight && rect.bottom > 0) {
-          setScrollY(window.scrollY * 0.3); // 0.3 = parallax intensity
+          const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+          setParallaxOffset(scrollProgress * 60); // 60px max movement
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -106,10 +109,10 @@ const FeaturedProperty = () => {
           className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl"
         >
           <div 
-            className="absolute inset-0 w-full h-[120%] -top-[10%]"
+            className="absolute inset-0 w-full h-[130%] top-0"
             style={{ 
-              transform: `translateY(${scrollY}px)`,
-              transition: 'transform 0.1s ease-out'
+              transform: `translateY(${-30 + parallaxOffset}px)`,
+              transition: 'transform 0.05s linear'
             }}
           >
             <img
