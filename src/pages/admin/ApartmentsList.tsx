@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 
@@ -44,6 +44,8 @@ interface Apartment {
   bedrooms: number | null;
   living_area: number | null;
   balcony_area: number | null;
+  bathroom_areas: number[] | null;
+  bedroom_areas: number[] | null;
   status: 'available' | 'reserved' | 'sold';
   image_url: string | null;
   floor_plan_url: string | null;
@@ -85,6 +87,8 @@ const ApartmentsList = () => {
     bedrooms: '',
     living_area: '',
     balcony_area: '',
+    bathroom_areas: [''] as string[],
+    bedroom_areas: [''] as string[],
     status: 'available' as Apartment['status'],
     image_url: '',
     floor_plan_url: '',
@@ -194,6 +198,8 @@ const ApartmentsList = () => {
       bedrooms: '',
       living_area: '',
       balcony_area: '',
+      bathroom_areas: [''],
+      bedroom_areas: [''],
       status: 'available',
       image_url: '',
       floor_plan_url: '',
@@ -203,6 +209,12 @@ const ApartmentsList = () => {
 
   const openEditDialog = (apartment: Apartment) => {
     setEditingApartment(apartment);
+    const bathroomAreas = (apartment.bathroom_areas && Array.isArray(apartment.bathroom_areas) && apartment.bathroom_areas.length > 0) 
+      ? apartment.bathroom_areas.map(a => a.toString()) 
+      : [''];
+    const bedroomAreas = (apartment.bedroom_areas && Array.isArray(apartment.bedroom_areas) && apartment.bedroom_areas.length > 0) 
+      ? apartment.bedroom_areas.map(a => a.toString()) 
+      : [''];
     setFormData({
       project_id: apartment.project_id,
       title_ka: apartment.title_ka || '',
@@ -215,6 +227,8 @@ const ApartmentsList = () => {
       bedrooms: apartment.bedrooms?.toString() || '',
       living_area: apartment.living_area?.toString() || '',
       balcony_area: apartment.balcony_area?.toString() || '',
+      bathroom_areas: bathroomAreas,
+      bedroom_areas: bedroomAreas,
       status: apartment.status,
       image_url: apartment.image_url || '',
       floor_plan_url: apartment.floor_plan_url || '',
@@ -229,6 +243,13 @@ const ApartmentsList = () => {
       return;
     }
 
+    const bathroomAreasArray = formData.bathroom_areas
+      .filter(a => a.trim() !== '')
+      .map(a => parseFloat(a));
+    const bedroomAreasArray = formData.bedroom_areas
+      .filter(a => a.trim() !== '')
+      .map(a => parseFloat(a));
+
     const data = {
       project_id: formData.project_id,
       title_ka: formData.title_ka || null,
@@ -241,6 +262,8 @@ const ApartmentsList = () => {
       bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
       living_area: formData.living_area ? parseFloat(formData.living_area) : null,
       balcony_area: formData.balcony_area ? parseFloat(formData.balcony_area) : null,
+      bathroom_areas: bathroomAreasArray.length > 0 ? bathroomAreasArray : null,
+      bedroom_areas: bedroomAreasArray.length > 0 ? bedroomAreasArray : null,
       status: formData.status,
       image_url: formData.image_url || null,
       floor_plan_url: formData.floor_plan_url || null,
@@ -348,9 +371,9 @@ const ApartmentsList = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>სველი წერტილი</Label>
+                  <Label>სველი წერტილი (რაოდენობა)</Label>
                   <Input
                     type="number"
                     value={formData.bathrooms}
@@ -358,13 +381,116 @@ const ApartmentsList = () => {
                   />
                 </div>
                 <div>
-                  <Label>საძინებელი</Label>
+                  <Label>საძინებელი (რაოდენობა)</Label>
                   <Input
                     type="number"
                     value={formData.bedrooms}
                     onChange={(e) => setFormData({ ...formData, bedrooms: e.target.value })}
                   />
                 </div>
+              </div>
+
+              {/* Bathroom Areas */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label>სველი წერტილების ფართები (მ²)</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setFormData({ 
+                      ...formData, 
+                      bathroom_areas: [...formData.bathroom_areas, ''] 
+                    })}
+                  >
+                    <Plus className="h-3 w-3 mr-1" />
+                    დამატება
+                  </Button>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {formData.bathroom_areas.map((area, index) => (
+                    <div key={index} className="flex items-center gap-1">
+                      <Input
+                        type="number"
+                        step="0.1"
+                        placeholder={`#${index + 1}`}
+                        value={area}
+                        onChange={(e) => {
+                          const newAreas = [...formData.bathroom_areas];
+                          newAreas[index] = e.target.value;
+                          setFormData({ ...formData, bathroom_areas: newAreas });
+                        }}
+                      />
+                      {formData.bathroom_areas.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 flex-shrink-0"
+                          onClick={() => {
+                            const newAreas = formData.bathroom_areas.filter((_, i) => i !== index);
+                            setFormData({ ...formData, bathroom_areas: newAreas });
+                          }}
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bedroom Areas */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label>საძინებლების ფართები (მ²)</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setFormData({ 
+                      ...formData, 
+                      bedroom_areas: [...formData.bedroom_areas, ''] 
+                    })}
+                  >
+                    <Plus className="h-3 w-3 mr-1" />
+                    დამატება
+                  </Button>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {formData.bedroom_areas.map((area, index) => (
+                    <div key={index} className="flex items-center gap-1">
+                      <Input
+                        type="number"
+                        step="0.1"
+                        placeholder={`#${index + 1}`}
+                        value={area}
+                        onChange={(e) => {
+                          const newAreas = [...formData.bedroom_areas];
+                          newAreas[index] = e.target.value;
+                          setFormData({ ...formData, bedroom_areas: newAreas });
+                        }}
+                      />
+                      {formData.bedroom_areas.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 flex-shrink-0"
+                          onClick={() => {
+                            const newAreas = formData.bedroom_areas.filter((_, i) => i !== index);
+                            setFormData({ ...formData, bedroom_areas: newAreas });
+                          }}
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>მისალები (მ²)</Label>
                   <Input

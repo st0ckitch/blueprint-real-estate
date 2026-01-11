@@ -79,6 +79,8 @@ const RenderDetail = () => {
     bedrooms: apartment.bedrooms || 0,
     living_area: apartment.living_area || 0,
     balcony_area: apartment.balcony_area || 0,
+    bathroom_areas: (apartment.bathroom_areas as number[] | null) || [],
+    bedroom_areas: (apartment.bedroom_areas as number[] | null) || [],
     address: apartment.projects ? (currentLang === 'ka' ? apartment.projects.address_ka : apartment.projects.address_en) : 'თბილისი',
     images: apartment.image_url ? [apartment.image_url, ...defaultImages] : defaultImages,
     views: apartment.floor_plan_url ? [apartment.floor_plan_url, ...defaultImages] : defaultImages,
@@ -238,13 +240,34 @@ const RenderDetail = () => {
                       </div>
                       <div className="text-2xl font-bold">{apartmentData.beds}</div>
                     </div>
+                    
+                    {/* Bathroom with split areas */}
                     <div className="p-4 rounded-2xl border-2 border-border bg-background">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Bath className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">სველი წერტილი</span>
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center gap-2">
+                          <Bath className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-xs text-muted-foreground">სველი წერტ...</span>
+                        </div>
+                        {apartmentData.bathroom_areas.length > 0 && (
+                          <span className="text-[10px] text-muted-foreground border border-border rounded-full px-1.5">
+                            {apartmentData.bathroom_areas.length}
+                          </span>
+                        )}
                       </div>
                       <div className="text-2xl font-bold">{apartmentData.baths}</div>
+                      {apartmentData.bathroom_areas.length > 0 && (
+                        <div className="mt-2 pt-2 border-t border-border">
+                          <div className="flex flex-col gap-0.5">
+                            {apartmentData.bathroom_areas.map((area, index) => (
+                              <span key={index} className="text-xs text-muted-foreground">
+                                {area} მ²
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
+
                     <div className="p-4 rounded-2xl border-2 border-border bg-background">
                       <div className="flex items-center gap-2 mb-1">
                         <Maximize className="h-4 w-4 text-muted-foreground" />
@@ -277,8 +300,26 @@ const RenderDetail = () => {
                     )}
                     {apartmentData.bedrooms > 0 && (
                       <div className="p-4 rounded-2xl border-2 border-border bg-background">
-                        <span className="text-xs text-muted-foreground">საძინებელი</span>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-muted-foreground">საძინებელი</span>
+                          {apartmentData.bedroom_areas.length > 0 && (
+                            <span className="text-[10px] text-muted-foreground border border-border rounded-full px-1.5">
+                              {apartmentData.bedroom_areas.length}
+                            </span>
+                          )}
+                        </div>
                         <div className="text-2xl font-bold mt-1">{apartmentData.bedrooms}</div>
+                        {apartmentData.bedroom_areas.length > 0 && (
+                          <div className="mt-2 pt-2 border-t border-border">
+                            <div className="flex flex-col gap-0.5">
+                              {apartmentData.bedroom_areas.map((area, index) => (
+                                <span key={index} className="text-xs text-muted-foreground">
+                                  {area} მ²
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

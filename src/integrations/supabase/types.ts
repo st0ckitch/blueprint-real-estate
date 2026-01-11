@@ -99,7 +99,9 @@ export type Database = {
         Row: {
           area: number | null
           balcony_area: number | null
+          bathroom_areas: Json | null
           bathrooms: number | null
+          bedroom_areas: Json | null
           bedrooms: number | null
           created_at: string
           floor: number | null
@@ -120,7 +122,9 @@ export type Database = {
         Insert: {
           area?: number | null
           balcony_area?: number | null
+          bathroom_areas?: Json | null
           bathrooms?: number | null
+          bedroom_areas?: Json | null
           bedrooms?: number | null
           created_at?: string
           floor?: number | null
@@ -141,7 +145,9 @@ export type Database = {
         Update: {
           area?: number | null
           balcony_area?: number | null
+          bathroom_areas?: Json | null
           bathrooms?: number | null
+          bedroom_areas?: Json | null
           bedrooms?: number | null
           created_at?: string
           floor?: number | null
