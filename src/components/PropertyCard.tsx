@@ -1,6 +1,8 @@
 import { Bed, Bath, Maximize } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface PropertyCardProps {
+  id?: string;
   image: string;
   price?: string;
   beds?: number;
@@ -9,8 +11,8 @@ interface PropertyCardProps {
   address?: string;
 }
 
-const PropertyCard = ({ image, price, beds, baths, sqm, address }: PropertyCardProps) => {
-  return (
+const PropertyCard = ({ id, image, price, beds, baths, sqm, address }: PropertyCardProps) => {
+  const content = (
     <div className="property-card overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
       <div className="relative h-[250px] overflow-hidden">
         <img
@@ -50,6 +52,12 @@ const PropertyCard = ({ image, price, beds, baths, sqm, address }: PropertyCardP
       )}
     </div>
   );
+
+  if (id) {
+    return <Link to={`/apartments/${id}`}>{content}</Link>;
+  }
+
+  return content;
 };
 
 export default PropertyCard;

@@ -18,6 +18,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useTranslation } from 'react-i18next';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
@@ -62,7 +64,8 @@ const blogArticles = [{
   image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=600&fit=crop"
 }];
 const Index = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const {
     toast
   } = useToast();
@@ -77,6 +80,23 @@ const Index = () => {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema)
   });
+
+  // Fetch apartments from database
+  const { data: apartments } = useQuery({
+    queryKey: ['homepage-apartments'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('apartments')
+        .select('*, projects(name_ka, name_en, address_ka, address_en)')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true })
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const onSubmit = async (data: ContactFormData) => {
       try {
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -93,6 +113,9 @@ const Index = () => {
       });
     }
   };
+
+  const defaultImages = [render1, render2, render3];
+
   return <div className="min-h-screen bg-background">
       <Header />
       
@@ -121,9 +144,26 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <PropertyCard image={render1} price="65,000₾" beds={2} baths={1} sqm={45} address="თემქა, თბილისი" />
-            <PropertyCard image={render2} price="48,000₾" beds={1} baths={1} sqm={32} address="თემქა, თბილისი" />
-            <PropertyCard image={render3} price="125,000₾" beds={3} baths={2} sqm={78} address="თემქა, თბილისი" />
+            {apartments && apartments.length > 0 ? (
+              apartments.map((apt, index) => (
+                <PropertyCard 
+                  key={apt.id}
+                  id={apt.id}
+                  image={apt.image_url || defaultImages[index % 3]} 
+                  price={apt.price ? `${apt.price.toLocaleString()}₾` : undefined}
+                  beds={apt.rooms || undefined} 
+                  baths={apt.bathrooms || undefined} 
+                  sqm={apt.area || undefined} 
+                  address={apt.projects ? (currentLang === 'ka' ? apt.projects.address_ka : apt.projects.address_en) || 'თბილისი' : 'თბილისი'} 
+                />
+              ))
+            ) : (
+              <>
+                <PropertyCard image={render1} price="65,000₾" beds={2} baths={1} sqm={45} address="თემქა, თბილისი" />
+                <PropertyCard image={render2} price="48,000₾" beds={1} baths={1} sqm={32} address="თემქა, თბილისი" />
+                <PropertyCard image={render3} price="125,000₾" beds={3} baths={2} sqm={78} address="თემქა, თბილისი" />
+              </>
+            )}
           </div>
         </section>
 
