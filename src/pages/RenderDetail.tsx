@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import * as z from "zod";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -11,10 +13,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Bed, Bath, Maximize, ArrowLeft, MapPin, Send, Grid3X3, Building, Home, Square } from "lucide-react";
+import { Bed, Bath, Maximize, ArrowLeft, MapPin, Send, Grid3X3, Building, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
+
+const defaultImages = [render1, render2, render3];
 
 const inquiryFormSchema = z.object({
   name: z.string().trim().min(2, "სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს").max(100, "სახელი ძალიან გრძელია"),
@@ -29,6 +34,8 @@ const RenderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language;
   
   const form = useForm<InquiryFormData>({
     resolver: zodResolver(inquiryFormSchema),
@@ -39,167 +46,59 @@ const RenderDetail = () => {
       message: "",
     },
   });
-  
-  // Render data with full details
-  const renderData: Record<string, any> = {
-    "1": {
-      id: "1",
-      title: "თანამედროვე ბინა ვაჟა-ფშაველას გამზირზე",
-      description: "ეს არის ულამაზესი თანამედროვე ბინა ვაჟა-ფშაველას გამზირზე, რომელიც გთავაზობთ კომფორტულ საცხოვრებელ სივრცეს და შესანიშნავ ხედებს. ბინა აღჭურვილია უახლესი ტექნოლოგიებით და მაღალხარისხიანი მასალებით. დიზაინი მოიცავს ღია სივრცეს, რომელიც აერთიანებს სასტუმროს და სამზარეულოს, სამ კომფორტულ საძინებელს და ორ თანამედროვე სააბაზანოს. დიდი ფანჯრები უზრუნველყოფს ბუნებრივი განათების მაქსიმალურ შემოსვლას.",
-      price: "75,000₾",
-      beds: 3,
-      baths: 2,
-      sqm: 85,
-      floor: 4,
-      bedrooms: 2,
-      living_area: 31.3,
-      balcony_area: 12.5,
-      address: "ვაჟა-ფშაველას გამზირი, თბილისი",
-      images: [render1, render2, render3, render1],
-      views: [render2, render3, render1],
-      features: [
-        "პანორამული ფანჯრები",
-        "ცენტრალური გათბობა",
-        "კონდიციონერი",
-        "ავეჯით",
-        "ახალი რემონტი",
-        "პარკინგი"
-      ]
-    },
-    "2": {
-      id: "2",
-      title: "მყუდრო ბინა აღმაშენებლის გამზირზე",
-      description: "კომფორტული ორსაძინებლიანი ბინა აღმაშენებლის გამზირზე, იდეალური ახალგაზრდა ოჯახებისთვის ან წყვილებისთვის. ბინა მდებარეობს მოწესრიგებულ უბანში, ახლოს საზოგადოებრივი ტრანსპორტის გაჩერებასთან და ყველა საჭირო ინფრასტრუქტურასთან. თანამედროვე დიზაინი და ფუნქციონალური განლაგება უზრუნველყოფს მაქსიმალურ კომფორტს.",
-      price: "65,000₾",
-      beds: 2,
-      baths: 1,
-      sqm: 60,
-      floor: 3,
-      bedrooms: 1,
-      living_area: 22.5,
-      balcony_area: 8.2,
-      address: "აღმაშენებლის გამზირი, თბილისი",
-      images: [render2, render3, render1, render2],
-      views: [render1, render3, render2],
-      features: [
-        "ცენტრალური გათბობა",
-        "კონდიციონერი",
-        "ბუნებრივი განათება",
-        "ახალი სანტექნიკა",
-        "უსაფრთხოების სისტემა"
-      ]
-    },
-    "3": {
-      id: "3",
-      title: "პრემიუმ ბინა ჭავჭავაძის გამზირზე",
-      description: "განსაკუთრებული პრემიუმ კლასის ოთხსაძინებლიანი ბინა ჭავჭავაძის გამზირზე. იდეალური არჩევანი დიდი ოჯახებისთვის, რომლებიც აფასებენ სივრცეს, კომფორტს და ხარისხს. ბინა აღჭურვილია მაღალკლასიანი ტექნიკით, დიზაინერული ავეჯით და მოიცავს სამ თანამედროვე სააბაზანოს. დიდი ბალკონი იძლევა შესანიშნავ ხედებს ქალაქზე.",
-      price: "95,000₾",
-      beds: 4,
-      baths: 2,
-      sqm: 120,
-      floor: 7,
-      bedrooms: 3,
-      living_area: 45.8,
-      balcony_area: 18.5,
-      address: "ჭავჭავაძის გამზირი, თბილისი",
-      images: [render3, render1, render2, render3],
-      views: [render3, render2, render1],
-      features: [
-        "პრემიუმ მასალები",
-        "პანორამული ხედები",
-        "დიზაინერული ავეჯი",
-        "VRV სისტემა",
-        "სმარტ სახლის სისტემა",
-        "დაცული ეზო",
-        "ორი პარკინგი"
-      ]
-    },
-    "4": {
-      id: "4",
-      title: "თანამედროვე ბინა დიღომში",
-      description: "ეკოლოგიურად სუფთა რაიონში, დიღომში მდებარე კომფორტული ბინა. იდეალური ვარიანტი მათთვის, ვინც ეძებს სიმშვიდეს ქალაქის ხმაურისგან, მაგრამ ახლოს ცენტრთან. ორი საძინებელი და თანამედროვე დიზაინი ქმნის მყუდრო საცხოვრებელ სივრცეს. განვითარებული ინფრასტრუქტურა და ახლოს ბუნება.",
-      price: "58,000₾",
-      beds: 2,
-      baths: 1,
-      sqm: 55,
-      floor: 2,
-      bedrooms: 1,
-      living_area: 18.4,
-      balcony_area: 6.5,
-      address: "დიღომი, თბილისი",
-      images: [render1, render3, render2, render1],
-      views: [render2, render1, render3],
-      features: [
-        "მწვანე გარემო",
-        "ახალი აშენება",
-        "ევრორემონტი",
-        "კეთილმოწყობილი ეზო",
-        "საბავშვო მოედანი"
-      ]
-    },
-    "5": {
-      id: "5",
-      title: "ოჯახური ბინა საბურთალოზე",
-      description: "საბურთალოს ცენტრალურ ნაწილში მდებარე სამსაძინებლიანი ბინა. იდეალურია ოჯახებისთვის, ახლოს სკოლებთან, საბაღნო ბაღებთან და ყველა საჭირო ინფრასტრუქტურასთან. ბინა აღჭურვილია ყველა საჭირო კომუნიკაციებით და გადიოდა კაპიტალური რემონტი.",
-      price: "82,000₾",
-      beds: 3,
-      baths: 2,
-      sqm: 90,
-      floor: 5,
-      bedrooms: 2,
-      living_area: 28.7,
-      balcony_area: 10.2,
-      address: "საბურთალო, თბილისი",
-      images: [render2, render1, render3, render2],
-      views: [render3, render1, render2],
-      features: [
-        "განვითარებული ინფრასტრუქტურა",
-        "ცენტრალური მდებარეობა",
-        "ახალი სანტექნიკა",
-        "ავეჯით",
-        "პარკინგი"
-      ]
-    },
-    "6": {
-      id: "6",
-      title: "ლუქს ბინა ვაკეში",
-      description: "ექსკლუზიური ოთხსაძინებლიანი ბინა თბილისის პრესტიჟულ რაიონში - ვაკეში. ბინა განლაგებულია ახალ კორპუსში და აღჭურვილია ყველა თანამედროვე კომფორტით. სამი ფართო სააბაზანო, ვრცელი ბალკონი პანორამული ხედებით და პრემიუმ მასალები ქმნის ცხოვრების ახალ სტანდარტს.",
-      price: "110,000₾",
-      beds: 4,
-      baths: 3,
-      sqm: 135,
-      floor: 10,
-      bedrooms: 3,
-      living_area: 52.3,
-      balcony_area: 22.8,
-      address: "ვაკე, თბილისი",
-      images: [render3, render2, render1, render3],
-      views: [render1, render2, render3],
-      features: [
-        "პრესტიჟული რაიონი",
-        "პრემიუმ მასალები",
-        "VIP შესასვლელი",
-        "კონსიერჟი",
-        "ფიტნეს დარბაზი",
-        "შიდა ეზო",
-        "ორი პარკინგი"
-      ]
-    }
-  };
 
-  const render = renderData[id || "1"];
+  // Fetch apartment from database
+  const { data: apartment, isLoading } = useQuery({
+    queryKey: ['apartment', id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('apartments')
+        .select('*, projects(name_ka, name_en, address_ka, address_en)')
+        .eq('id', id)
+        .maybeSingle();
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!id,
+  });
+
   const [selectedImage, setSelectedImage] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Build apartment data from DB or use defaults
+  const apartmentData = apartment ? {
+    id: apartment.id,
+    title: currentLang === 'ka' ? apartment.title_ka : apartment.title_en,
+    description: `${currentLang === 'ka' ? apartment.title_ka : apartment.title_en} - ${apartment.rooms} ოთახიანი ბინა, ${apartment.area} მ², ${apartment.floor} სართული`,
+    price: apartment.price ? `${apartment.price.toLocaleString()}₾` : '-',
+    beds: apartment.rooms || 0,
+    baths: apartment.bathrooms || 1,
+    sqm: apartment.area || 0,
+    floor: apartment.floor || 1,
+    bedrooms: apartment.bedrooms || 0,
+    living_area: apartment.living_area || 0,
+    balcony_area: apartment.balcony_area || 0,
+    address: apartment.projects ? (currentLang === 'ka' ? apartment.projects.address_ka : apartment.projects.address_en) : 'თბილისი',
+    images: apartment.image_url ? [apartment.image_url, ...defaultImages] : defaultImages,
+    views: apartment.floor_plan_url ? [apartment.floor_plan_url, ...defaultImages] : defaultImages,
+    features: [
+      "ცენტრალური გათბობა",
+      "კონდიციონერი", 
+      "ახალი რემონტი",
+      "პარკინგი",
+      "უსაფრთხოების სისტემა"
+    ]
+  } : null;
+
   const onSubmit = async (data: InquiryFormData) => {
+    if (!apartmentData) return;
     setIsSubmitting(true);
     
     try {
-      // Validate all inputs before processing
       const validatedData = inquiryFormSchema.parse(data);
       
-      // Create WhatsApp message with property details
-      const propertyInfo = `უძრავი ქონება: ${render.title}\nმისამართი: ${render.address}\nფასი: ${render.price}`;
+      const propertyInfo = `უძრავი ქონება: ${apartmentData.title}\nმისამართი: ${apartmentData.address}\nფასი: ${apartmentData.price}`;
       const whatsappMessage = encodeURIComponent(
         `გამარჯობა! მაინტერესებს შემდეგი ქონება:\n\n${propertyInfo}\n\n` +
         `სახელი: ${validatedData.name}\n` +
@@ -208,7 +107,6 @@ const RenderDetail = () => {
         `შეტყობინება: ${validatedData.message}`
       );
       
-      // Open WhatsApp (you can replace this with actual backend call)
       window.open(`https://wa.me/995599123456?text=${whatsappMessage}`, '_blank');
       
       toast({
@@ -228,16 +126,27 @@ const RenderDetail = () => {
     }
   };
 
-  if (!render) {
+  if (isLoading) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </>
+    );
+  }
+
+  if (!apartmentData) {
     return (
       <>
         <Header />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">ბინა ვერ მოიძებნა</h1>
-            <Button onClick={() => navigate("/apartments")}>
+            <Button onClick={() => navigate("/projects/themka")}>
               <ArrowLeft className="mr-2 h-4 w-4" />
-              უკან ბინებზე
+              უკან პროექტებზე
             </Button>
           </div>
         </div>
@@ -248,9 +157,9 @@ const RenderDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{render.title} | ModX - ბინები</title>
-        <meta name="description" content={render.description} />
-        <meta name="keywords" content={`ბინა, ${render.address}, ${render.beds} ოთახი, ${render.sqm} მ²`} />
+        <title>{apartmentData.title} | ModX - ბინები</title>
+        <meta name="description" content={apartmentData.description} />
+        <meta name="keywords" content={`ბინა, ${apartmentData.address}, ${apartmentData.beds} ოთახი, ${apartmentData.sqm} მ²`} />
         <link rel="canonical" href={`https://modx.ge/apartments/${id}`} />
       </Helmet>
 
@@ -261,35 +170,33 @@ const RenderDetail = () => {
           {/* Back button */}
           <Button 
             variant="ghost" 
-            onClick={() => navigate("/apartments")}
+            onClick={() => navigate("/projects/themka")}
             className="mb-6 -ml-4"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            უკან ბინებზე
+            უკან პროექტზე
           </Button>
 
           <Tabs defaultValue="about" className="w-full">
             <TabsList className="mb-8 grid w-full max-w-md grid-cols-2">
               <TabsTrigger value="about">ბინის შესახებ</TabsTrigger>
-              <TabsTrigger value="views">ხედები</TabsTrigger>
+              <TabsTrigger value="views">გეგმა</TabsTrigger>
             </TabsList>
 
             <TabsContent value="about" className="space-y-8">
               <div className="grid lg:grid-cols-2 gap-12">
                 {/* Gallery Section */}
                 <div className="space-y-4">
-                  {/* Main Image */}
                   <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
                     <img
-                      src={render.images[selectedImage]}
-                      alt={render.title}
+                      src={apartmentData.images[selectedImage]}
+                      alt={apartmentData.title || ''}
                       className="w-full h-full object-cover"
                     />
                   </div>
 
-                  {/* Thumbnail Images */}
                   <div className="grid grid-cols-4 gap-4">
-                    {render.images.map((image: string, index: number) => (
+                    {apartmentData.images.slice(0, 4).map((image: string, index: number) => (
                       <button
                         key={index}
                         onClick={() => setSelectedImage(index)}
@@ -301,7 +208,7 @@ const RenderDetail = () => {
                       >
                         <img
                           src={image}
-                          alt={`${render.title} - ხედი ${index + 1}`}
+                          alt={`${apartmentData.title} - ხედი ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
                       </button>
@@ -310,15 +217,15 @@ const RenderDetail = () => {
                 </div>
 
                 {/* Info Section */}
-                <div className="space-y-8">
+                <div className="space-y-6">
                   <div>
-                    <h1 className="text-4xl font-bold mb-4">{render.title}</h1>
-                    <div className="flex items-center text-muted-foreground mb-6">
+                    <h1 className="text-3xl font-bold mb-4">{apartmentData.title}</h1>
+                    <div className="flex items-center text-muted-foreground mb-4">
                       <MapPin className="h-5 w-5 mr-2" />
-                      {render.address}
+                      {apartmentData.address}
                     </div>
-                    <div className="text-3xl font-bold text-primary mb-6">
-                      {render.price}
+                    <div className="text-4xl font-bold text-primary mb-6">
+                      {apartmentData.price}
                     </div>
                   </div>
 
@@ -329,66 +236,58 @@ const RenderDetail = () => {
                         <Grid3X3 className="h-4 w-4 text-muted-foreground" />
                         <span className="text-xs text-muted-foreground">ოთახი</span>
                       </div>
-                      <div className="text-2xl font-bold">{render.beds}</div>
+                      <div className="text-2xl font-bold">{apartmentData.beds}</div>
                     </div>
                     <div className="p-4 rounded-2xl border-2 border-border bg-background">
                       <div className="flex items-center gap-2 mb-1">
                         <Bath className="h-4 w-4 text-muted-foreground" />
                         <span className="text-xs text-muted-foreground">სველი წერტილი</span>
                       </div>
-                      <div className="text-2xl font-bold">{render.baths}</div>
+                      <div className="text-2xl font-bold">{apartmentData.baths}</div>
                     </div>
                     <div className="p-4 rounded-2xl border-2 border-border bg-background">
                       <div className="flex items-center gap-2 mb-1">
                         <Maximize className="h-4 w-4 text-muted-foreground" />
                         <span className="text-xs text-muted-foreground">ფართობი</span>
                       </div>
-                      <div className="text-2xl font-bold">{render.sqm} <span className="text-sm font-normal">მ²</span></div>
+                      <div className="text-2xl font-bold">{apartmentData.sqm} <span className="text-sm font-normal">მ²</span></div>
                     </div>
                     <div className="p-4 rounded-2xl border-2 border-border bg-background">
                       <div className="flex items-center gap-2 mb-1">
                         <Building className="h-4 w-4 text-muted-foreground" />
                         <span className="text-xs text-muted-foreground">სართული</span>
                       </div>
-                      <div className="text-2xl font-bold">{render.floor}</div>
+                      <div className="text-2xl font-bold">{apartmentData.floor}</div>
                     </div>
                   </div>
 
                   {/* Property Stats - Second Row */}
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {render.balcony_area && (
+                    {apartmentData.balcony_area > 0 && (
                       <div className="p-4 rounded-2xl border-2 border-border bg-background">
                         <span className="text-xs text-muted-foreground">საზაფხულო ფართი</span>
-                        <div className="text-2xl font-bold mt-1">{render.balcony_area} <span className="text-sm font-normal">მ²</span></div>
+                        <div className="text-2xl font-bold mt-1">{apartmentData.balcony_area} <span className="text-sm font-normal">მ²</span></div>
                       </div>
                     )}
-                    {render.living_area && (
+                    {apartmentData.living_area > 0 && (
                       <div className="p-4 rounded-2xl border-2 border-border bg-background">
                         <span className="text-xs text-muted-foreground">მისალები</span>
-                        <div className="text-2xl font-bold mt-1">{render.living_area} <span className="text-sm font-normal">მ²</span></div>
+                        <div className="text-2xl font-bold mt-1">{apartmentData.living_area} <span className="text-sm font-normal">მ²</span></div>
                       </div>
                     )}
-                    {render.bedrooms && (
+                    {apartmentData.bedrooms > 0 && (
                       <div className="p-4 rounded-2xl border-2 border-border bg-background">
                         <span className="text-xs text-muted-foreground">საძინებელი</span>
-                        <div className="text-2xl font-bold mt-1">{render.bedrooms}</div>
+                        <div className="text-2xl font-bold mt-1">{apartmentData.bedrooms}</div>
                       </div>
                     )}
-                  </div>
-
-                  {/* Description */}
-                  <div>
-                    <h2 className="text-xl font-semibold mb-3">აღწერა</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {render.description}
-                    </p>
                   </div>
 
                   {/* Features */}
                   <div>
                     <h2 className="text-xl font-semibold mb-3">მახასიათებლები</h2>
                     <div className="grid grid-cols-2 gap-3">
-                      {render.features.map((feature: string, index: number) => (
+                      {apartmentData.features.map((feature: string, index: number) => (
                         <div
                           key={index}
                           className="flex items-center gap-2 p-3 rounded-lg bg-muted/30"
@@ -488,27 +387,26 @@ const RenderDetail = () => {
               </div>
             </TabsContent>
 
-            <TabsContent value="views" className="space-y-6">
-              <div>
-                <h2 className="text-3xl font-bold mb-6">ხედები ბინიდან</h2>
-                <p className="text-muted-foreground mb-8">
-                  გაეცანით პანორამულ ხედებს, რომლებსაც თქვენ ამ ბინიდან დაინახავთ
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {render.views?.map((view: string, index: number) => (
-                  <div key={index} className="relative aspect-video overflow-hidden rounded-2xl bg-muted group">
-                    <img
-                      src={view}
-                      alt={`ხედი ${index + 1}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                      <p className="text-white font-medium">ხედი {index + 1}</p>
+            <TabsContent value="views" className="space-y-8">
+              <div className="grid gap-8">
+                <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
+                  <img
+                    src={apartmentData.views[0]}
+                    alt="გეგმა"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {apartmentData.views.slice(0, 3).map((image: string, index: number) => (
+                    <div key={index} className="relative aspect-video overflow-hidden rounded-xl">
+                      <img
+                        src={image}
+                        alt={`ხედი ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </TabsContent>
           </Tabs>
