@@ -86,17 +86,17 @@ const Footer = () => {
               {t('footer.description')}
             </p>
             <div className="space-y-2">
-              <a href="tel:+995557123456" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="დარეკეთ ნომერზე +995 557 123 456">
+              <a href="tel:+995599878989" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="დარეკეთ ნომერზე 599 87 89 89">
                 <Phone className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span>+995 557 123 456</span>
+                <span>599 87 89 89</span>
               </a>
-              <a href="mailto:info@modex.ge" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="გამოგვიგზავნეთ ელ. ფოსტა info@modex.ge">
+              <a href="mailto:Sales@modx.ge" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="გამოგვიგზავნეთ ელ. ფოსტა Sales@modx.ge">
                 <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span>info@modex.ge</span>
+                <span>Sales@modx.ge</span>
               </a>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>ვაჟა-ფშაველას გამზირი 45, თბილისი</span>
+                <span>პ.ასლანიდის 9, Tbilisi, Georgia</span>
               </div>
             </div>
           </div>
