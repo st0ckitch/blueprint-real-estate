@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, ArrowRight, Sparkles, MapPin, Phone, Mail, Check, Facebook, Twitter, Instagram } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Sparkles, MapPin, Phone, Mail, Check, Facebook, Twitter, Instagram, HelpCircle } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -194,6 +200,72 @@ const Index = () => {
                   </div>
                 </Link>
               </article>)}
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mt-24 mb-16">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <HelpCircle className="h-5 w-5 text-primary" />
+              <span className="text-sm font-medium text-primary uppercase tracking-wider">
+                FAQ
+              </span>
+            </div>
+            <h2 className="text-4xl font-bold">
+              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                ხშირად დასმული კითხვები
+              </span>
+            </h2>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="bg-card border border-border/50 rounded-2xl px-6 data-[state=open]:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-left text-lg font-medium hover:no-underline py-5">
+                  როგორ შევიძინო ბინა MODX-ში?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  ბინის შესაძენად დაგვიკავშირდით ტელეფონით ან შეავსეთ საკონტაქტო ფორმა. ჩვენი გუნდი დაგიკავშირდებათ და მოგაწვდით ყველა საჭირო ინფორმაციას, მათ შორის ფასებს, გადახდის პირობებს და ხელშეკრულების დეტალებს.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2" className="bg-card border border-border/50 rounded-2xl px-6 data-[state=open]:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-left text-lg font-medium hover:no-underline py-5">
+                  რა გადახდის მეთოდები არსებობს?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  ჩვენ ვთავაზობთ მოქნილ გადახდის პირობებს: სრული გადახდა, განვადება ბანკის მეშვეობით, ან პირდაპირი განვადება კომპანიისგან. თითოეული ვარიანტის დეტალები განიხილება ინდივიდუალურად.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3" className="bg-card border border-border/50 rounded-2xl px-6 data-[state=open]:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-left text-lg font-medium hover:no-underline py-5">
+                  როდის დასრულდება მშენებლობა?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  მშენებლობის დასრულების თარიღი დამოკიდებულია კონკრეტულ პროექტზე. თემქას პროექტის დასრულება დაგეგმილია 2025 წლის ბოლოსთვის. დეტალური ინფორმაცია თითოეული პროექტის გვერდზეა მითითებული.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4" className="bg-card border border-border/50 rounded-2xl px-6 data-[state=open]:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-left text-lg font-medium hover:no-underline py-5">
+                  შესაძლებელია თუ არა ბინის დაჯავშნა?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  დიახ, შესაძლებელია ბინის დაჯავშნა. ამისთვის საჭიროა საჯავშნო თანხის გადახდა, რომელიც შემდგომ ჩაითვლება ბინის ღირებულებაში. ჯავშანი მოქმედებს განსაზღვრული პერიოდის განმავლობაში.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5" className="bg-card border border-border/50 rounded-2xl px-6 data-[state=open]:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-left text-lg font-medium hover:no-underline py-5">
+                  რა გარანტიას იძლევით?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  ჩვენ ვიძლევით მშენებლობის ხარისხზე გარანტიას საქართველოს კანონმდებლობით დადგენილი წესით. ასევე, ყველა ბინა გადის ხარისხის კონტროლს ჩაბარებამდე და მომხმარებელს გადაეცემა სრულყოფილ მდგომარეობაში.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </section>
 
