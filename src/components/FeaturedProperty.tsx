@@ -66,7 +66,7 @@ const FeaturedProperty = () => {
         // Start with image shifted down, move up as user scrolls
         if (rect.top < windowHeight && rect.bottom > 0) {
           const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-          setParallaxOffset(scrollProgress * 60); // 60px max movement
+          setParallaxOffset(scrollProgress * 120); // 120px max movement for faster effect
         }
       }
     };
@@ -111,7 +111,7 @@ const FeaturedProperty = () => {
         <div 
             className="absolute inset-0 w-full h-[130%] top-0"
             style={{
-              transform: `translateY(${50 - parallaxOffset}px)`,
+              transform: `translateY(${80 - parallaxOffset}px)`,
               transition: 'transform 0.05s linear'
             }}
           >
