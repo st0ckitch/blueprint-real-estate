@@ -20,9 +20,11 @@ import { z } from "zod";
 import { useTranslation } from 'react-i18next';
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
+
 const contactSchema = z.object({
   name: z.string().trim().min(2, {
     message: "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო"
@@ -35,40 +37,67 @@ const contactSchema = z.object({
   }).max(1000)
 });
 type ContactFormData = z.infer<typeof contactSchema>;
-const blogArticles = [{
+
+interface BlogPost {
+  id: string;
+  slug: string;
+  title_ka: string;
+  title_en: string;
+  excerpt_ka: string | null;
+  excerpt_en: string | null;
+  image_url: string | null;
+  read_time: number | null;
+  created_at: string;
+  blog_categories?: {
+    name_ka: string;
+    name_en: string;
+  } | null;
+}
+
+// Fallback blog articles
+const fallbackBlogArticles = [{
   id: "1",
   slug: "rogor-avirciot-bina-tbilisshi",
-  title: "როგორ ავირჩიოთ ბინა თბილისში - სრული გზამკვლევი",
-  excerpt: "თბილისში ბინის შეძენა დიდი გადაწყვეტილებაა. ამ სტატიაში განვიხილავთ ყველა მნიშვნელოვან ასპექტს, რომელიც უნდა გაითვალისწინოთ.",
-  date: "2024-03-15",
-  readTime: "5 წუთი",
-  category: "რჩევები",
-  image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop"
+  title_ka: "როგორ ავირჩიოთ ბინა თბილისში - სრული გზამკვლევი",
+  title_en: "How to Choose an Apartment in Tbilisi",
+  excerpt_ka: "თბილისში ბინის შეძენა დიდი გადაწყვეტილებაა.",
+  excerpt_en: "Buying an apartment in Tbilisi is a big decision.",
+  created_at: "2024-03-15",
+  read_time: 5,
+  category_ka: "რჩევები",
+  category_en: "Tips",
+  image_url: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop"
 }, {
   id: "2",
   slug: "saburthalos-raioni-mimoxilva",
-  title: "საბურთალოს რაიონი - სრული მიმოხილვა და ფასები",
-  excerpt: "საბურთალო თბილისის ერთ-ერთი ყველაზე პოპულარული რაიონია. გაეცანით რაიონის უპირატესობებს და უძრავი ქონების ფასებს.",
-  date: "2024-03-10",
-  readTime: "7 წუთი",
-  category: "რაიონები",
-  image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
+  title_ka: "საბურთალოს რაიონი - სრული მიმოხილვა და ფასები",
+  title_en: "Saburtalo District - Complete Overview",
+  excerpt_ka: "საბურთალო თბილისის ერთ-ერთი ყველაზე პოპულარული რაიონია.",
+  excerpt_en: "Saburtalo is one of the most popular districts.",
+  created_at: "2024-03-10",
+  read_time: 7,
+  category_ka: "რაიონები",
+  category_en: "Districts",
+  image_url: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
 }, {
   id: "3",
   slug: "investicia-udzravi-qonebashi",
-  title: "ინვესტიცია უძრავ ქონებაში 2024 წელს",
-  excerpt: "უძრავი ქონება რჩება ერთ-ერთ საუკეთესო ინვესტიციად. გაიგეთ, რატომ და როგორ დაიწყოთ ინვესტირება.",
-  date: "2024-03-05",
-  readTime: "6 წუთი",
-  category: "ინვესტიცია",
-  image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=600&fit=crop"
+  title_ka: "ინვესტიცია უძრავ ქონებაში 2024 წელს",
+  title_en: "Real Estate Investment in 2024",
+  excerpt_ka: "უძრავი ქონება რჩება ერთ-ერთ საუკეთესო ინვესტიციად.",
+  excerpt_en: "Real estate remains one of the best investments.",
+  created_at: "2024-03-05",
+  read_time: 6,
+  category_ka: "ინვესტიცია",
+  category_en: "Investment",
+  image_url: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=600&fit=crop"
 }];
 const Index = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { data: siteSettings } = useSiteSettings();
+  
   const {
     register,
     handleSubmit,
@@ -97,8 +126,24 @@ const Index = () => {
     },
   });
 
+  // Fetch blog posts from database
+  const { data: blogPosts } = useQuery({
+    queryKey: ['homepage-blog-posts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*, blog_categories(name_ka, name_en)')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+      
+      if (error) throw error;
+      return data as BlogPost[];
+    },
+  });
+
   const onSubmit = async (data: ContactFormData) => {
-      try {
+    try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       toast({
         title: t('contact.send'),
@@ -115,6 +160,14 @@ const Index = () => {
   };
 
   const defaultImages = [render1, render2, render3];
+  
+  // Get contact info from settings with fallbacks
+  const companyEmail = siteSettings?.company_email || 'Sales@modx.ge';
+  const companyPhone = siteSettings?.company_phone || '599 87 89 89';
+  const companyAddress = siteSettings?.company_address || 'პ.ასლანიდის 9, Tbilisi, Georgia';
+  
+  // Use database blog posts or fallback
+  const displayBlogPosts = blogPosts && blogPosts.length > 0 ? blogPosts : fallbackBlogArticles;
 
   return <div className="min-h-screen bg-background">
       <Header />
@@ -192,50 +245,72 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {blogArticles.map(article => <article key={article.id} className="group bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300">
-                <Link to={`/blog/${article.slug}`} className="block">
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
-                      <span className="inline-block px-3 py-1 bg-primary/90 backdrop-blur-sm text-primary-foreground text-xs font-medium rounded-full">
-                        {article.category}
-                      </span>
+            {displayBlogPosts.map(article => {
+              const isDbPost = 'blog_categories' in article;
+              const title = isDbPost 
+                ? (currentLang === 'ka' ? (article as BlogPost).title_ka : (article as BlogPost).title_en)
+                : (currentLang === 'ka' ? (article as any).title_ka : (article as any).title_en);
+              const excerpt = isDbPost 
+                ? (currentLang === 'ka' ? (article as BlogPost).excerpt_ka : (article as BlogPost).excerpt_en)
+                : (currentLang === 'ka' ? (article as any).excerpt_ka : (article as any).excerpt_en);
+              const categoryName = isDbPost 
+                ? ((article as BlogPost).blog_categories 
+                    ? (currentLang === 'ka' ? (article as BlogPost).blog_categories!.name_ka : (article as BlogPost).blog_categories!.name_en) 
+                    : null)
+                : (currentLang === 'ka' ? (article as any).category_ka : (article as any).category_en);
+              const imageUrl = article.image_url || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop";
+              const readTime = article.read_time || 5;
+              const date = article.created_at;
+
+              return (
+                <article key={article.id} className="group bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+                  <Link to={`/blog/${article.slug}`} className="block">
+                    <div className="relative h-48 overflow-hidden">
+                      <img src={imageUrl} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
+                      {categoryName && (
+                        <div className="absolute bottom-3 left-3">
+                          <span className="inline-block px-3 py-1 bg-primary/90 backdrop-blur-sm text-primary-foreground text-xs font-medium rounded-full">
+                            {categoryName}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  
-                  <div className="p-5">
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        <time dateTime={article.date}>
-                          {new Date(article.date).toLocaleDateString('ka-GE', {
-                        month: 'short',
-                        day: 'numeric'
-                      })}
-                        </time>
+                    
+                    <div className="p-5">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-3 w-3" />
+                          <time dateTime={date}>
+                            {new Date(date).toLocaleDateString('ka-GE', {
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </time>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          <span>{readTime} წუთი</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        <span>{article.readTime}</span>
+                      
+                      <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                        {title}
+                      </h3>
+                      
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                        {excerpt}
+                      </p>
+                      
+                      <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
+                        <span>{t('blog.readMore')}</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
-                    
-                    <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                      {article.title}
-                    </h3>
-                    
-                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                      {article.excerpt}
-                    </p>
-                    
-                    <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                      <span>{t('blog.readMore')}</span>
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              </article>)}
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -395,8 +470,8 @@ const Index = () => {
                     <Mail className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">{t('contact.writeUs')}</h3>
-                  <a href="mailto:Sales@modx.ge" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
-                    Sales@modx.ge
+                  <a href={`mailto:${companyEmail}`} className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    {companyEmail}
                   </a>
                 </div>
 
@@ -405,8 +480,8 @@ const Index = () => {
                     <Phone className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">{t('contact.callUs')}</h3>
-                  <a href="tel:+995599878989" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
-                    599 87 89 89
+                  <a href={`tel:${companyPhone.replace(/\s/g, '')}`} className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    {companyPhone}
                   </a>
                 </div>
 
@@ -416,7 +491,7 @@ const Index = () => {
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">{t('contact.ourLocation')}</h3>
                   <p className="text-muted-foreground text-lg">
-                    პ.ასლანიდის 9<br />Tbilisi, Georgia
+                    {companyAddress}
                   </p>
                 </div>
               </div>

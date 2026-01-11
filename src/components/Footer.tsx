@@ -8,17 +8,19 @@ import { useState } from "react";
 import { z } from "zod";
 import { useTranslation } from 'react-i18next';
 import logoFull from "@/assets/logo-full.svg";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო").max(100, "სახელი უნდა იყოს მაქსიმუმ 100 სიმბოლო"),
   email: z.string().trim().email("არასწორი ელ. ფოსტის ფორმატი").max(255, "ელ. ფოსტა უნდა იყოს მაქსიმუმ 255 სიმბოლო"),
   message: z.string().trim().min(10, "შეტყობინება უნდა იყოს მინიმუმ 10 სიმბოლო").max(1000, "შეტყობინება უნდა იყოს მაქსიმუმ 1000 სიმბოლო")
 });
+
 const Footer = () => {
   const { t } = useTranslation();
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { data: siteSettings } = useSiteSettings();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,6 +28,12 @@ const Footer = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Get contact info from settings with fallbacks
+  const companyEmail = siteSettings?.company_email || 'Sales@modx.ge';
+  const companyPhone = siteSettings?.company_phone || '599 87 89 89';
+  const companyAddress = siteSettings?.company_address || 'პ.ასლანიდის 9, Tbilisi, Georgia';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
@@ -58,11 +66,9 @@ const Footer = () => {
       setIsSubmitting(false);
     }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {
-      name,
-      value
-    } = e.target;
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -74,7 +80,9 @@ const Footer = () => {
       }));
     }
   };
-  return <footer className="bg-accent/5 border-t border-border/50">
+
+  return (
+    <footer className="bg-accent/5 border-t border-border/50">
       <div className="max-w-[1200px] mx-auto px-8 py-12 md:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand & Description */}
@@ -86,17 +94,25 @@ const Footer = () => {
               {t('footer.description')}
             </p>
             <div className="space-y-2">
-              <a href="tel:+995599878989" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="დარეკეთ ნომერზე 599 87 89 89">
+              <a 
+                href={`tel:${companyPhone.replace(/\s/g, '')}`} 
+                className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" 
+                aria-label={`დარეკეთ ნომერზე ${companyPhone}`}
+              >
                 <Phone className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span>599 87 89 89</span>
+                <span>{companyPhone}</span>
               </a>
-              <a href="mailto:Sales@modx.ge" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" aria-label="გამოგვიგზავნეთ ელ. ფოსტა Sales@modx.ge">
+              <a 
+                href={`mailto:${companyEmail}`} 
+                className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group" 
+                aria-label={`გამოგვიგზავნეთ ელ. ფოსტა ${companyEmail}`}
+              >
                 <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span>Sales@modx.ge</span>
+                <span>{companyEmail}</span>
               </a>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>პ.ასლანიდის 9, Tbilisi, Georgia</span>
+                <span>{companyAddress}</span>
               </div>
             </div>
           </div>
@@ -144,17 +160,47 @@ const Footer = () => {
             <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider">{t('footer.contactUs')}</h4>
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
-                <Input type="text" name="name" placeholder={t('footer.yourName')} value={formData.name} onChange={handleChange} className={errors.name ? "border-destructive" : ""} aria-label="სახელი" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />
+                <Input 
+                  type="text" 
+                  name="name" 
+                  placeholder={t('footer.yourName')} 
+                  value={formData.name} 
+                  onChange={handleChange} 
+                  className={errors.name ? "border-destructive" : ""} 
+                  aria-label="სახელი" 
+                  aria-invalid={!!errors.name} 
+                  aria-describedby={errors.name ? "name-error" : undefined} 
+                />
                 {errors.name && <p id="name-error" className="text-xs text-destructive mt-1">{errors.name}</p>}
               </div>
               
               <div>
-                <Input type="email" name="email" placeholder={t('footer.yourEmail')} value={formData.email} onChange={handleChange} className={errors.email ? "border-destructive" : ""} aria-label="ელექტრონული ფოსტა" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />
+                <Input 
+                  type="email" 
+                  name="email" 
+                  placeholder={t('footer.yourEmail')} 
+                  value={formData.email} 
+                  onChange={handleChange} 
+                  className={errors.email ? "border-destructive" : ""} 
+                  aria-label="ელექტრონული ფოსტა" 
+                  aria-invalid={!!errors.email} 
+                  aria-describedby={errors.email ? "email-error" : undefined} 
+                />
                 {errors.email && <p id="email-error" className="text-xs text-destructive mt-1">{errors.email}</p>}
               </div>
               
               <div>
-                <Textarea name="message" placeholder={t('footer.yourMessage')} value={formData.message} onChange={handleChange} rows={3} className={errors.message ? "border-destructive" : ""} aria-label="შეტყობინება" aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} />
+                <Textarea 
+                  name="message" 
+                  placeholder={t('footer.yourMessage')} 
+                  value={formData.message} 
+                  onChange={handleChange} 
+                  rows={3} 
+                  className={errors.message ? "border-destructive" : ""} 
+                  aria-label="შეტყობინება" 
+                  aria-invalid={!!errors.message} 
+                  aria-describedby={errors.message ? "message-error" : undefined} 
+                />
                 {errors.message && <p id="message-error" className="text-xs text-destructive mt-1">{errors.message}</p>}
               </div>
               
@@ -180,6 +226,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
