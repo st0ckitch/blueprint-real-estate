@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import FeaturedProperty from "@/components/FeaturedProperty";
 import SearchFilters from "@/components/SearchFilters";
 import PropertyCard from "@/components/PropertyCard";
-import Render360Viewer from "@/components/Render360Viewer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -125,9 +124,6 @@ const Index = () => {
             <PropertyCard image={render3} price="125,000₾" beds={3} baths={2} sqm={78} address="თემქა, თბილისი" />
           </div>
         </section>
-
-        {/* 360° Viewer Section */}
-        <Render360Viewer />
 
         {/* Blog Section */}
         <section className="mt-24 mb-16">

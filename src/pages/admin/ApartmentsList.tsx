@@ -40,6 +40,10 @@ interface Apartment {
   area: number | null;
   rooms: number | null;
   price: number | null;
+  bathrooms: number | null;
+  bedrooms: number | null;
+  living_area: number | null;
+  balcony_area: number | null;
   status: 'available' | 'reserved' | 'sold';
   image_url: string | null;
   floor_plan_url: string | null;
@@ -77,6 +81,10 @@ const ApartmentsList = () => {
     area: '',
     rooms: '',
     price: '',
+    bathrooms: '',
+    bedrooms: '',
+    living_area: '',
+    balcony_area: '',
     status: 'available' as Apartment['status'],
     image_url: '',
     floor_plan_url: '',
@@ -182,6 +190,10 @@ const ApartmentsList = () => {
       area: '',
       rooms: '',
       price: '',
+      bathrooms: '',
+      bedrooms: '',
+      living_area: '',
+      balcony_area: '',
       status: 'available',
       image_url: '',
       floor_plan_url: '',
@@ -199,6 +211,10 @@ const ApartmentsList = () => {
       area: apartment.area?.toString() || '',
       rooms: apartment.rooms?.toString() || '',
       price: apartment.price?.toString() || '',
+      bathrooms: apartment.bathrooms?.toString() || '',
+      bedrooms: apartment.bedrooms?.toString() || '',
+      living_area: apartment.living_area?.toString() || '',
+      balcony_area: apartment.balcony_area?.toString() || '',
       status: apartment.status,
       image_url: apartment.image_url || '',
       floor_plan_url: apartment.floor_plan_url || '',
@@ -221,6 +237,10 @@ const ApartmentsList = () => {
       area: formData.area ? parseFloat(formData.area) : null,
       rooms: formData.rooms ? parseInt(formData.rooms) : null,
       price: formData.price ? parseFloat(formData.price) : null,
+      bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : null,
+      bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
+      living_area: formData.living_area ? parseFloat(formData.living_area) : null,
+      balcony_area: formData.balcony_area ? parseFloat(formData.balcony_area) : null,
       status: formData.status,
       image_url: formData.image_url || null,
       floor_plan_url: formData.floor_plan_url || null,
@@ -325,6 +345,42 @@ const ApartmentsList = () => {
                     type="number"
                     value={formData.rooms}
                     onChange={(e) => setFormData({ ...formData, rooms: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                <div>
+                  <Label>სველი წერტილი</Label>
+                  <Input
+                    type="number"
+                    value={formData.bathrooms}
+                    onChange={(e) => setFormData({ ...formData, bathrooms: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>საძინებელი</Label>
+                  <Input
+                    type="number"
+                    value={formData.bedrooms}
+                    onChange={(e) => setFormData({ ...formData, bedrooms: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>მისალები (მ²)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    value={formData.living_area}
+                    onChange={(e) => setFormData({ ...formData, living_area: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>საზაფხულო (მ²)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    value={formData.balcony_area}
+                    onChange={(e) => setFormData({ ...formData, balcony_area: e.target.value })}
                   />
                 </div>
               </div>
