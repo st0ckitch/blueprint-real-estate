@@ -19,6 +19,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import logoIcon from '@/assets/logo-icon.svg';
+import logoFull from '@/assets/logo-full.svg';
 
 interface NavItem {
   title: string;
@@ -105,12 +107,11 @@ const AdminSidebar = ({ isCollapsed }: AdminSidebarProps) => {
         isCollapsed ? 'w-16' : 'w-64'
       )}
     >
-      {/* Logo */}
-      <div className="flex h-16 items-center justify-center border-b border-primary-foreground/20">
+      <div className="flex h-16 items-center justify-center border-b border-primary-foreground/20 px-3">
         {!isCollapsed ? (
-          <span className="text-xl font-bold">Admin Panel</span>
+          <img src={logoFull} alt="MODX" className="h-7 invert" />
         ) : (
-          <Building2 className="h-6 w-6" />
+          <img src={logoIcon} alt="MODX" className="h-8 invert" />
         )}
       </div>
 

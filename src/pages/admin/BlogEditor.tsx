@@ -181,7 +181,7 @@ const BlogEditor = () => {
         content_ka: formData.content_ka || null,
         content_en: formData.content_en || null,
         image_url: formData.image_url || null,
-        category_id: formData.category_id || null,
+        category_id: formData.category_id && formData.category_id.trim() !== '' ? formData.category_id : null,
         meta_title_ka: formData.meta_title_ka || null,
         meta_title_en: formData.meta_title_en || null,
         meta_description_ka: formData.meta_description_ka || null,

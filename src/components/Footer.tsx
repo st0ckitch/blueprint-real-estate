@@ -7,6 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { z } from "zod";
 import { useTranslation } from 'react-i18next';
+import logoFull from "@/assets/logo-full.svg";
+
 const contactSchema = z.object({
   name: z.string().trim().min(2, "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო").max(100, "სახელი უნდა იყოს მაქსიმუმ 100 სიმბოლო"),
   email: z.string().trim().email("არასწორი ელ. ფოსტის ფორმატი").max(255, "ელ. ფოსტა უნდა იყოს მაქსიმუმ 255 სიმბოლო"),
@@ -78,9 +80,7 @@ const Footer = () => {
           {/* Brand & Description */}
           <div className="space-y-4">
             <Link to="/" className="inline-block">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                ModX
-              </h3>
+              <img src={logoFull} alt="MODX" className="h-8 dark:invert" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {t('footer.description')}
