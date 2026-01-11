@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Pencil, Trash2, Loader2, X } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, X, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 
@@ -536,19 +536,75 @@ const ApartmentsList = () => {
                   </Select>
                 </div>
               </div>
-              <div>
-                <Label>სურათის URL</Label>
-                <Input
-                  value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                />
+              <div className="space-y-2">
+                <Label>ბინის სურათი</Label>
+                <div className="flex gap-2">
+                  <Input
+                    value={formData.image_url}
+                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    placeholder="URL ან ატვირთეთ"
+                    className="flex-1"
+                  />
+                  <label className="cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `${Date.now()}.${fileExt}`;
+                        const { error } = await supabase.storage.from('apartment-images').upload(fileName, file);
+                        if (error) {
+                          toast({ title: 'შეცდომა ატვირთვისას', variant: 'destructive' });
+                          return;
+                        }
+                        const { data: { publicUrl } } = supabase.storage.from('apartment-images').getPublicUrl(fileName);
+                        setFormData({ ...formData, image_url: publicUrl });
+                        toast({ title: 'სურათი აიტვირთა' });
+                      }}
+                    />
+                    <Button type="button" variant="outline" size="icon" asChild>
+                      <span><Upload className="h-4 w-4" /></span>
+                    </Button>
+                  </label>
+                </div>
               </div>
-              <div>
-                <Label>გეგმის URL</Label>
-                <Input
-                  value={formData.floor_plan_url}
-                  onChange={(e) => setFormData({ ...formData, floor_plan_url: e.target.value })}
-                />
+              <div className="space-y-2">
+                <Label>გეგმის სურათი</Label>
+                <div className="flex gap-2">
+                  <Input
+                    value={formData.floor_plan_url}
+                    onChange={(e) => setFormData({ ...formData, floor_plan_url: e.target.value })}
+                    placeholder="URL ან ატვირთეთ"
+                    className="flex-1"
+                  />
+                  <label className="cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `floor-plans/${Date.now()}.${fileExt}`;
+                        const { error } = await supabase.storage.from('apartment-images').upload(fileName, file);
+                        if (error) {
+                          toast({ title: 'შეცდომა ატვირთვისას', variant: 'destructive' });
+                          return;
+                        }
+                        const { data: { publicUrl } } = supabase.storage.from('apartment-images').getPublicUrl(fileName);
+                        setFormData({ ...formData, floor_plan_url: publicUrl });
+                        toast({ title: 'გეგმა აიტვირთა' });
+                      }}
+                    />
+                    <Button type="button" variant="outline" size="icon" asChild>
+                      <span><Upload className="h-4 w-4" /></span>
+                    </Button>
+                  </label>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Switch
