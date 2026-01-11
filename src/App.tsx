@@ -17,6 +17,19 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import Footer from "./components/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
 
+// Admin imports
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminLayout from "./components/admin/AdminLayout";
+import ProjectsList from "./pages/admin/ProjectsList";
+import ProjectsParams from "./pages/admin/ProjectsParams";
+import ApartmentsList from "./pages/admin/ApartmentsList";
+import ApartmentsParams from "./pages/admin/ApartmentsParams";
+import BlogList from "./pages/admin/BlogList";
+import BlogEditor from "./pages/admin/BlogEditor";
+import BlogCategories from "./pages/admin/BlogCategories";
+import GeneralSettings from "./pages/admin/GeneralSettings";
+import BannerManager from "./pages/admin/BannerManager";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -52,6 +65,22 @@ const App = () => {
               {/* Redirects for old URLs */}
               <Route path="/renders" element={<Renders />} />
               <Route path="/renders/:id" element={<RenderDetail />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route path="projects" element={<ProjectsList />} />
+                <Route path="projects/parameters" element={<ProjectsParams />} />
+                <Route path="apartments" element={<ApartmentsList />} />
+                <Route path="apartments/parameters" element={<ApartmentsParams />} />
+                <Route path="blog" element={<BlogList />} />
+                <Route path="blog/new" element={<BlogEditor />} />
+                <Route path="blog/:id" element={<BlogEditor />} />
+                <Route path="blog/categories" element={<BlogCategories />} />
+                <Route path="settings" element={<GeneralSettings />} />
+                <Route path="banner" element={<BannerManager />} />
+              </Route>
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
