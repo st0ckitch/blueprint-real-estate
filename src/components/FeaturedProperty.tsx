@@ -4,7 +4,7 @@ import { Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
 import InteractiveBuilding from "./InteractiveBuilding";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 interface Banner {
@@ -52,6 +52,27 @@ const FeaturedProperty = () => {
     },
   });
 
+  // Parallax effect
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Only apply parallax when element is in view
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          setScrollY(window.scrollY * 0.3); // 0.3 = parallax intensity
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Auto-rotate banners every 5 seconds
   useEffect(() => {
     if (!banners || banners.length <= 1) return;
@@ -78,14 +99,25 @@ const FeaturedProperty = () => {
 
   return (
     <div className="property-card p-0 relative">
-      {/* Banner/Hero Image */}
+      {/* Banner/Hero Image with Parallax */}
       {hasBanners ? (
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl">
-          <img
-            src={currentBanner?.image_url}
-            alt={currentLang === 'ka' ? currentBanner?.title_ka || 'Banner' : currentBanner?.title_en || 'Banner'}
-            className="w-full h-full object-cover transition-opacity duration-500"
-          />
+        <div 
+          ref={containerRef}
+          className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl"
+        >
+          <div 
+            className="absolute inset-0 w-full h-[120%] -top-[10%]"
+            style={{ 
+              transform: `translateY(${scrollY}px)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
+            <img
+              src={currentBanner?.image_url}
+              alt={currentLang === 'ka' ? currentBanner?.title_ka || 'Banner' : currentBanner?.title_en || 'Banner'}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
+          </div>
           
           {/* Banner Title Overlay */}
           {(currentBanner?.title_ka || currentBanner?.title_en) && (
