@@ -108,10 +108,10 @@ const FeaturedProperty = () => {
           ref={containerRef}
           className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden"
         >
-          <div 
+        <div 
             className="absolute inset-0 w-full h-[130%] top-0"
-            style={{ 
-              transform: `translateY(${-30 + parallaxOffset}px)`,
+            style={{
+              transform: `translateY(${50 - parallaxOffset}px)`,
               transition: 'transform 0.05s linear'
             }}
           >
