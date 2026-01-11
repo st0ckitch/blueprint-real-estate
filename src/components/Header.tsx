@@ -37,13 +37,6 @@ const Header = () => {
               {t('nav.projects')}
             </NavLink>
             <NavLink 
-              to="/apartments" 
-              className="px-4 py-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
-              activeClassName="bg-accent text-foreground font-medium"
-            >
-              {t('nav.apartments')}
-            </NavLink>
-            <NavLink 
               to="/blog" 
               className="px-4 py-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
               activeClassName="bg-accent text-foreground font-medium"
@@ -87,14 +80,6 @@ const Header = () => {
                   activeClassName="bg-accent text-foreground font-medium"
                 >
                   {t('nav.projects')}
-                </NavLink>
-                <NavLink 
-                  to="/apartments" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all"
-                  activeClassName="bg-accent text-foreground font-medium"
-                >
-                  {t('nav.apartments')}
                 </NavLink>
                 <NavLink 
                   to="/blog" 
