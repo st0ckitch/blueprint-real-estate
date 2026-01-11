@@ -96,12 +96,8 @@ const Index = () => {
   return <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
+      {/* Main Content */}
       <main className="w-full px-8 py-8 max-w-[1200px] mx-auto">
-        <h1 className="text-5xl font-semibold mb-8 text-foreground">
-          {t('hero.title')}
-        </h1>
-
         {/* Featured Property */}
         <div className="mb-8">
           <FeaturedProperty />
@@ -359,8 +355,8 @@ const Index = () => {
                     <Mail className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">{t('contact.writeUs')}</h3>
-                  <a href="mailto:info@modx.ge" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
-                    info@modx.ge
+                  <a href="mailto:Sales@modx.ge" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    Sales@modx.ge
                   </a>
                 </div>
 
@@ -369,8 +365,8 @@ const Index = () => {
                     <Phone className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">{t('contact.callUs')}</h3>
-                  <a href="tel:+995557123456" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
-                    +995 557 123 456
+                  <a href="tel:+995599878989" className="text-muted-foreground hover:text-primary text-lg transition-colors font-medium">
+                    599 87 89 89
                   </a>
                 </div>
 
@@ -380,7 +376,7 @@ const Index = () => {
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-foreground">{t('contact.ourLocation')}</h3>
                   <p className="text-muted-foreground text-lg">
-                    {t('projects.themka')}<br />{t('contact.addressValue').split(',')[1]}
+                    პ.ასლანიდის 9<br />Tbilisi, Georgia
                   </p>
                 </div>
               </div>
