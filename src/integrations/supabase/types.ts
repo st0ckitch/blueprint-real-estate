@@ -98,12 +98,16 @@ export type Database = {
       apartments: {
         Row: {
           area: number | null
+          balcony_area: number | null
+          bathrooms: number | null
+          bedrooms: number | null
           created_at: string
           floor: number | null
           floor_plan_url: string | null
           id: string
           image_url: string | null
           is_active: boolean
+          living_area: number | null
           price: number | null
           project_id: string
           rooms: number | null
@@ -115,12 +119,16 @@ export type Database = {
         }
         Insert: {
           area?: number | null
+          balcony_area?: number | null
+          bathrooms?: number | null
+          bedrooms?: number | null
           created_at?: string
           floor?: number | null
           floor_plan_url?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
+          living_area?: number | null
           price?: number | null
           project_id: string
           rooms?: number | null
@@ -132,12 +140,16 @@ export type Database = {
         }
         Update: {
           area?: number | null
+          balcony_area?: number | null
+          bathrooms?: number | null
+          bedrooms?: number | null
           created_at?: string
           floor?: number | null
           floor_plan_url?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
+          living_area?: number | null
           price?: number | null
           project_id?: string
           rooms?: number | null

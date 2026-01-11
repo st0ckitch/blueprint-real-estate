@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Bed, Bath, Maximize, ArrowLeft, MapPin, Send } from "lucide-react";
+import { Bed, Bath, Maximize, ArrowLeft, MapPin, Send, Grid3X3, Building, Home, Square } from "lucide-react";
 import render1 from "@/assets/render-1.png";
 import render2 from "@/assets/render-2.png";
 import render3 from "@/assets/render-3.png";
@@ -50,6 +50,10 @@ const RenderDetail = () => {
       beds: 3,
       baths: 2,
       sqm: 85,
+      floor: 4,
+      bedrooms: 2,
+      living_area: 31.3,
+      balcony_area: 12.5,
       address: "ვაჟა-ფშაველას გამზირი, თბილისი",
       images: [render1, render2, render3, render1],
       views: [render2, render3, render1],
@@ -70,6 +74,10 @@ const RenderDetail = () => {
       beds: 2,
       baths: 1,
       sqm: 60,
+      floor: 3,
+      bedrooms: 1,
+      living_area: 22.5,
+      balcony_area: 8.2,
       address: "აღმაშენებლის გამზირი, თბილისი",
       images: [render2, render3, render1, render2],
       views: [render1, render3, render2],
@@ -89,6 +97,10 @@ const RenderDetail = () => {
       beds: 4,
       baths: 2,
       sqm: 120,
+      floor: 7,
+      bedrooms: 3,
+      living_area: 45.8,
+      balcony_area: 18.5,
       address: "ჭავჭავაძის გამზირი, თბილისი",
       images: [render3, render1, render2, render3],
       views: [render3, render2, render1],
@@ -110,6 +122,10 @@ const RenderDetail = () => {
       beds: 2,
       baths: 1,
       sqm: 55,
+      floor: 2,
+      bedrooms: 1,
+      living_area: 18.4,
+      balcony_area: 6.5,
       address: "დიღომი, თბილისი",
       images: [render1, render3, render2, render1],
       views: [render2, render1, render3],
@@ -129,6 +145,10 @@ const RenderDetail = () => {
       beds: 3,
       baths: 2,
       sqm: 90,
+      floor: 5,
+      bedrooms: 2,
+      living_area: 28.7,
+      balcony_area: 10.2,
       address: "საბურთალო, თბილისი",
       images: [render2, render1, render3, render2],
       views: [render3, render1, render2],
@@ -148,6 +168,10 @@ const RenderDetail = () => {
       beds: 4,
       baths: 3,
       sqm: 135,
+      floor: 10,
+      bedrooms: 3,
+      living_area: 52.3,
+      balcony_area: 22.8,
       address: "ვაკე, თბილისი",
       images: [render3, render2, render1, render3],
       views: [render1, render2, render3],
@@ -298,29 +322,58 @@ const RenderDetail = () => {
                     </div>
                   </div>
 
-                  {/* Property Stats */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Bed className="h-5 w-5 text-primary" />
-                        <span className="text-sm text-muted-foreground font-semibold">ოთახი</span>
+                  {/* Property Stats - First Row */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Grid3X3 className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">ოთახი</span>
                       </div>
-                      <div className="text-2xl font-bold text-primary">{render.beds}</div>
+                      <div className="text-2xl font-bold">{render.beds}</div>
                     </div>
-                    <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Bath className="h-5 w-5 text-primary" />
-                        <span className="text-sm text-muted-foreground font-semibold">სააბაზანო</span>
+                    <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Bath className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">სველი წერტილი</span>
                       </div>
-                      <div className="text-2xl font-bold text-primary">{render.baths}</div>
+                      <div className="text-2xl font-bold">{render.baths}</div>
                     </div>
-                    <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Maximize className="h-5 w-5 text-primary" />
-                        <span className="text-sm text-muted-foreground font-semibold">ფართობი</span>
+                    <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Maximize className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">ფართობი</span>
                       </div>
-                      <div className="text-2xl font-bold text-primary">{render.sqm} მ²</div>
+                      <div className="text-2xl font-bold">{render.sqm} <span className="text-sm font-normal">მ²</span></div>
                     </div>
+                    <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Building className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">სართული</span>
+                      </div>
+                      <div className="text-2xl font-bold">{render.floor}</div>
+                    </div>
+                  </div>
+
+                  {/* Property Stats - Second Row */}
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {render.balcony_area && (
+                      <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                        <span className="text-xs text-muted-foreground">საზაფხულო ფართი</span>
+                        <div className="text-2xl font-bold mt-1">{render.balcony_area} <span className="text-sm font-normal">მ²</span></div>
+                      </div>
+                    )}
+                    {render.living_area && (
+                      <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                        <span className="text-xs text-muted-foreground">მისალები</span>
+                        <div className="text-2xl font-bold mt-1">{render.living_area} <span className="text-sm font-normal">მ²</span></div>
+                      </div>
+                    )}
+                    {render.bedrooms && (
+                      <div className="p-4 rounded-2xl border-2 border-border bg-background">
+                        <span className="text-xs text-muted-foreground">საძინებელი</span>
+                        <div className="text-2xl font-bold mt-1">{render.bedrooms}</div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Description */}
