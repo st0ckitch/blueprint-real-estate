@@ -7,6 +7,7 @@ import ContactDialog from "./ContactDialog";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
 import { Button } from "./ui/button";
+import logoFull from "@/assets/logo-full.svg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +18,7 @@ const Header = () => {
       <div className="w-full px-8 py-4 max-w-[1200px] mx-auto">
         <div className="flex items-center justify-between relative">
           <Link to="/">
-            <h1 className="text-2xl font-semibold text-foreground">ModX</h1>
+            <img src={logoFull} alt="MODX" className="h-8 dark:invert" />
           </Link>
 
           {/* Desktop Navigation */}

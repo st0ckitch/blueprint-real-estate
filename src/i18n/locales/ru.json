@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "home": "Главная",
+    "projects": "Проекты",
+    "apartments": "Квартиры",
+    "blog": "Блог",
+    "contact": "Контакт"
+  },
+  "hero": {
+    "title": "ModX - Слоган Слоган Слоган"
+  },
+  "projects": {
+    "current": "Текущие проекты",
+    "tbilisi_themka": "ModX Тбилиси - Темка",
+    "selectLocation": "Выберите локацию",
+    "themka": "Темка"
+  },
+  "apartments": {
+    "title": "Квартиры",
+    "rooms": "Комната",
+    "bathrooms": "Санузел",
+    "area": "Площадь",
+    "sqm": "м²",
+    "viewAll": "Смотреть все",
+    "heroTitle": "Профессиональные",
+    "heroSubtitle": "3D рендеры",
+    "heroDescription": "Фотореалистичные визуализации, которые оживают. Каждая деталь создана с высочайшими стандартами качества.",
+    "viewPortfolio": "Смотреть портфолио",
+    "contactUs": "Свяжитесь с нами",
+    "quality4k": "Ультра HD качество",
+    "views360": "Полный обзор",
+    "fastDelivery": "Быстрая доставка",
+    "projects": "Проект",
+    "visualization3d": "3D визуализация"
+  },
+  "blog": {
+    "title": "Блог",
+    "subtitle": "Новости и советы",
+    "viewAll": "Смотреть все",
+    "readMore": "Читать далее",
+    "readTime": "мин",
+    "categories": {
+      "all": "Все",
+      "news": "Новости",
+      "tips": "Советы",
+      "projects": "Проекты"
+    }
+  },
+  "contact": {
+    "title": "Свяжитесь с нами",
+    "subtitle": "Есть вопрос или нужна помощь? Свяжитесь с нашей командой. Мы здесь, чтобы помочь вам в любом вопросе.",
+    "heroTitle": "Давайте поговорим о",
+    "heroHighlight": "вашем проекте",
+    "heroDescription": "Наша команда готова помочь вам найти идеальную недвижимость",
+    "getInTouch": "Связаться",
+    "name": "Имя",
+    "email": "Эл. почта",
+    "phone": "Телефон",
+    "message": "Сообщение",
+    "send": "Отправить",
+    "sending": "Отправка...",
+    "writeUs": "Напишите нам",
+    "callUs": "Позвоните нам",
+    "ourLocation": "Наше местоположение",
+    "ourOffice": "Наш офис",
+    "visitUs": "Посетите наш офис и ознакомьтесь со всеми проектами лично",
+    "sendMessage": "Отправить сообщение",
+    "formDescription": "Заполните форму, и мы свяжемся с вами в течение 24 часов",
+    "address": "Адрес",
+    "addressValue": "Проспект Важа-Пшавела 45, Тбилиси, Грузия",
+    "workingHours": "Часы работы",
+    "workingHoursValue": "Пн-Сб: 10:00 - 19:00\nВоскресенье: Закрыто",
+    "namePlaceholder": "Иван Иванов",
+    "emailPlaceholder": "example@mail.com",
+    "phonePlaceholder": "+995 5XX XXX XXX",
+    "messagePlaceholder": "Напишите ваше сообщение...",
+    "features": {
+      "personalized": "Персональный сервис",
+      "quick": "Быстрый ответ",
+      "support": "Полная поддержка"
+    }
+  },
+  "apartmentDetail": {
+    "tabs": {
+      "about": "О квартире",
+      "views": "Виды"
+    },
+    "backToApartments": "Назад к квартирам",
+    "description": "Описание",
+    "features": "Характеристики",
+    "contactForInfo": "Свяжитесь с нами для получения дополнительной информации",
+    "interested": "Заинтересованы?",
+    "phone": "Телефон",
+    "sendInquiry": "Отправить запрос",
+    "specifications": "Спецификации",
+    "price": "Цена",
+    "location": "Местоположение"
+  },
+  "footer": {
+    "description": "ModX Development. Проекты, лучшие проекты в Тбилиси",
+    "quickLinks": "Быстрые ссылки",
+    "locations": "Локации",
+    "contactUs": "Свяжитесь с нами",
+    "rights": "© 2025 ModX. Все права защищены.",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия использования",
+    "home": "Главная",
+    "projects": "Проекты",
+    "renders": "Рендеры",
+    "blog": "Блог",
+    "saburthalo": "Проект Сабуртало",
+    "gldani": "Проект Глдани",
+    "varketili": "Проект Варкетили",
+    "mtskheta": "Проект Мцхета",
+    "yourName": "Ваше имя",
+    "yourEmail": "Эл. почта",
+    "yourMessage": "Ваше сообщение",
+    "submit": "Отправить",
+    "submitting": "Отправка..."
+  },
+  "viewer360": {
+    "title": "360° Виртуальный тур",
+    "description": "Испытайте квартиру с помощью 360° виртуального тура. Перемещайтесь и исследуйте каждый уголок."
+  },
+  "validation": {
+    "nameMin": "Имя должно содержать минимум 2 символа",
+    "emailInvalid": "Неверный email",
+    "phoneInvalid": "Неверный номер телефона",
+    "messageMin": "Сообщение должно содержать минимум 10 символов"
+  },
+  "building": {
+    "floor": "Этаж",
+    "apartments": "Квартиры",
+    "available": "Доступно",
+    "viewDetails": "Подробнее",
+    "contactForDetails": "Свяжитесь для подробностей",
+    "floorDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "viewPlan": "Смотреть план этажа",
+    "clickToExplore": "Нажмите для просмотра деталей этажа"
+  }
+}
