@@ -66,7 +66,7 @@ const FeaturedProperty = () => {
         // Start with image shifted down, move up as user scrolls
         if (rect.top < windowHeight && rect.bottom > 0) {
           const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-          setParallaxOffset(scrollProgress * 120); // 120px max movement for faster effect
+          setParallaxOffset(scrollProgress * 200); // 200px max movement
         }
       }
     };
